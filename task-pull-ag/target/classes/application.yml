@@ -1,0 +1,61 @@
+spring:
+    datasource:
+        name: dataSource
+        url: jdbc:mysql://10.0.1.162/ag-pull-test
+        username: root
+        password: root
+        connectionProperties: config.decrypt=false
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: config,stat
+        maxWait: 60000
+        maxActive: 20
+        initialSize: 1
+        minIdle: 1
+        validationQuery: select 1
+        testWhileIdle: true
+        poolPreparedStatements: true
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        testOnBorrow: false
+        testOnReturn: false
+        logSlowSql: true
+
+mybatis: 
+    mapperLocations: classpath:com/ds/**/*.xml,classpath:com/kg/**/*.xml
+    typeAliasesPackage: com.ds
+
+server:
+    port: 8888
+
+ag: 
+  ftp:
+    host: xf.gdcapi.com
+    port: 21
+    username: F30.kukewang
+    password: u6NqCmKJ8K
+    path:
+      live: /AGIN/
+      game: /XIN/
+      yoplay: /YOPLAY/
+      hunter: /HUNTER/
+      sport: /SBTA/
+  status:   
+    live: true #是否拉取标识
+    game: false
+    yoplay: false
+    hunter: false
+    sport: false
+  live:
+    gamelist: BAC,CBAC,LINK,DT,LBAC,ULPK,SHB,ROU,FT,BJ,NN,SBAC,ZJH,BF #记录ag视讯的所有游戏
+
+telegram:
+  message:
+    bot: 604355646:AAG1mCGGvj_nv6BbgHYrM0E0-3_SzpthPRg
+    groupid: -286022000
+    
+      
+logging:
+  level:
+     com.ds : debug

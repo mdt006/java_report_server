@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ds.live.dao.DsLiveDao">
+
+	<select id="getMaxDsLiveBillno" resultType="String">
+			SELECT
+				max(sequence_no)
+			FROM ds_live
+			where site_id = #{siteId}
+	</select>
+	
+	<!-- 六合彩 获取最大 billno -->
+	<select id="getMaxDsLottoBillno" resultType="String">
+			SELECT
+				max(billno)
+			FROM ds_lotto_bet
+			where site_id = #{siteId}
+	</select>
+	
+	<!-- 彩票 获取最大 billno -->
+	<select id="getMaxDsLottery" resultType="String">
+			SELECT
+				max(billno)
+			FROM ds_lottery_bet
+			where site_id = #{siteId} and lottery_game_type = #{lotteryGameType}
+	</select>
+	<select id="getMaxDsLotteryBillno" resultType="String">
+			SELECT
+				max(sequence_no)
+			FROM ds_lottery_bet
+			where site_id = #{siteId} 
+	</select>
+	<select id="selectwebLiveEntity"
+		parameterType="com.ds.live.entity.WebLiveEntity" resultType="com.ds.live.entity.WebLiveEntity">
+			SELECT
+				<include refid="New_Column_List" />
+			FROM ds_web_live
+			<where>
+				<if test="billno != null">
+					billno = #{billno}
+				</if>
+				<if test="siteId != null">
+					and siteId = #{siteId}
+				</if>
+			</where>
+	</select>
+	
+	<sql id="New_Column_List">
+		id
+	</sql>
+</mapper>

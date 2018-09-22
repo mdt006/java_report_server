@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+<classPathEntry location="C:\jb_jar\mysql-connector-java-5.1.30.jar"/>
+  <context id="gradecontext" >
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" 
+    	connectionURL="jdbc:mysql://localhost:3306/kakawan_center?useUnicode=true&amp;characterEncoding=UTF-8" 
+    	userId="root" password="root" />
+     <!-- 实体类位置 -->
+    <javaModelGenerator targetPackage="com.ds.lottery.entity" targetProject="pull_bet_kg-gf-lottery">
+    	<property name="enableSubPackages" value="true"/>
+    	<property name="trimStrings" value="true"/>
+    </javaModelGenerator>
+    <!-- mapper的xml位置 -->
+    <sqlMapGenerator targetPackage="com.ds.lottery.mapper" targetProject="pull_bet_kg-gf-lottery">
+    	<property name="enableSubPackages" value="true"/>
+    </sqlMapGenerator>
+    <!-- mapper的class位置 -->
+    <javaClientGenerator targetPackage="com.ds.lottery.mapper" targetProject="pull_bet_kg-gf-lottery" type="XMLMAPPER" />
+  
+  
+    
+	
+	<table tableName="gf_lottery_info" domainObjectName="GFLotteryInfoEntity">
+	</table>
+	
+	
+	</context>
+</generatorConfiguration>

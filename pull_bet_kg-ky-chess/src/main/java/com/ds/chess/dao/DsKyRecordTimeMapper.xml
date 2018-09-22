@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ds.chess.dao.DsKyRecordTimeMapper">
+  <resultMap id="BaseResultMap" type="com.ds.chess.entity.DsKyRecordTime">
+    <id column="agent" jdbcType="VARCHAR" property="agent" />
+    <result column="last_get_record_time" jdbcType="TIMESTAMP" property="lastGetRecordTime" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    agent, last_get_record_time, last_update_time
+  </sql>
+  
+  <select id="selectByAgent" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ds_ky_record_time
+    where agent = #{agent,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insert" parameterType="com.ds.chess.entity.DsKyRecordTime">
+    insert into ds_ky_record_time (agent, last_get_record_time, last_update_time
+      )
+    values (#{agent,jdbcType=VARCHAR}, #{lastGetRecordTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.ds.chess.entity.DsKyRecordTime">
+    update ds_ky_record_time
+    <set>
+      <if test="lastGetRecordTime != null">
+        last_get_record_time = #{lastGetRecordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where agent = #{agent,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kg.live.mapper.DtPtPageRecordMapper">
+  <resultMap id="BaseResultMap" type="com.kg.live.entity.DtPtPageRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="site_id" jdbcType="INTEGER" property="siteId" />
+    <result column="agent" jdbcType="VARCHAR" property="agent" />
+    <result column="page" jdbcType="INTEGER" property="page" />
+    <result column="page_size" jdbcType="INTEGER" property="pageSize" />
+    <result column="last_page_check_times" jdbcType="INTEGER" property="lastPageCheckTimes" />
+    <result column="yesterday_check_status" jdbcType="INTEGER" property="yesterdayCheckStatus" />
+    <result column="rounddate" jdbcType="VARCHAR" property="rounddate" />
+    <result column="begin_time" jdbcType="VARCHAR" property="beginTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="time_index" jdbcType="INTEGER" property="timeIndex" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, site_id, agent, page, page_size, last_page_check_times, yesterday_check_status, 
+    rounddate, begin_time, end_time, time_index, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.kg.live.entity.DtPtPageRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dt_pt_page_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dt_pt_page_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from dt_pt_page_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kg.live.entity.DtPtPageRecordExample">
+    delete from dt_pt_page_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kg.live.entity.DtPtPageRecord">
+    insert into dt_pt_page_record (id, site_id, agent, 
+      page, page_size, last_page_check_times, 
+      yesterday_check_status, rounddate, begin_time, 
+      end_time, time_index, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{siteId,jdbcType=INTEGER}, #{agent,jdbcType=VARCHAR}, 
+      #{page,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}, #{lastPageCheckTimes,jdbcType=INTEGER}, 
+      #{yesterdayCheckStatus,jdbcType=INTEGER}, #{rounddate,jdbcType=VARCHAR}, #{beginTime,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=VARCHAR}, #{timeIndex,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kg.live.entity.DtPtPageRecord">
+    insert into dt_pt_page_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="agent != null">
+        agent,
+      </if>
+      <if test="page != null">
+        page,
+      </if>
+      <if test="pageSize != null">
+        page_size,
+      </if>
+      <if test="lastPageCheckTimes != null">
+        last_page_check_times,
+      </if>
+      <if test="yesterdayCheckStatus != null">
+        yesterday_check_status,
+      </if>
+      <if test="rounddate != null">
+        rounddate,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="timeIndex != null">
+        time_index,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="siteId != null">
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="agent != null">
+        #{agent,jdbcType=VARCHAR},
+      </if>
+      <if test="page != null">
+        #{page,jdbcType=INTEGER},
+      </if>
+      <if test="pageSize != null">
+        #{pageSize,jdbcType=INTEGER},
+      </if>
+      <if test="lastPageCheckTimes != null">
+        #{lastPageCheckTimes,jdbcType=INTEGER},
+      </if>
+      <if test="yesterdayCheckStatus != null">
+        #{yesterdayCheckStatus,jdbcType=INTEGER},
+      </if>
+      <if test="rounddate != null">
+        #{rounddate,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="timeIndex != null">
+        #{timeIndex,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kg.live.entity.DtPtPageRecordExample" resultType="java.lang.Long">
+    select count(*) from dt_pt_page_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dt_pt_page_record
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.siteId != null">
+        site_id = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.agent != null">
+        agent = #{record.agent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.page != null">
+        page = #{record.page,jdbcType=INTEGER},
+      </if>
+      <if test="record.pageSize != null">
+        page_size = #{record.pageSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastPageCheckTimes != null">
+        last_page_check_times = #{record.lastPageCheckTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.yesterdayCheckStatus != null">
+        yesterday_check_status = #{record.yesterdayCheckStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.rounddate != null">
+        rounddate = #{record.rounddate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginTime != null">
+        begin_time = #{record.beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeIndex != null">
+        time_index = #{record.timeIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dt_pt_page_record
+    set id = #{record.id,jdbcType=BIGINT},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      agent = #{record.agent,jdbcType=VARCHAR},
+      page = #{record.page,jdbcType=INTEGER},
+      page_size = #{record.pageSize,jdbcType=INTEGER},
+      last_page_check_times = #{record.lastPageCheckTimes,jdbcType=INTEGER},
+      yesterday_check_status = #{record.yesterdayCheckStatus,jdbcType=INTEGER},
+      rounddate = #{record.rounddate,jdbcType=VARCHAR},
+      begin_time = #{record.beginTime,jdbcType=VARCHAR},
+      end_time = #{record.endTime,jdbcType=VARCHAR},
+      time_index = #{record.timeIndex,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kg.live.entity.DtPtPageRecord">
+    update dt_pt_page_record
+    <set>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="agent != null">
+        agent = #{agent,jdbcType=VARCHAR},
+      </if>
+      <if test="page != null">
+        page = #{page,jdbcType=INTEGER},
+      </if>
+      <if test="pageSize != null">
+        page_size = #{pageSize,jdbcType=INTEGER},
+      </if>
+      <if test="lastPageCheckTimes != null">
+        last_page_check_times = #{lastPageCheckTimes,jdbcType=INTEGER},
+      </if>
+      <if test="yesterdayCheckStatus != null">
+        yesterday_check_status = #{yesterdayCheckStatus,jdbcType=INTEGER},
+      </if>
+      <if test="rounddate != null">
+        rounddate = #{rounddate,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="timeIndex != null">
+        time_index = #{timeIndex,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  <update id="updateByAgentAndDate" parameterType="com.kg.live.entity.DtPtPageRecord">
+    update dt_pt_page_record
+    <set>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="agent != null">
+        agent = #{agent,jdbcType=VARCHAR},
+      </if>
+      <if test="page != null">
+        page = #{page,jdbcType=INTEGER},
+      </if>
+      <if test="pageSize != null">
+        page_size = #{pageSize,jdbcType=INTEGER},
+      </if>
+      <if test="lastPageCheckTimes != null">
+        last_page_check_times = #{lastPageCheckTimes,jdbcType=INTEGER},
+      </if>
+      <if test="yesterdayCheckStatus != null">
+        yesterday_check_status = #{yesterdayCheckStatus,jdbcType=INTEGER},
+      </if>
+      <if test="rounddate != null">
+        rounddate = #{rounddate,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="timeIndex != null">
+        time_index = #{timeIndex,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where agent = #{agent,jdbcType=VARCHAR} and rounddate = #{rounddate,jdbcType=VARCHAR}
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.kg.live.entity.DtPtPageRecord">
+    update dt_pt_page_record
+    set site_id = #{siteId,jdbcType=INTEGER},
+      agent = #{agent,jdbcType=VARCHAR},
+      page = #{page,jdbcType=INTEGER},
+      page_size = #{pageSize,jdbcType=INTEGER},
+      last_page_check_times = #{lastPageCheckTimes,jdbcType=INTEGER},
+      yesterday_check_status = #{yesterdayCheckStatus,jdbcType=INTEGER},
+      rounddate = #{rounddate,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      time_index = #{timeIndex,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

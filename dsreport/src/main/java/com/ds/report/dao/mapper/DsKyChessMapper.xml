@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ds.report.dao.mapper.DsKyChessMapper">
+  <resultMap id="BaseResultMap" type="com.ds.report.entity.DsKyChess">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="site_id" jdbcType="INTEGER" property="siteId" />
+    <result column="game_id" jdbcType="VARCHAR" property="gameId" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="server_id" jdbcType="INTEGER" property="serverId" />
+    <result column="kind_id" jdbcType="INTEGER" property="kindId" />
+    <result column="table_id" jdbcType="INTEGER" property="tableId" />
+    <result column="chair_id" jdbcType="INTEGER" property="chairId" />
+    <result column="user_count" jdbcType="INTEGER" property="userCount" />
+    <result column="card_value" jdbcType="VARCHAR" property="cardValue" />
+    <result column="cell_score" jdbcType="DECIMAL" property="cellScore" />
+    <result column="all_bet" jdbcType="DECIMAL" property="allBet" />
+    <result column="profit" jdbcType="DECIMAL" property="profit" />
+    <result column="revenue" jdbcType="DECIMAL" property="revenue" />
+    <result column="win_loss_type" jdbcType="TINYINT" property="winLossType" />
+    <result column="game_start_time" jdbcType="TIMESTAMP" property="gameStartTime" />
+    <result column="game_end_time" jdbcType="TIMESTAMP" property="gameEndTime" />
+    <result column="channel_id" jdbcType="INTEGER" property="channelId" />
+  </resultMap>
+  
+  <resultMap id="ReportTotalMap" type="com.ds.report.entity.DsReportDetail" >
+    <result column="bet_count" property="betCount" jdbcType="INTEGER" />
+    <result column="betamount" property="betamount" jdbcType="DECIMAL" />
+    <result column="winlose" property="winlose" jdbcType="DECIMAL" />
+    <result column="validamount" property="validamount" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="ReportDetailMap" type="com.ds.report.entity.DsReportDetail" >
+    <result column="site_id" property="siteId" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="betamount" property="betamount" jdbcType="DECIMAL" />
+    <result column="winlose" property="winlose" jdbcType="DECIMAL" />
+    <result column="validamount" property="validamount" jdbcType="DECIMAL" />
+    <result column="game_type" property="gameType" jdbcType="INTEGER" />
+    <result column="game_name" property="gameName" jdbcType="VARCHAR" />
+    <result column="bet_time" property="betTime" jdbcType="TIMESTAMP" />
+    <result column="winlose_type" property="winloseType" jdbcType="VARCHAR" />
+    <result column="bill_no" property="billNo" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BetTotalMap" type="com.ds.report.entity.DsReport" >
+    <result column="game_kind" property="gameKind" jdbcType="INTEGER" />
+    <result column="game_kind_name" property="gameKindName" jdbcType="VARCHAR" />
+   	<result column="game_type" property="gameType" jdbcType="INTEGER" />
+    <result column="game_name" property="gameName" jdbcType="VARCHAR" />
+    <result column="bet_time" property="betTime" jdbcType="DATE" />
+    <result column="bet_count" property="betCount" jdbcType="INTEGER" />
+    <result column="betamount" property="betamount" jdbcType="DECIMAL" />
+    <result column="winlose" property="winlose" jdbcType="DECIMAL" />
+    <result column="validamount" property="validamount" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  
+  <select id="queryBetTotalByDayNew" resultMap="BetTotalMap" parameterType="com.ds.report.entity.DsKyChessExample" >
+   	SELECT DATE_FORMAT(d.game_end_time,'%Y-%m-%d') bet_time,COUNT(1) bet_count, SUM(d.all_bet) betamount, SUM(d.profit) winlose, SUM(d.cell_score) validamount
+	FROM ds_ky_chess d
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+	GROUP BY DATE_FORMAT(d.game_end_time,'%Y-%m-%d')
+  </select>
+  
+  <select id="queryTotalGroupGameType" resultMap="BetTotalMap" parameterType="com.ds.report.entity.DsKyChessExample" >
+    SELECT t.id game_type, IFNULL(t.game_name,'开元棋牌') game_name, COUNT(1) bet_count, SUM(d.all_bet) betamount, SUM(d.profit) winlose, SUM(d.cell_score) validamount
+	FROM ds_ky_chess d 
+	LEFT JOIN ds_game_type t ON d.kind_id = t.out_game_code AND t.fk_live_id=90 AND t.parent_id = 90
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+	GROUP BY d.kind_id
+  </select>
+  <select id="queryTotal" resultMap="ReportTotalMap" parameterType="java.lang.Long" >
+    select count(1) as bet_count,sum(all_bet) as betamount,sum(cell_score) as validamount,sum(profit) as winlose
+      from ds_ky_chess
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="queryDetail" resultMap="ReportDetailMap" parameterType="com.ds.report.entity.DsKyChessExample" >
+    select site_id,account as username, all_bet as betamount,cell_score as validamount,profit as winlose,
+           (select id from ds_game_type where kind_id = out_game_code and fk_live_id=90 AND parent_id=90) as game_type, (select game_name from ds_game_type where kind_id = out_game_code and fk_live_id=90 AND parent_id=90) as game_name, 
+            game_end_time as bet_time,win_loss_type as winlose_type, game_id as bill_no
+      from ds_ky_chess
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="page != null and pageLimit !=null">
+      limit ${page},${pageLimit}
+    </if>
+  </select>
+  
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, site_id, game_id, account, server_id, kind_id, table_id, chair_id, user_count, 
+    card_value, cell_score, all_bet, profit, revenue, win_loss_type, game_start_time, 
+    game_end_time, channel_id
+  </sql>
+  <select id="selectByExample" parameterType="com.ds.report.entity.DsKyChessExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ds_ky_chess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ds_ky_chess
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ds_ky_chess
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ds.report.entity.DsKyChessExample">
+    delete from ds_ky_chess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ds.report.entity.DsKyChess">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ds_ky_chess (site_id, game_id, account, 
+      server_id, kind_id, table_id, 
+      chair_id, user_count, card_value, 
+      cell_score, all_bet, profit, 
+      revenue, win_loss_type, game_start_time, 
+      game_end_time, channel_id)
+    values (#{siteId,jdbcType=INTEGER}, #{gameId,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
+      #{serverId,jdbcType=INTEGER}, #{kindId,jdbcType=INTEGER}, #{tableId,jdbcType=INTEGER}, 
+      #{chairId,jdbcType=INTEGER}, #{userCount,jdbcType=INTEGER}, #{cardValue,jdbcType=VARCHAR}, 
+      #{cellScore,jdbcType=DECIMAL}, #{allBet,jdbcType=DECIMAL}, #{profit,jdbcType=DECIMAL}, 
+      #{revenue,jdbcType=DECIMAL}, #{winLossType,jdbcType=TINYINT}, #{gameStartTime,jdbcType=TIMESTAMP}, 
+      #{gameEndTime,jdbcType=TIMESTAMP}, #{channelId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ds.report.entity.DsKyChess">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ds_ky_chess
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="gameId != null">
+        game_id,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="serverId != null">
+        server_id,
+      </if>
+      <if test="kindId != null">
+        kind_id,
+      </if>
+      <if test="tableId != null">
+        table_id,
+      </if>
+      <if test="chairId != null">
+        chair_id,
+      </if>
+      <if test="userCount != null">
+        user_count,
+      </if>
+      <if test="cardValue != null">
+        card_value,
+      </if>
+      <if test="cellScore != null">
+        cell_score,
+      </if>
+      <if test="allBet != null">
+        all_bet,
+      </if>
+      <if test="profit != null">
+        profit,
+      </if>
+      <if test="revenue != null">
+        revenue,
+      </if>
+      <if test="winLossType != null">
+        win_loss_type,
+      </if>
+      <if test="gameStartTime != null">
+        game_start_time,
+      </if>
+      <if test="gameEndTime != null">
+        game_end_time,
+      </if>
+      <if test="channelId != null">
+        channel_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="siteId != null">
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="gameId != null">
+        #{gameId,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="serverId != null">
+        #{serverId,jdbcType=INTEGER},
+      </if>
+      <if test="kindId != null">
+        #{kindId,jdbcType=INTEGER},
+      </if>
+      <if test="tableId != null">
+        #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="chairId != null">
+        #{chairId,jdbcType=INTEGER},
+      </if>
+      <if test="userCount != null">
+        #{userCount,jdbcType=INTEGER},
+      </if>
+      <if test="cardValue != null">
+        #{cardValue,jdbcType=VARCHAR},
+      </if>
+      <if test="cellScore != null">
+        #{cellScore,jdbcType=DECIMAL},
+      </if>
+      <if test="allBet != null">
+        #{allBet,jdbcType=DECIMAL},
+      </if>
+      <if test="profit != null">
+        #{profit,jdbcType=DECIMAL},
+      </if>
+      <if test="revenue != null">
+        #{revenue,jdbcType=DECIMAL},
+      </if>
+      <if test="winLossType != null">
+        #{winLossType,jdbcType=TINYINT},
+      </if>
+      <if test="gameStartTime != null">
+        #{gameStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gameEndTime != null">
+        #{gameEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ds.report.entity.DsKyChessExample" resultType="java.lang.Long">
+    select count(*) from ds_ky_chess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ds_ky_chess
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.siteId != null">
+        site_id = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gameId != null">
+        game_id = #{record.gameId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.account != null">
+        account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serverId != null">
+        server_id = #{record.serverId,jdbcType=INTEGER},
+      </if>
+      <if test="record.kindId != null">
+        kind_id = #{record.kindId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tableId != null">
+        table_id = #{record.tableId,jdbcType=INTEGER},
+      </if>
+      <if test="record.chairId != null">
+        chair_id = #{record.chairId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userCount != null">
+        user_count = #{record.userCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.cardValue != null">
+        card_value = #{record.cardValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cellScore != null">
+        cell_score = #{record.cellScore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.allBet != null">
+        all_bet = #{record.allBet,jdbcType=DECIMAL},
+      </if>
+      <if test="record.profit != null">
+        profit = #{record.profit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.revenue != null">
+        revenue = #{record.revenue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.winLossType != null">
+        win_loss_type = #{record.winLossType,jdbcType=TINYINT},
+      </if>
+      <if test="record.gameStartTime != null">
+        game_start_time = #{record.gameStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gameEndTime != null">
+        game_end_time = #{record.gameEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.channelId != null">
+        channel_id = #{record.channelId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ds_ky_chess
+    set id = #{record.id,jdbcType=BIGINT},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      game_id = #{record.gameId,jdbcType=VARCHAR},
+      account = #{record.account,jdbcType=VARCHAR},
+      server_id = #{record.serverId,jdbcType=INTEGER},
+      kind_id = #{record.kindId,jdbcType=INTEGER},
+      table_id = #{record.tableId,jdbcType=INTEGER},
+      chair_id = #{record.chairId,jdbcType=INTEGER},
+      user_count = #{record.userCount,jdbcType=INTEGER},
+      card_value = #{record.cardValue,jdbcType=VARCHAR},
+      cell_score = #{record.cellScore,jdbcType=DECIMAL},
+      all_bet = #{record.allBet,jdbcType=DECIMAL},
+      profit = #{record.profit,jdbcType=DECIMAL},
+      revenue = #{record.revenue,jdbcType=DECIMAL},
+      win_loss_type = #{record.winLossType,jdbcType=TINYINT},
+      game_start_time = #{record.gameStartTime,jdbcType=TIMESTAMP},
+      game_end_time = #{record.gameEndTime,jdbcType=TIMESTAMP},
+      channel_id = #{record.channelId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ds.report.entity.DsKyChess">
+    update ds_ky_chess
+    <set>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="gameId != null">
+        game_id = #{gameId,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="serverId != null">
+        server_id = #{serverId,jdbcType=INTEGER},
+      </if>
+      <if test="kindId != null">
+        kind_id = #{kindId,jdbcType=INTEGER},
+      </if>
+      <if test="tableId != null">
+        table_id = #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="chairId != null">
+        chair_id = #{chairId,jdbcType=INTEGER},
+      </if>
+      <if test="userCount != null">
+        user_count = #{userCount,jdbcType=INTEGER},
+      </if>
+      <if test="cardValue != null">
+        card_value = #{cardValue,jdbcType=VARCHAR},
+      </if>
+      <if test="cellScore != null">
+        cell_score = #{cellScore,jdbcType=DECIMAL},
+      </if>
+      <if test="allBet != null">
+        all_bet = #{allBet,jdbcType=DECIMAL},
+      </if>
+      <if test="profit != null">
+        profit = #{profit,jdbcType=DECIMAL},
+      </if>
+      <if test="revenue != null">
+        revenue = #{revenue,jdbcType=DECIMAL},
+      </if>
+      <if test="winLossType != null">
+        win_loss_type = #{winLossType,jdbcType=TINYINT},
+      </if>
+      <if test="gameStartTime != null">
+        game_start_time = #{gameStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gameEndTime != null">
+        game_end_time = #{gameEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelId != null">
+        channel_id = #{channelId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ds.report.entity.DsKyChess">
+    update ds_ky_chess
+    set site_id = #{siteId,jdbcType=INTEGER},
+      game_id = #{gameId,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      server_id = #{serverId,jdbcType=INTEGER},
+      kind_id = #{kindId,jdbcType=INTEGER},
+      table_id = #{tableId,jdbcType=INTEGER},
+      chair_id = #{chairId,jdbcType=INTEGER},
+      user_count = #{userCount,jdbcType=INTEGER},
+      card_value = #{cardValue,jdbcType=VARCHAR},
+      cell_score = #{cellScore,jdbcType=DECIMAL},
+      all_bet = #{allBet,jdbcType=DECIMAL},
+      profit = #{profit,jdbcType=DECIMAL},
+      revenue = #{revenue,jdbcType=DECIMAL},
+      win_loss_type = #{winLossType,jdbcType=TINYINT},
+      game_start_time = #{gameStartTime,jdbcType=TIMESTAMP},
+      game_end_time = #{gameEndTime,jdbcType=TIMESTAMP},
+      channel_id = #{channelId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

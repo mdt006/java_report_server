@@ -1,0 +1,398 @@
+2018-08-18 14:42:06.648 [main] INFO  [StartupInfoLogger.java:48] - Starting Main on DESKTOP-61G3U6U with PID 11484 (E:\git_code\pingtai\pull_bet_kg-lmg-live\target\classes started by user in E:\git_code\pingtai\pull_bet_kg-lmg-live)
+2018-08-18 14:42:06.651 [main] INFO  [SpringApplication.java:662] - No active profile set, falling back to default profiles: default
+2018-08-18 14:42:06.694 [main] INFO  [AbstractApplicationContext.java:582] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49dc7102: startup date [Sat Aug 18 14:42:06 CST 2018]; root of context hierarchy
+2018-08-18 14:42:06.797 [background-preinit] INFO  [Version.java:30] - HV000001: Hibernate Validator 5.2.4.Final
+2018-08-18 14:42:10.510 [main] INFO  [PostProcessorRegistrationDelegate.java:325] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$33daa5db] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-08-18 14:42:10.888 [main] INFO  [TomcatEmbeddedServletContainer.java:89] - Tomcat initialized with port(s): 8888 (http)
+2018-08-18 14:42:10.898 [main] INFO  [DirectJDKLog.java:179] - Starting service Tomcat
+2018-08-18 14:42:10.900 [main] INFO  [DirectJDKLog.java:179] - Starting Servlet Engine: Apache Tomcat/8.5.11
+2018-08-18 14:42:10.988 [localhost-startStop-1] INFO  [DirectJDKLog.java:179] - Initializing Spring embedded WebApplicationContext
+2018-08-18 14:42:10.989 [localhost-startStop-1] INFO  [EmbeddedWebApplicationContext.java:276] - Root WebApplicationContext: initialization completed in 4295 ms
+2018-08-18 14:42:11.155 [localhost-startStop-1] INFO  [ServletRegistrationBean.java:190] - Mapping servlet: 'statViewServlet' to [/druid/*]
+2018-08-18 14:42:11.156 [localhost-startStop-1] INFO  [ServletRegistrationBean.java:190] - Mapping servlet: 'dispatcherServlet' to [/]
+2018-08-18 14:42:11.160 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-08-18 14:42:11.160 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-08-18 14:42:11.160 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-08-18 14:42:11.161 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'requestContextFilter' to: [/*]
+2018-08-18 14:42:11.161 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:271] - Mapping filter: 'webStatFilter' to urls: [/*]
+2018-08-18 14:42:12.650 [main] INFO  [LMGTask.java:33] - 程序开始
+2018-08-18 14:42:12.989 [main] INFO  [RequestMappingHandlerAdapter.java:534] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49dc7102: startup date [Sat Aug 18 14:42:06 CST 2018]; root of context hierarchy
+2018-08-18 14:42:13.067 [main] INFO  [AbstractHandlerMethodMapping.java:543] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-08-18 14:42:13.068 [main] INFO  [AbstractHandlerMethodMapping.java:543] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-08-18 14:42:13.092 [main] INFO  [AbstractUrlHandlerMapping.java:354] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-08-18 14:42:13.092 [main] INFO  [AbstractUrlHandlerMapping.java:354] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-08-18 14:42:13.126 [main] INFO  [AbstractUrlHandlerMapping.java:354] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-08-18 14:42:13.298 [main] INFO  [MBeanExporter.java:431] - Registering beans for JMX exposure on startup
+2018-08-18 14:42:13.299 [main] INFO  [MBeanExporter.java:916] - Bean with name 'druidDataSource' has been autodetected for JMX exposure
+2018-08-18 14:42:13.304 [main] INFO  [MBeanExporter.java:671] - Located MBean 'druidDataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=druidDataSource,type=DruidDataSource]
+2018-08-18 14:42:13.317 [main] INFO  [DirectJDKLog.java:179] - Initializing ProtocolHandler ["http-nio-8888"]
+2018-08-18 14:42:13.329 [main] INFO  [DirectJDKLog.java:179] - Starting ProtocolHandler [http-nio-8888]
+2018-08-18 14:42:13.330 [Thread-1] INFO  [DruidDataSource.java:669] - {dataSource-1} inited
+2018-08-18 14:42:13.344 [main] INFO  [DirectJDKLog.java:179] - Using a shared selector for servlet write/read
+2018-08-18 14:42:13.366 [main] INFO  [TomcatEmbeddedServletContainer.java:192] - Tomcat started on port(s): 8888 (http)
+2018-08-18 14:42:13.370 [main] INFO  [StartupInfoLogger.java:57] - Started Main in 7.1 seconds (JVM running for 7.428)
+2018-08-18 14:42:13.402 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:750
+2018-08-18 14:42:13.428 [pool-1-thread-3] INFO  [LMGThreadService.java:66] - 网站1001,max beginid:null
+2018-08-18 14:42:13.451 [pool-1-thread-5] INFO  [LMGThreadService.java:66] - 网站1008,max beginid:null
+2018-08-18 14:42:13.466 [pool-1-thread-5] INFO  [LMGThreadService.java:77] - 网站1008GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"dtcs1008_c9c76a50-b5fc-4880-a5b4-f92","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:42:13.466 [pool-1-thread-3] INFO  [LMGThreadService.java:77] - 网站1001GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"dtcs1001_a26d493c-6f8e-4dbf-9902-94c","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:42:13.474 [pool-1-thread-6] INFO  [LMGThreadService.java:66] - 网站1009,max beginid:null
+2018-08-18 14:42:13.475 [pool-1-thread-6] INFO  [LMGThreadService.java:77] - 网站1009GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"dtcs1009_078ed3d2-d08b-49af-9292-9dd","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:42:13.498 [pool-1-thread-9] INFO  [LMGThreadService.java:66] - 网站1018,max beginid:null
+2018-08-18 14:42:13.499 [pool-1-thread-9] INFO  [LMGThreadService.java:77] - 网站1018GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"dtcs1018_46e82c0e-b0d3-46cd-9dc2-75b","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:42:13.521 [pool-1-thread-10] INFO  [LMGThreadService.java:66] - 网站1019,max beginid:null
+2018-08-18 14:42:13.521 [pool-1-thread-10] INFO  [LMGThreadService.java:77] - 网站1019GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"dtcs1019_918e5cd5-7314-4ac5-9b61-87a","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:42:13.544 [pool-1-thread-7] INFO  [LMGThreadService.java:66] - 网站1013,max beginid:null
+2018-08-18 14:42:13.544 [pool-1-thread-7] INFO  [LMGThreadService.java:77] - 网站1013GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"dtcs1013_9152a6b2-fe8f-48b3-bb28-e88","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:42:13.566 [pool-1-thread-1] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:null
+2018-08-18 14:42:13.567 [pool-1-thread-1] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:42:13.589 [pool-1-thread-4] INFO  [LMGThreadService.java:66] - 网站1002,max beginid:null
+2018-08-18 14:42:13.589 [pool-1-thread-4] INFO  [LMGThreadService.java:77] - 网站1002GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"dtcs1002_08a9d165-6509-4d35-b485-40b","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:42:13.611 [pool-1-thread-8] INFO  [LMGThreadService.java:66] - 网站1015,max beginid:null
+2018-08-18 14:42:13.612 [pool-1-thread-8] INFO  [LMGThreadService.java:77] - 网站1015GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"dtcs1015_5d94b7a3-6b3e-4417-9c80-9dd","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:42:13.634 [pool-1-thread-2] INFO  [LMGThreadService.java:66] - 网站1027,max beginid:null
+2018-08-18 14:42:13.634 [pool-1-thread-2] INFO  [LMGThreadService.java:77] - 网站1027GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"dtcs1027_7c1af576-f87c-4b82-be13-daf","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:42:13.747 [pool-1-thread-7] INFO  [LMGThreadService.java:110] - 网站：1013拉取数据失败:{"request":null,"errorCode":6001,"errorMessage":"hashCode is error:dtcs1013_9152a6b2-fe8f-48b3-bb28-e88","logId":1534574537168,"params":{}}
+2018-08-18 14:42:13.747 [pool-1-thread-1] INFO  [LMGThreadService.java:110] - 网站：99999拉取数据失败:{"request":null,"errorCode":6002,"errorMessage":"IP address is not authorized:111.125.72.150","logId":1534574537167,"params":{}}
+2018-08-18 14:42:13.747 [pool-1-thread-4] INFO  [LMGThreadService.java:110] - 网站：1002拉取数据失败:{"request":null,"errorCode":6001,"errorMessage":"hashCode is error:dtcs1002_08a9d165-6509-4d35-b485-40b","logId":1534574537170,"params":{}}
+2018-08-18 14:42:13.747 [pool-1-thread-7] INFO  [LMGThreadService.java:111] - 网站：1013拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 14:42:13.747 [pool-1-thread-1] INFO  [LMGThreadService.java:111] - 网站：99999拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 14:42:13.747 [pool-1-thread-4] INFO  [LMGThreadService.java:111] - 网站：1002拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 14:42:13.748 [pool-1-thread-3] INFO  [LMGThreadService.java:110] - 网站：1001拉取数据失败:{"request":null,"errorCode":6001,"errorMessage":"hashCode is error:dtcs1001_a26d493c-6f8e-4dbf-9902-94c","logId":1534574537173,"params":{}}
+2018-08-18 14:42:13.748 [pool-1-thread-3] INFO  [LMGThreadService.java:111] - 网站：1001拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 14:42:13.752 [pool-1-thread-10] INFO  [LMGThreadService.java:110] - 网站：1019拉取数据失败:{"request":null,"errorCode":6001,"errorMessage":"hashCode is error:dtcs1019_918e5cd5-7314-4ac5-9b61-87a","logId":1534574537176,"params":{}}
+2018-08-18 14:42:13.752 [pool-1-thread-10] INFO  [LMGThreadService.java:111] - 网站：1019拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 14:42:13.775 [pool-1-thread-8] INFO  [LMGThreadService.java:110] - 网站：1015拉取数据失败:{"request":null,"errorCode":6001,"errorMessage":"hashCode is error:dtcs1015_5d94b7a3-6b3e-4417-9c80-9dd","logId":1534574537197,"params":{}}
+2018-08-18 14:42:13.776 [pool-1-thread-8] INFO  [LMGThreadService.java:111] - 网站：1015拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 14:42:13.783 [pool-1-thread-6] INFO  [LMGThreadService.java:110] - 网站：1009拉取数据失败:{"request":null,"errorCode":6001,"errorMessage":"hashCode is error:dtcs1009_078ed3d2-d08b-49af-9292-9dd","logId":1534574537192,"params":{}}
+2018-08-18 14:42:13.783 [pool-1-thread-6] INFO  [LMGThreadService.java:111] - 网站：1009拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 14:42:13.789 [pool-1-thread-5] INFO  [LMGThreadService.java:110] - 网站：1008拉取数据失败:{"request":null,"errorCode":6001,"errorMessage":"hashCode is error:dtcs1008_c9c76a50-b5fc-4880-a5b4-f92","logId":1534574537198,"params":{}}
+2018-08-18 14:42:13.789 [pool-1-thread-5] INFO  [LMGThreadService.java:111] - 网站：1008拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 14:42:13.795 [pool-1-thread-9] INFO  [LMGThreadService.java:110] - 网站：1018拉取数据失败:{"request":null,"errorCode":6001,"errorMessage":"hashCode is error:dtcs1018_46e82c0e-b0d3-46cd-9dc2-75b","logId":1534574537198,"params":{}}
+2018-08-18 14:42:13.795 [pool-1-thread-9] INFO  [LMGThreadService.java:111] - 网站：1018拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 14:42:13.863 [pool-1-thread-2] INFO  [LMGThreadService.java:110] - 网站：1027拉取数据失败:{"request":null,"errorCode":6001,"errorMessage":"hashCode is error:dtcs1027_7c1af576-f87c-4b82-be13-daf","logId":1534574537208,"params":{}}
+2018-08-18 14:42:13.863 [pool-1-thread-2] INFO  [LMGThreadService.java:111] - 网站：1027拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 14:42:23.429 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:30
+2018-08-18 14:42:33.458 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:31
+2018-08-18 14:48:44.185 [main] INFO  [StartupInfoLogger.java:48] - Starting Main on DESKTOP-61G3U6U with PID 1648 (E:\git_code\pingtai\pull_bet_kg-lmg-live\target\classes started by user in E:\git_code\pingtai\pull_bet_kg-lmg-live)
+2018-08-18 14:48:44.188 [main] INFO  [SpringApplication.java:662] - No active profile set, falling back to default profiles: default
+2018-08-18 14:48:44.232 [main] INFO  [AbstractApplicationContext.java:582] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49dc7102: startup date [Sat Aug 18 14:48:44 CST 2018]; root of context hierarchy
+2018-08-18 14:48:44.340 [background-preinit] INFO  [Version.java:30] - HV000001: Hibernate Validator 5.2.4.Final
+2018-08-18 14:48:45.164 [main] INFO  [PostProcessorRegistrationDelegate.java:325] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$33daa5db] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-08-18 14:48:45.604 [main] INFO  [TomcatEmbeddedServletContainer.java:89] - Tomcat initialized with port(s): 8888 (http)
+2018-08-18 14:48:45.616 [main] INFO  [DirectJDKLog.java:179] - Starting service Tomcat
+2018-08-18 14:48:45.617 [main] INFO  [DirectJDKLog.java:179] - Starting Servlet Engine: Apache Tomcat/8.5.11
+2018-08-18 14:48:45.701 [localhost-startStop-1] INFO  [DirectJDKLog.java:179] - Initializing Spring embedded WebApplicationContext
+2018-08-18 14:48:45.702 [localhost-startStop-1] INFO  [EmbeddedWebApplicationContext.java:276] - Root WebApplicationContext: initialization completed in 1470 ms
+2018-08-18 14:48:45.860 [localhost-startStop-1] INFO  [ServletRegistrationBean.java:190] - Mapping servlet: 'statViewServlet' to [/druid/*]
+2018-08-18 14:48:45.861 [localhost-startStop-1] INFO  [ServletRegistrationBean.java:190] - Mapping servlet: 'dispatcherServlet' to [/]
+2018-08-18 14:48:45.866 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-08-18 14:48:45.866 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-08-18 14:48:45.866 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-08-18 14:48:45.867 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'requestContextFilter' to: [/*]
+2018-08-18 14:48:45.867 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:271] - Mapping filter: 'webStatFilter' to urls: [/*]
+2018-08-18 14:48:46.877 [main] INFO  [LMGTask.java:33] - 程序开始
+2018-08-18 14:48:47.211 [main] INFO  [RequestMappingHandlerAdapter.java:534] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49dc7102: startup date [Sat Aug 18 14:48:44 CST 2018]; root of context hierarchy
+2018-08-18 14:48:47.267 [main] INFO  [AbstractHandlerMethodMapping.java:543] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-08-18 14:48:47.268 [main] INFO  [AbstractHandlerMethodMapping.java:543] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-08-18 14:48:47.295 [main] INFO  [AbstractUrlHandlerMapping.java:354] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-08-18 14:48:47.295 [main] INFO  [AbstractUrlHandlerMapping.java:354] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-08-18 14:48:47.327 [main] INFO  [AbstractUrlHandlerMapping.java:354] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-08-18 14:48:47.493 [main] INFO  [MBeanExporter.java:431] - Registering beans for JMX exposure on startup
+2018-08-18 14:48:47.494 [main] INFO  [MBeanExporter.java:916] - Bean with name 'druidDataSource' has been autodetected for JMX exposure
+2018-08-18 14:48:47.498 [main] INFO  [MBeanExporter.java:671] - Located MBean 'druidDataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=druidDataSource,type=DruidDataSource]
+2018-08-18 14:48:47.509 [main] INFO  [DirectJDKLog.java:179] - Initializing ProtocolHandler ["http-nio-8888"]
+2018-08-18 14:48:47.519 [main] INFO  [DirectJDKLog.java:179] - Starting ProtocolHandler [http-nio-8888]
+2018-08-18 14:48:47.532 [Thread-1] INFO  [DruidDataSource.java:669] - {dataSource-1} inited
+2018-08-18 14:48:47.532 [main] INFO  [DirectJDKLog.java:179] - Using a shared selector for servlet write/read
+2018-08-18 14:48:47.552 [main] INFO  [TomcatEmbeddedServletContainer.java:192] - Tomcat started on port(s): 8888 (http)
+2018-08-18 14:48:47.556 [main] INFO  [StartupInfoLogger.java:57] - Started Main in 3.763 seconds (JVM running for 4.022)
+2018-08-18 14:48:47.595 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:718
+2018-08-18 14:48:47.621 [pool-1-thread-1] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:null
+2018-08-18 14:48:47.666 [pool-1-thread-1] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:48:47.925 [pool-1-thread-1] INFO  [LMGThreadService.java:110] - 网站：99999拉取数据失败:{"request":null,"errorCode":6002,"errorMessage":"IP address is not authorized:111.125.72.150","logId":1534574931469,"params":{}}
+2018-08-18 14:48:47.925 [pool-1-thread-1] INFO  [LMGThreadService.java:111] - 网站：99999拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 14:48:57.617 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:25
+2018-08-18 14:48:57.640 [pool-1-thread-2] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:null
+2018-08-18 14:48:57.640 [pool-1-thread-2] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:48:57.827 [pool-1-thread-2] INFO  [LMGThreadService.java:110] - 网站：99999拉取数据失败:{"request":null,"errorCode":6002,"errorMessage":"IP address is not authorized:111.125.72.150","logId":1534574941376,"params":{}}
+2018-08-18 14:48:57.827 [pool-1-thread-2] INFO  [LMGThreadService.java:111] - 网站：99999拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 14:55:39.855 [main] INFO  [StartupInfoLogger.java:48] - Starting Main on DESKTOP-61G3U6U with PID 1324 (E:\git_code\pingtai\pull_bet_kg-lmg-live\target\classes started by user in E:\git_code\pingtai\pull_bet_kg-lmg-live)
+2018-08-18 14:55:39.857 [main] INFO  [SpringApplication.java:662] - No active profile set, falling back to default profiles: default
+2018-08-18 14:55:39.901 [main] INFO  [AbstractApplicationContext.java:582] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49dc7102: startup date [Sat Aug 18 14:55:39 CST 2018]; root of context hierarchy
+2018-08-18 14:55:40.017 [background-preinit] INFO  [Version.java:30] - HV000001: Hibernate Validator 5.2.4.Final
+2018-08-18 14:55:40.747 [main] INFO  [PostProcessorRegistrationDelegate.java:325] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$33daa5db] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-08-18 14:55:41.151 [main] INFO  [TomcatEmbeddedServletContainer.java:89] - Tomcat initialized with port(s): 8888 (http)
+2018-08-18 14:55:41.163 [main] INFO  [DirectJDKLog.java:179] - Starting service Tomcat
+2018-08-18 14:55:41.164 [main] INFO  [DirectJDKLog.java:179] - Starting Servlet Engine: Apache Tomcat/8.5.11
+2018-08-18 14:55:41.257 [localhost-startStop-1] INFO  [DirectJDKLog.java:179] - Initializing Spring embedded WebApplicationContext
+2018-08-18 14:55:41.258 [localhost-startStop-1] INFO  [EmbeddedWebApplicationContext.java:276] - Root WebApplicationContext: initialization completed in 1357 ms
+2018-08-18 14:55:41.422 [localhost-startStop-1] INFO  [ServletRegistrationBean.java:190] - Mapping servlet: 'statViewServlet' to [/druid/*]
+2018-08-18 14:55:41.423 [localhost-startStop-1] INFO  [ServletRegistrationBean.java:190] - Mapping servlet: 'dispatcherServlet' to [/]
+2018-08-18 14:55:41.427 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-08-18 14:55:41.427 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-08-18 14:55:41.427 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-08-18 14:55:41.428 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'requestContextFilter' to: [/*]
+2018-08-18 14:55:41.428 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:271] - Mapping filter: 'webStatFilter' to urls: [/*]
+2018-08-18 14:55:42.435 [main] INFO  [LMGTask.java:33] - 程序开始
+2018-08-18 14:55:42.763 [main] INFO  [RequestMappingHandlerAdapter.java:534] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49dc7102: startup date [Sat Aug 18 14:55:39 CST 2018]; root of context hierarchy
+2018-08-18 14:55:42.819 [main] INFO  [AbstractHandlerMethodMapping.java:543] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-08-18 14:55:42.820 [main] INFO  [AbstractHandlerMethodMapping.java:543] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-08-18 14:55:42.846 [main] INFO  [AbstractUrlHandlerMapping.java:354] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-08-18 14:55:42.847 [main] INFO  [AbstractUrlHandlerMapping.java:354] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-08-18 14:55:42.879 [main] INFO  [AbstractUrlHandlerMapping.java:354] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-08-18 14:55:43.036 [main] INFO  [MBeanExporter.java:431] - Registering beans for JMX exposure on startup
+2018-08-18 14:55:43.037 [main] INFO  [MBeanExporter.java:916] - Bean with name 'druidDataSource' has been autodetected for JMX exposure
+2018-08-18 14:55:43.041 [main] INFO  [MBeanExporter.java:671] - Located MBean 'druidDataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=druidDataSource,type=DruidDataSource]
+2018-08-18 14:55:43.052 [main] INFO  [DirectJDKLog.java:179] - Initializing ProtocolHandler ["http-nio-8888"]
+2018-08-18 14:55:43.062 [main] INFO  [DirectJDKLog.java:179] - Starting ProtocolHandler [http-nio-8888]
+2018-08-18 14:55:43.073 [main] INFO  [DirectJDKLog.java:179] - Using a shared selector for servlet write/read
+2018-08-18 14:55:43.092 [main] INFO  [TomcatEmbeddedServletContainer.java:192] - Tomcat started on port(s): 8888 (http)
+2018-08-18 14:55:43.096 [main] INFO  [StartupInfoLogger.java:57] - Started Main in 3.623 seconds (JVM running for 3.879)
+2018-08-18 14:55:43.140 [Thread-1] INFO  [DruidDataSource.java:669] - {dataSource-1} inited
+2018-08-18 14:55:43.193 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:757
+2018-08-18 14:55:43.222 [pool-1-thread-1] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:null
+2018-08-18 14:55:43.251 [pool-1-thread-1] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:55:43.553 [pool-1-thread-1] INFO  [LMGThreadService.java:110] - 网站：99999拉取数据失败:{"request":null,"errorCode":6656,"errorMessage":"pull the report time too fast.","logId":1534575347230,"params":{}}
+2018-08-18 14:55:43.553 [pool-1-thread-1] INFO  [LMGThreadService.java:111] - 网站：99999拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 14:55:53.219 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:29
+2018-08-18 14:55:53.244 [pool-1-thread-2] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:null
+2018-08-18 14:55:53.245 [pool-1-thread-2] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"0","count":"1000"}}
+2018-08-18 14:55:53.755 [pool-1-thread-2] INFO  [LMGThreadService.java:96] - 99999数据条目数:45
+2018-08-18 14:55:54.117 [pool-1-thread-2] INFO  [LMGService.java:53] - 插入数据库耗时:311
+2018-08-18 14:55:54.118 [pool-1-thread-2] INFO  [LMGThreadService.java:126] - 网站：99999拉取数据成功.....
+2018-08-18 14:55:54.118 [pool-1-thread-2] INFO  [LMGThreadService.java:48] - 99999拉取完成
+2018-08-18 14:56:03.245 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:27
+2018-08-18 14:56:03.245 [pool-1-thread-3] INFO  [LMGThreadService.java:63] - 99999从缓存获取最大视讯maxSeqNo:45
+2018-08-18 14:56:03.245 [pool-1-thread-3] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:45
+2018-08-18 14:56:03.246 [pool-1-thread-3] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"45","count":"1000"}}
+2018-08-18 14:56:03.399 [pool-1-thread-3] INFO  [LMGThreadService.java:96] - 99999数据条目数:0
+2018-08-18 14:56:03.399 [pool-1-thread-3] INFO  [LMGThreadService.java:126] - 网站：99999拉取数据成功.....
+2018-08-18 14:56:03.399 [pool-1-thread-3] INFO  [LMGThreadService.java:48] - 99999拉取完成
+2018-08-18 14:56:13.271 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:29
+2018-08-18 14:56:13.272 [pool-1-thread-4] INFO  [LMGThreadService.java:63] - 99999从缓存获取最大视讯maxSeqNo:45
+2018-08-18 14:56:13.272 [pool-1-thread-4] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:45
+2018-08-18 14:56:13.272 [pool-1-thread-4] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"45","count":"1000"}}
+2018-08-18 14:56:13.431 [pool-1-thread-4] INFO  [LMGThreadService.java:96] - 99999数据条目数:0
+2018-08-18 14:56:13.431 [pool-1-thread-4] INFO  [LMGThreadService.java:126] - 网站：99999拉取数据成功.....
+2018-08-18 14:56:13.431 [pool-1-thread-4] INFO  [LMGThreadService.java:48] - 99999拉取完成
+2018-08-18 14:56:23.303 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:33
+2018-08-18 14:56:23.303 [pool-1-thread-5] INFO  [LMGThreadService.java:63] - 99999从缓存获取最大视讯maxSeqNo:45
+2018-08-18 14:56:23.304 [pool-1-thread-5] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:45
+2018-08-18 14:56:23.305 [pool-1-thread-5] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"45","count":"1000"}}
+2018-08-18 14:56:23.455 [pool-1-thread-5] INFO  [LMGThreadService.java:96] - 99999数据条目数:0
+2018-08-18 14:56:23.456 [pool-1-thread-5] INFO  [LMGThreadService.java:126] - 网站：99999拉取数据成功.....
+2018-08-18 14:56:23.456 [pool-1-thread-5] INFO  [LMGThreadService.java:48] - 99999拉取完成
+2018-08-18 14:56:33.332 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:32
+2018-08-18 14:56:33.333 [pool-1-thread-6] INFO  [LMGThreadService.java:63] - 99999从缓存获取最大视讯maxSeqNo:45
+2018-08-18 14:56:33.333 [pool-1-thread-6] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:45
+2018-08-18 14:56:33.334 [pool-1-thread-6] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"45","count":"1000"}}
+2018-08-18 14:56:33.480 [pool-1-thread-6] INFO  [LMGThreadService.java:96] - 99999数据条目数:0
+2018-08-18 14:56:33.481 [pool-1-thread-6] INFO  [LMGThreadService.java:126] - 网站：99999拉取数据成功.....
+2018-08-18 14:56:33.482 [pool-1-thread-6] INFO  [LMGThreadService.java:48] - 99999拉取完成
+2018-08-18 14:56:43.362 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:31
+2018-08-18 14:56:43.363 [pool-1-thread-7] INFO  [LMGThreadService.java:63] - 99999从缓存获取最大视讯maxSeqNo:45
+2018-08-18 14:56:43.363 [pool-1-thread-7] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:45
+2018-08-18 14:56:43.364 [pool-1-thread-7] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"45","count":"1000"}}
+2018-08-18 14:56:43.513 [pool-1-thread-7] INFO  [LMGThreadService.java:96] - 99999数据条目数:0
+2018-08-18 14:56:43.513 [pool-1-thread-7] INFO  [LMGThreadService.java:126] - 网站：99999拉取数据成功.....
+2018-08-18 14:56:43.513 [pool-1-thread-7] INFO  [LMGThreadService.java:48] - 99999拉取完成
+2018-08-18 14:56:43.534 [pool-1-thread-1] INFO  [LMGThreadService.java:48] - 99999拉取完成
+2018-08-18 14:56:53.390 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:30
+2018-08-18 14:56:53.390 [pool-1-thread-8] INFO  [LMGThreadService.java:63] - 99999从缓存获取最大视讯maxSeqNo:45
+2018-08-18 14:56:53.390 [pool-1-thread-8] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:45
+2018-08-18 14:56:53.391 [pool-1-thread-8] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"45","count":"1000"}}
+2018-08-18 14:56:53.601 [pool-1-thread-8] INFO  [LMGThreadService.java:110] - 网站：99999拉取数据失败:{"request":null,"errorCode":6656,"errorMessage":"pull the report time too fast.","logId":1534575417270,"params":{}}
+2018-08-18 14:56:53.602 [pool-1-thread-8] INFO  [LMGThreadService.java:111] - 网站：99999拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 15:01:28.294 [main] INFO  [StartupInfoLogger.java:48] - Starting Main on DESKTOP-61G3U6U with PID 18604 (E:\git_code\pingtai\pull_bet_kg-lmg-live\target\classes started by user in E:\git_code\pingtai\pull_bet_kg-lmg-live)
+2018-08-18 15:01:28.296 [main] INFO  [SpringApplication.java:662] - No active profile set, falling back to default profiles: default
+2018-08-18 15:01:28.341 [main] INFO  [AbstractApplicationContext.java:582] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49dc7102: startup date [Sat Aug 18 15:01:28 CST 2018]; root of context hierarchy
+2018-08-18 15:01:28.464 [background-preinit] INFO  [Version.java:30] - HV000001: Hibernate Validator 5.2.4.Final
+2018-08-18 15:01:29.190 [main] INFO  [PostProcessorRegistrationDelegate.java:325] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$33daa5db] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-08-18 15:01:29.563 [main] INFO  [TomcatEmbeddedServletContainer.java:89] - Tomcat initialized with port(s): 8888 (http)
+2018-08-18 15:01:29.577 [main] INFO  [DirectJDKLog.java:179] - Starting service Tomcat
+2018-08-18 15:01:29.578 [main] INFO  [DirectJDKLog.java:179] - Starting Servlet Engine: Apache Tomcat/8.5.11
+2018-08-18 15:01:29.665 [localhost-startStop-1] INFO  [DirectJDKLog.java:179] - Initializing Spring embedded WebApplicationContext
+2018-08-18 15:01:29.666 [localhost-startStop-1] INFO  [EmbeddedWebApplicationContext.java:276] - Root WebApplicationContext: initialization completed in 1325 ms
+2018-08-18 15:01:29.828 [localhost-startStop-1] INFO  [ServletRegistrationBean.java:190] - Mapping servlet: 'statViewServlet' to [/druid/*]
+2018-08-18 15:01:29.829 [localhost-startStop-1] INFO  [ServletRegistrationBean.java:190] - Mapping servlet: 'dispatcherServlet' to [/]
+2018-08-18 15:01:29.832 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-08-18 15:01:29.832 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-08-18 15:01:29.832 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-08-18 15:01:29.833 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:258] - Mapping filter: 'requestContextFilter' to: [/*]
+2018-08-18 15:01:29.833 [localhost-startStop-1] INFO  [AbstractFilterRegistrationBean.java:271] - Mapping filter: 'webStatFilter' to urls: [/*]
+2018-08-18 15:01:30.806 [main] INFO  [LMGTask.java:33] - 程序开始
+2018-08-18 15:01:31.096 [main] INFO  [RequestMappingHandlerAdapter.java:534] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49dc7102: startup date [Sat Aug 18 15:01:28 CST 2018]; root of context hierarchy
+2018-08-18 15:01:31.149 [main] INFO  [AbstractHandlerMethodMapping.java:543] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-08-18 15:01:31.150 [main] INFO  [AbstractHandlerMethodMapping.java:543] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-08-18 15:01:31.177 [main] INFO  [AbstractUrlHandlerMapping.java:354] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-08-18 15:01:31.177 [main] INFO  [AbstractUrlHandlerMapping.java:354] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-08-18 15:01:31.209 [main] INFO  [AbstractUrlHandlerMapping.java:354] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-08-18 15:01:31.371 [main] INFO  [MBeanExporter.java:431] - Registering beans for JMX exposure on startup
+2018-08-18 15:01:31.372 [main] INFO  [MBeanExporter.java:916] - Bean with name 'druidDataSource' has been autodetected for JMX exposure
+2018-08-18 15:01:31.375 [main] INFO  [MBeanExporter.java:671] - Located MBean 'druidDataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=druidDataSource,type=DruidDataSource]
+2018-08-18 15:01:31.383 [main] INFO  [DirectJDKLog.java:179] - Initializing ProtocolHandler ["http-nio-8888"]
+2018-08-18 15:01:31.393 [main] INFO  [DirectJDKLog.java:179] - Starting ProtocolHandler [http-nio-8888]
+2018-08-18 15:01:31.408 [main] INFO  [DirectJDKLog.java:179] - Using a shared selector for servlet write/read
+2018-08-18 15:01:31.430 [main] INFO  [TomcatEmbeddedServletContainer.java:192] - Tomcat started on port(s): 8888 (http)
+2018-08-18 15:01:31.435 [main] INFO  [StartupInfoLogger.java:57] - Started Main in 3.508 seconds (JVM running for 3.762)
+2018-08-18 15:01:31.451 [Thread-1] INFO  [DruidDataSource.java:669] - {dataSource-1} inited
+2018-08-18 15:01:31.510 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:703
+2018-08-18 15:01:31.535 [pool-1-thread-1] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:45
+2018-08-18 15:01:31.579 [pool-1-thread-1] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"45","count":"1000"}}
+2018-08-18 15:01:31.837 [pool-1-thread-1] INFO  [LMGThreadService.java:110] - 网站：99999拉取数据失败:{"request":null,"errorCode":6002,"errorMessage":"IP address is not authorized:111.125.72.150","logId":1534575695613,"params":{}}
+2018-08-18 15:01:31.838 [pool-1-thread-1] INFO  [LMGThreadService.java:111] - 网站：99999拉取数据失败,errorCode不为0，请检查配置，线程休眠......
+2018-08-18 15:02:00.670 [Thread-1] ERROR [DruidDataSource.java:1190] - discard connection
+com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 29,130 milliseconds ago.  The last packet sent successfully to the server was 19,157 milliseconds ago.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:989)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3556)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3456)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3897)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2524)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2677)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2549)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1861)
+	at com.mysql.jdbc.PreparedStatement.execute(PreparedStatement.java:1192)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:2931)
+	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:2929)
+	at com.alibaba.druid.filter.FilterAdapter.preparedStatement_execute(FilterAdapter.java:1058)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:2929)
+	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:131)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:493)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:63)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:63)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:434)
+	at com.sun.proxy.$Proxy55.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:231)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:128)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:68)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:53)
+	at com.sun.proxy.$Proxy56.selectByExample(Unknown Source)
+	at com.ds.lmg.service.LMGService.getAipInfoList(LMGService.java:37)
+	at com.ds.lmg.task.LMGTask.run(LMGTask.java:41)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)
+	at java.net.SocketInputStream.read(SocketInputStream.java:171)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at com.mysql.jdbc.util.ReadAheadInputStream.fill(ReadAheadInputStream.java:101)
+	at com.mysql.jdbc.util.ReadAheadInputStream.readFromUnderlyingStreamIfNecessary(ReadAheadInputStream.java:144)
+	at com.mysql.jdbc.util.ReadAheadInputStream.read(ReadAheadInputStream.java:174)
+	at com.mysql.jdbc.MysqlIO.readFully(MysqlIO.java:3005)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3466)
+	... 37 common frames omitted
+2018-08-18 15:02:00.680 [Thread-1] INFO  [XmlBeanDefinitionReader.java:317] - Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-08-18 15:02:00.710 [Thread-1] INFO  [SQLErrorCodesFactory.java:127] - SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-08-18 15:02:00.997 [Thread-1] ERROR [LMGTask.java:47] - 拉取循环报错
+org.springframework.dao.RecoverableDataAccessException: 
+### Error querying database.  Cause: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 29,130 milliseconds ago.  The last packet sent successfully to the server was 19,157 milliseconds ago.
+### The error may exist in file [E:\git_code\pingtai\kg-model\target\classes\com\kg\live\mapper\ApiInfoEntityMapper.xml]
+### The error may involve com.kg.live.mapper.ApiInfoEntityMapper.selectByExample-Inline
+### The error occurred while setting parameters
+### SQL: select                      id, hashcode, site_id, site_name, prefix, agent, web_url, reporturl, remark, ip,      keyB, state, live_id, live_name, live_key         from api_info                         WHERE (  live_id = ?                                                                and state = ? )
+### Cause: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 29,130 milliseconds ago.  The last packet sent successfully to the server was 19,157 milliseconds ago.
+; SQL []; Communications link failure
+
+The last packet successfully received from the server was 29,130 milliseconds ago.  The last packet sent successfully to the server was 19,157 milliseconds ago.; nested exception is com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 29,130 milliseconds ago.  The last packet sent successfully to the server was 19,157 milliseconds ago.
+	at org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:98)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:73)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:81)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:75)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:447)
+	at com.sun.proxy.$Proxy55.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:231)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:128)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:68)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:53)
+	at com.sun.proxy.$Proxy56.selectByExample(Unknown Source)
+	at com.ds.lmg.service.LMGService.getAipInfoList(LMGService.java:37)
+	at com.ds.lmg.task.LMGTask.run(LMGTask.java:41)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 29,130 milliseconds ago.  The last packet sent successfully to the server was 19,157 milliseconds ago.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:989)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3556)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3456)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3897)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2524)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2677)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2549)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1861)
+	at com.mysql.jdbc.PreparedStatement.execute(PreparedStatement.java:1192)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:2931)
+	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:2929)
+	at com.alibaba.druid.filter.FilterAdapter.preparedStatement_execute(FilterAdapter.java:1058)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:2929)
+	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:131)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:493)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:63)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:63)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:434)
+	... 9 common frames omitted
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)
+	at java.net.SocketInputStream.read(SocketInputStream.java:171)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at com.mysql.jdbc.util.ReadAheadInputStream.fill(ReadAheadInputStream.java:101)
+	at com.mysql.jdbc.util.ReadAheadInputStream.readFromUnderlyingStreamIfNecessary(ReadAheadInputStream.java:144)
+	at com.mysql.jdbc.util.ReadAheadInputStream.read(ReadAheadInputStream.java:174)
+	at com.mysql.jdbc.MysqlIO.readFully(MysqlIO.java:3005)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3466)
+	... 37 common frames omitted
+2018-08-18 15:02:00.997 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:19490
+2018-08-18 15:02:11.021 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:27
+2018-08-18 15:02:11.046 [pool-1-thread-2] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:45
+2018-08-18 15:02:11.046 [pool-1-thread-2] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"45","count":"1000"}}
+2018-08-18 15:02:11.338 [pool-1-thread-2] INFO  [LMGThreadService.java:96] - 99999数据条目数:0
+2018-08-18 15:02:11.339 [pool-1-thread-2] INFO  [LMGThreadService.java:126] - 网站：99999拉取数据成功.....
+2018-08-18 15:02:11.339 [pool-1-thread-2] INFO  [LMGThreadService.java:48] - 99999拉取完成
+2018-08-18 15:02:21.045 [Thread-1] INFO  [LMGTask.java:50] - 拉取一次循环耗时time:26
+2018-08-18 15:02:21.070 [pool-1-thread-3] INFO  [LMGThreadService.java:66] - 网站99999,max beginid:45
+2018-08-18 15:02:21.070 [pool-1-thread-3] INFO  [LMGThreadService.java:77] - 网站99999GET_RECORD...obj:{"command":"GET_RECORD_BY_SEQUENCENO","hashCode":"99999_68ccf7aa-deb5-4896-aa7d-76e221","params":{"beginId":"45","count":"1000"}}
+2018-08-18 15:02:21.224 [pool-1-thread-3] INFO  [LMGThreadService.java:110] - 网站：99999拉取数据失败:{"request":null,"errorCode":6656,"errorMessage":"pull the report time too fast.","logId":1534575745081,"params":{}}
+2018-08-18 15:02:21.224 [pool-1-thread-3] INFO  [LMGThreadService.java:111] - 网站：99999拉取数据失败,errorCode不为0，请检查配置，线程休眠......

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ds.report.dao.mapper.DsReportDao">
+	<select id="findMemberBetByPage" resultType="com.ds.report.vo.MemberBetInfoVo" parameterType="com.ds.report.vo.MemberBetInfoParam">
+		SELECT SUM(d.betamount) as betamount,SUM(d.validamount) as validamount,SUM(d.winlose) as winlose,username
+			FROM ds_report d where 
+			d.site_id = #{param.siteId}
+		<if test="param.username!=null and param.username!=''">
+		     and d.username = #{param.username}
+		 </if>
+		 <if test="param.beginTime!=null">
+		        and d.bet_time <![CDATA[>=]]>#{param.beginTime}
+		 </if>
+		 <if test="param.endTime!=null">
+		        and d.bet_time <![CDATA[<=]]>#{param.endTime}
+		 </if>
+		 <if test="param.liveId!=null">
+		        and d.live_id = #{param.liveId}
+		 </if>
+		 group by username
+	</select>
+	<select id="getAuditBat" resultType="com.ds.report.vo.AuditTotalBatResult">
+		<foreach collection="param.timeList" item="item" index="index" separator="union all">
+			select #{item.startTime} AS startTime,#{item.endTime} AS endTime,
+			IFNULL(aa.liveValidamount,0) liveValidamount,
+			IFNULL(aa.sportValidamount,0) sportValidamount,
+			IFNULL(aa.lottoValidamount,0) lottoValidamount,
+			IFNULL(aa.jilvValidamount,0) jilvValidamount,
+			IFNULL(aa.totalValidamount,0) totalValidamount,COUNT(*) from
+			(select 
+	  		SUM(CASE WHEN type=1 then valid_amount else 0 END) as liveValidamount,
+			SUM(CASE WHEN type=2 then valid_amount else 0 END) as sportValidamount,
+			SUM(CASE WHEN type=3 THEN valid_amount else 0 END) as lottoValidamount,
+			SUM(CASE WHEN type=4 or type=5 THEN valid_amount ELSE 0 END) as jilvValidamount,
+			SUM(valid_amount) as totalValidamount
+	    	from temp_audit_total 
+			WHERE username = #{param.username} AND site_id = #{param.siteId} AND bet_time <![CDATA[>=]]> #{item.startTime} 
+			AND bet_time <![CDATA[<]]> #{item.endTime} 
+			 GROUP BY username) aa
+		</foreach> 
+	</select>
+    <!-- 查询总条目数     -->
+	<select id="countMemberBetByPage" resultType="Long" parameterType="com.ds.report.vo.MemberBetInfoParam">
+		select count(*) from (select count(*) 
+		FROM ds_report d where 
+			d.site_id = #{param.siteId}
+		<if test="param.username!=null and param.username!=''">
+		     and d.username = #{param.username}
+		 </if>
+		 <if test="param.beginTime!=null">
+		        and d.bet_time <![CDATA[>=]]>#{param.beginTime}
+		 </if>
+		 <if test="param.endTime!=null">
+		        and d.bet_time <![CDATA[<=]]>#{param.endTime}
+		 </if>
+		 <if test="param.liveId!=null">
+		        and d.live_id =#{param.liveId}
+		 </if>
+		 group by username) as count
+	</select>
+	<!-- 查询总人数     -->
+	<select id="memberBetCountByPage" resultType="Long" parameterType="com.ds.report.vo.MemberBetInfoParam">
+		select sum(count) from (select count(*) AS count
+		FROM ds_report d where 
+			d.site_id = #{param.siteId}
+		<if test="param.username!=null and param.username!=''">
+		     and d.username = #{param.username}
+		 </if>
+		 <if test="param.beginTime!=null">
+		        and d.bet_time <![CDATA[>=]]>#{param.beginTime}
+		 </if>
+		 <if test="param.endTime!=null">
+		        and d.bet_time <![CDATA[<=]]>#{param.endTime}
+		 </if>
+		 <if test="param.liveId!=null">
+		        and d.live_id =#{param.liveId}
+		 </if>
+		 group by username) as sum
+	</select>
+	<!-- 查询统计     -->
+	<select id="memberBetSum" resultType="com.ds.report.vo.MemberBetSumVo" parameterType="com.ds.report.vo.MemberBetInfoParam">
+		SELECT SUM(d.betamount) as betamount,SUM(d.validamount) as validamount,SUM(d.winlose) as winlose
+			FROM ds_report d where 
+			d.site_id = #{param.siteId}
+		<if test="param.username!=null and param.username!=''">
+		     and d.username = #{param.username}
+		 </if>
+		 <if test="param.beginTime!=null">
+		        and d.bet_time <![CDATA[>=]]>#{param.beginTime}
+		 </if>
+		 <if test="param.endTime!=null">
+		        and d.bet_time <![CDATA[<=]]>#{param.endTime}
+		 </if>
+		 <if test="param.liveId!=null">
+		        and d.live_id =#{param.liveId}
+		 </if>
+		 
+	</select>
+	<!--  按天统计 -->
+	<select id="findBetByDate" resultType="com.ds.report.vo.BetInfoByDateVo" parameterType="com.ds.report.vo.BetInfoByDateParam">
+		SELECT SUM(d.betamount) as betamount,SUM(d.validamount) as validamount,SUM(d.winlose) as winlose,bet_time as betDate
+			FROM ds_report d where 
+			d.site_id = #{param.siteId}
+		 <if test="param.beginTime!=null">
+		        and d.bet_time <![CDATA[>=]]>#{param.beginTime}
+		 </if>
+		 <if test="param.endTime!=null">
+		        and d.bet_time <![CDATA[<=]]>#{param.endTime}
+		 </if>
+		 <if test="param.liveId!=null">
+		        and d.live_id = #{param.liveId}
+		 </if>
+		 group by d.bet_time
+	</select>
+	<!--  按天统计     -->
+	<select id="betInfoByDateSum" resultType="com.ds.report.vo.BetInfoByDateSum" parameterType="com.ds.report.vo.BetInfoByDateParam">
+		SELECT SUM(d.betamount) as betamount,SUM(d.validamount) as validamount,SUM(d.winlose) as winlose
+			FROM ds_report d where 
+			d.site_id = #{param.siteId}
+		 <if test="param.beginTime!=null">
+		        and d.bet_time <![CDATA[>=]]>#{param.beginTime}
+		 </if>
+		 <if test="param.endTime!=null">
+		        and d.bet_time <![CDATA[<=]]>#{param.endTime}
+		 </if>
+		 <if test="param.liveId!=null">
+		        and d.live_id =#{param.liveId}
+		 </if>
+	</select>
+	
+	<!--  按天统计有效会员 -->
+	<select id="findValidateMemberByDate" resultType="com.ds.report.vo.ValidateMemberByDateVo" parameterType="com.ds.report.vo.ValidateMemberByDateParam">
+		select count(*) as validateMember,a.bet_time as betDate from (
+		SELECT d.username,d.bet_time
+			FROM ds_report d,ds_member m 
+			where d.site_id = #{param.siteId}
+			and d.site_id = m.site_id 
+			and d.username = m.username
+		 <if test="param.agentLevel!=null and param.agentLevel == 'agents'">
+		        and m.agents = #{param.agentName}
+		 </if>
+		 <if test="param.agentLevel!=null and param.agentLevel == 'world'">
+		        and m.world = #{param.agentName}
+		 </if>
+		 <if test="param.agentLevel!=null and param.agentLevel == 'corprator'">
+		        and m.corprator = #{param.agentName}
+		 </if>
+		 <if test="param.agentLevel!=null and param.agentLevel == 'superior'">
+		        and m.superior = #{param.agentName}
+		 </if>
+		 <if test="param.agentLevel!=null and param.agentLevel == 'company'">
+		        and m.company = #{param.agentName}
+		 </if>
+		 <if test="param.beginTime!=null">
+		        and d.bet_time <![CDATA[>=]]>#{param.beginTime}
+		 </if>
+		 <if test="param.endTime!=null">
+		        and d.bet_time <![CDATA[<=]]>#{param.endTime}
+		 </if>
+		 <if test="param.liveId!=null">
+		        and d.live_id = #{param.liveId}
+		 </if>
+		 group by d.bet_time,d.username) a group by a.bet_time
+	</select>
+	<select id="getBanlanceByLiveId" resultType="String" parameterType="java.util.Map">
+		SELECT distinct(d.username)
+			FROM ds_report d where 
+			d.site_id = #{siteId,jdbcType=INT}
+			and d.live_id = #{liveId,jdbcType=INT}
+		 <if test="param.beginTime!=null">
+		     and datediff(now(),d.bet_time) <![CDATA[<=]]> 15
+		 </if>
+	</select>
+	<select id="getAllLiveByUser" resultType="com.ds.report.vo.GetAllLiveByUserVo" parameterType="com.alibaba.fastjson.JSONObject">
+		
+		SELECT SUM(winlose) AS winLoseMoney,SUM(validamount) AS vilidateMoney,username,live_id as liveId 
+		FROM ds_report WHERE site_id = #{param.siteId} and username=#{param.username} AND bet_time BETWEEN #{param.beginTime} AND #{param.endTime}
+		GROUP BY liveId
+	</select>
+	
+	<select id="getAllTypeByUser" resultType="java.math.BigDecimal" parameterType="com.alibaba.fastjson.JSONObject">
+		SELECT  IFNULL(SUM(validamount),0)
+			FROM ds_report WHERE username=#{param.username} 
+			and site_id = #{param.siteId}
+			AND bet_time BETWEEN #{param.beginTime} AND #{param.endTime}
+			 
+	</select>
+	
+	<select id="getMemberNameList" resultType="string" parameterType="com.alibaba.fastjson.JSONObject">
+		SELECT  username
+			FROM ds_member WHERE site_id = #{param.siteId}
+	</select>
+	<select id="siteOrderDesc" resultType="com.ds.report.vo.SiteOrderVo" parameterType="com.alibaba.fastjson.JSONObject">
+	
+	SELECT i.site_id AS siteId,IFNULL(tmp.betCount,0) AS  betCount,i.site_name AS siteName,IFNULL(tmp.betamount,0) AS betamount,
+		IFNULL(tmp.validamount,0) AS validamount,
+		IFNULL(tmp.winlose,0) AS winlose,
+		0 AS gameKind, '总计' AS gameKindName
+		FROM site_id_info i LEFT JOIN 
+		(SELECT a.site_id as siteId,SUM(a.bet_count) AS betCount,SUM(a.betamount) as betamount,
+			SUM(a.validamount) as validamount,SUM(a.winlose) as winlose, 0 AS game_kind, '总计' AS game_kind_name
+		FROM ds_report_site_day a  WHERE 
+			a.bet_time <![CDATA[>=]]> #{param.betTimeBegin} 
+			AND a.bet_time <![CDATA[<=]]>#{param.betTimeEnd}
+			GROUP BY a.site_id) tmp ON i.site_id = tmp.siteId
+		 <if test="param.isGameKind !=null and param.isGameKind != ''">
+		union all
+		  (SELECT i.site_id as siteId,SUM(a.bet_count) AS betCount,i.site_name as siteName,SUM(a.betamount) as betamount,
+			SUM(a.validamount) as validamount,SUM(a.winlose) as winlose,a.game_kind as gameKind,a.game_kind_name as gameKindName
+			FROM site_id_info i LEFT JOIN ds_report_site_day a ON i.site_id = a.site_id  
+			WHERE 
+			a.bet_time <![CDATA[>=]]> #{param.betTimeBegin} 
+			AND a.bet_time <![CDATA[<=]]>#{param.betTimeEnd}
+			GROUP BY a.game_kind,i.site_id ORDER BY siteId)
+		 </if>	
+			
+	</select>
+	
+	<select id="getBetInfoByLiveId" resultType="com.ds.report.entity.DsReport">
+		SELECT  count(*) as betCount,${liveConfig.gameKind} as gameKind,'${liveConfig.gameKindName}' as gameKindName,
+			ifnull(sum(${liveConfig.tableBetAmount}),0) as betamount,ifnull(sum(${liveConfig.tableValidateAmount}),0) as validamount,
+			ifnull(sum(${liveConfig.tableWinLoseAmount}),0) as winlose
+			FROM ${liveConfig.tableName} WHERE site_id = #{param.siteId} and
+			${liveConfig.tableBetTime} <![CDATA[>=]]> #{param.formatTimeBegin} 
+			and ${liveConfig.tableBetTime} <![CDATA[<=]]> #{param.formatTimeEnd} 
+			<if test="liveConfig.tableGameKind !=null and liveConfig.tableGameKind != ''">
+			 	and ${liveConfig.tableGameKind} = ${liveConfig.gameKind}
+			</if>
+	</select>
+	
+	<select id="selectIMemberLogById" resultType="com.ds.report.entity.MemberLogVo">
+		select id,username,site_id,site_name,create_time,agents,world,corprator,superior,company
+		from ds_member_log
+		where id&gt;#{id} limit 1000
+	</select>
+	
+	<!-- 捕鱼王 jackpot 获取详细注单 -->
+	<select id="getDeatilRecord" resultType="com.ds.report.vo.HunterDetailRecordVo" parameterType="com.ds.report.vo.HunterDetailRecordParam">
+		SELECT  a.id,a.site_id as siteId,a.trade_no as tradeaNo,a.username,a.player_name,a.scene_id,a.roomid,a.valid_bet_amount,a.earn,
+			a.winlose,a.win_loss_type as win_loss_type,a.jackpot,IFNULL(drawAwardAll,0) as drawAward,
+			IFNULL(hunterAwardAll,0) as hunterAward,a.bet_time as betTime,
+			a.scene_start_time as sceneStartTime,a.scene_end_time as sceneEndTime
+			from 
+				(SELECT id,site_id,data_type,namepre,username,trade_no,win_loss_type,
+				scene_id,player_name,type,scene_start_time,scene_end_time,roomid,
+				SUM(earn) as earn,SUM(net_amount) AS winlose,SUM(jackpotcomm) as jackpot,
+				SUM(valid_bet_amount) as valid_bet_amount,flag,bet_time 
+				
+				FROM ds_ag_hunter WHERE 1=1  
+					<if test="param.sceneId !=null and param.sceneId != ''">
+				        and scene_id = #{param.sceneId}
+					 </if>
+					 <if test="param.siteId !=null">
+				        and site_id = #{param.siteId}
+					 </if>
+					 <if test="param.username !=null and param.username !=''">
+				        and username = #{param.username}
+					 </if>
+	 				 <if test="param.startTime !=null and param.startTime !=''">
+				        and bet_time <![CDATA[>=]]>#{param.startTime}
+					 </if>
+					 <if test="param.endTime !=null and param.endTime !=''">
+				        and bet_time <![CDATA[<=]]>#{param.endTime}
+					 </if>
+					  
+					 and type = 1 AND data_type = 'HSR'
+					GROUP BY scene_id) a
+			
+			LEFT JOIN 
+				 (SELECT SUM(net_amount) AS drawAwardAll,scene_id,username,site_id from ds_ag_hunter  WHERE type = 2 
+					 <if test="param.startTime !=null and param.startTime !=''">
+				        and bet_time <![CDATA[>=]]>#{param.startTime}
+					 </if>
+					 <if test="param.endTime !=null and param.endTime !=''">
+				        and bet_time <![CDATA[<=]]>#{param.endTime}
+					 </if>
+					 AND data_type = 'HSR' GROUP BY scene_id) b 
+					
+				ON a.scene_id = b.scene_id AND a.username = b.username and a.site_id = b.site_id
+			
+			left JOIN 
+				 (SELECT SUM(net_amount) AS hunterAwardAll,scene_id,username,site_id from ds_ag_hunter  WHERE type = 7 
+					 <if test="param.startTime !=null and param.startTime !=''">
+				        and bet_time <![CDATA[>=]]>#{param.startTime}
+					 </if>
+					 <if test="param.endTime !=null and param.endTime !=''">
+				        and bet_time <![CDATA[<=]]>#{param.endTime}
+					 </if>
+					 AND data_type = 'HSR' GROUP BY scene_id) c
+			ON a.scene_id = c.scene_id AND a.username = c.username and a.site_id = c.site_id order by a.bet_time desc limit #{pageNum},#{pageSize}
+	</select>
+	<!-- 捕鱼王 jackpot 获取详细注单 -->
+	<select id="getDeatilRecordCount" resultType="com.ds.report.vo.HunterDetailTotalVo" parameterType="com.ds.report.vo.HunterDetailRecordParam">
+		SELECT  IFNULL(count(a.id),0) as count, 
+			IFNULL(sum(earn),0) as sumEarn,IFNULL(sum(winlose),0) as sumWinlose,IFNULL(sum(valid_bet_amount),0) as sumBetAmount,
+			IFNULL(sum(drawAwardAll),0)  as sumDrawAwardAll,IFNULL(sum(hunterAwardAll),0) as sumHunterAwardAll 
+			from 
+				(SELECT id,site_id,data_type,namepre,username,trade_no,win_loss_type,
+				scene_id,player_name,type,scene_start_time,scene_end_time,roomid,
+				SUM(earn) as earn,SUM(net_amount) AS winlose,SUM(jackpotcomm) as jackpot,
+				SUM(valid_bet_amount) as valid_bet_amount,flag,bet_time 
+				
+				FROM ds_ag_hunter WHERE 1=1  
+					<if test="param.sceneId !=null and param.sceneId != ''">
+				        and scene_id = #{param.sceneId}
+					 </if>
+					 <if test="param.siteId !=null">
+				        and site_id = #{param.siteId}
+					 </if>
+					 <if test="param.username !=null and param.username !=''">
+				        and username = #{param.username}
+					 </if>
+	 				 <if test="param.startTime !=null and param.startTime !=''">
+				        and bet_time <![CDATA[>=]]>#{param.startTime}
+					 </if>
+					 <if test="param.endTime !=null and param.endTime !=''">
+				        and bet_time <![CDATA[<=]]>#{param.endTime}
+					 </if>
+					  
+					 and type = 1 AND data_type = 'HSR'
+					GROUP BY scene_id) a
+			
+			LEFT JOIN 
+				 (SELECT SUM(net_amount) AS drawAwardAll,scene_id,username,site_id from ds_ag_hunter  WHERE type = 2 
+					 <if test="param.startTime !=null and param.startTime !=''">
+				        and bet_time <![CDATA[>=]]>#{param.startTime}
+					 </if>
+					 <if test="param.endTime !=null and param.endTime !=''">
+				        and bet_time <![CDATA[<=]]>#{param.endTime}
+					 </if>
+					 AND data_type = 'HSR' GROUP BY scene_id) b 
+					
+				ON a.scene_id = b.scene_id AND a.username = b.username and a.site_id = b.site_id
+			
+			left JOIN 
+				 (SELECT SUM(net_amount) AS hunterAwardAll,scene_id,username,site_id from ds_ag_hunter  WHERE type = 7 
+					 <if test="param.startTime !=null and param.startTime !=''">
+				        and bet_time <![CDATA[>=]]>#{param.startTime}
+					 </if>
+					 <if test="param.endTime !=null and param.endTime !=''">
+				        and bet_time <![CDATA[<=]]>#{param.endTime}
+					 </if>
+					 AND data_type = 'HSR' GROUP BY scene_id) c
+			ON a.scene_id = c.scene_id AND a.username = c.username and a.site_id = c.site_id
+	</select>
+		<!--捕鱼王  jackpot 获取统计注单 -->
+	<select id="getTotalRecord" resultType="com.ds.report.vo.HunterSumRecordVo" parameterType="com.ds.report.vo.HunterSumRecordParam">
+		SELECT site_id AS siteId, SUM(bet_count) as betCount,SUM(betamount) as betAmount,SUM(validamount) AS validAmount,
+			SUM(winlose) as winlose,SUM(jackpot) as jackpot
+		FROM ds_aghunter_report a WHERE 1=1
+			 <if test="param.siteId !=null">
+		        and site_id = #{param.siteId}
+			 </if>
+			 <if test="param.startTime !=null">
+		        and bet_time <![CDATA[>=]]>#{param.startTime}
+			 </if>
+			 <if test="param.endTime !=null">
+		        and bet_time <![CDATA[<=]]>#{param.endTime}
+			 </if>
+		 GROUP BY site_id 
+	</select>
+	
+	
+	<select id="getTotalBySite" resultType="com.ds.report.vo.TotalBySiteVo" parameterType="java.lang.Object">
+		<!--  SELECT SUM(d.betamount) as betamount,SUM(d.validamount) as validamount,SUM(d.winlose) as winlose,
+		sum(d.bet_count) as betCount,username FROM ds_report d
+		where 
+			d.site_id = #{siteId}
+		    and d.bet_time <![CDATA[>=]]>#{beginTime}
+		    and d.bet_time <![CDATA[<=]]>#{endTime}	
+		
+		 group by d.username limit #{page},#{pageLimit}-->
+		 
+		SELECT 
+		IFNULL(b.betCount,0) as betCount,IFNULL(b.betamount,0) as betamount,IFNULL(b.validamount,0) as validamount,
+		IFNULL(b.winlose,0) as winlose,m.username FROM ds_member m LEFT JOIN (SELECT SUM(d.betamount) as betamount,SUM(d.validamount) as validamount,SUM(d.winlose) as winlose,
+		sum(d.bet_count) as betCount,d.username FROM ds_report d where 
+		d.site_id = #{siteId} and d.bet_time <![CDATA[>=]]>#{beginTime} and d.bet_time <![CDATA[<=]]>#{endTime}
+		 group by d.username) b on m.username=b.username
+		where 1=1 and m.site_id=#{siteId}
+		 group by m.username limit #{page},#{pageLimit}
+	</select>
+	
+	<select id="getTotalBySiteCount" resultType="java.lang.Integer" parameterType="java.lang.Object">
+		SELECT count(1) FROM ds_member m where 
+			m.site_id = #{siteId}
+		    
+		
+	</select>
+</mapper>
