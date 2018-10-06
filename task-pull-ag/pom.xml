@@ -7,15 +7,24 @@
 	<artifactId>task-pull-ag</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<properties>
+	<!--<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<env>beta</env>
+	</properties>-->
+
+	<properties>
+		<env>beta</env>
+		<env.host>10.200.201.2:8081</env.host>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<!--<spring.version>4.1.6.RELEASE</spring.version>-->
 	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.4.RELEASE</version>
+		<!--<version>1.4.4.RELEASE</version>-->
 	</parent>
 
 	<dependencies>
@@ -29,9 +38,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.mybatis.spring.boot</groupId>
-		    <artifactId>mybatis-spring-boot-starter</artifactId>
-		    <version>1.1.1</version>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 		<dependency>
 		    <groupId>com.google.guava</groupId>
@@ -93,7 +102,7 @@
 		<dependency>
 			<groupId>com.ds</groupId>
   			<artifactId>ds_temp_report</artifactId>
-  			<version>1.0.0</version>
+  			<version>1.0.1</version>
   			<exclusions>
   				<exclusion>
   					<groupId>org.mybatis</groupId>
@@ -143,6 +152,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
 			<plugin>  
                 <artifactId>maven-source-plugin</artifactId>  
                 <configuration>  
@@ -156,8 +166,9 @@
                         </goals>  
                     </execution>  
                 </executions>  
-            </plugin> 
+            </plugin>
 		</plugins>
+
 	</build>
 <!-- 	<repositories> -->
 <!-- 		<repository> -->
@@ -178,4 +189,29 @@
 <!-- 			<url>http://maven.${env}.ds.com/repository/maven-releases/</url> -->
 <!-- 		</repository> -->
 <!-- 	</distributionManagement> -->
+
+	<repositories>
+		<repository>
+			<id>public</id>
+			<url>http://${env.host}/nexus/content/repositories/public/</url>
+		</repository>
+		<repository>
+			<id>thirdparty</id>
+			<name>3rd party</name>
+			<url>http://${env.host}/nexus/content/repositories/thirdparty/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<url>http://${env.host}/nexus/content/repositories/central/</url>
+		</pluginRepository>
+	</pluginRepositories>
+	<distributionManagement>
+		<repository>
+			<id>thirdparty</id>
+			<name>3rd party</name>
+			<url>http://${env.host}/nexus/content/repositories/thirdparty/</url>
+		</repository>
+	</distributionManagement>
 </project>

@@ -1,10 +1,10 @@
 spring:
     datasource:
         name: dataSource
-        url: jdbc:mysql://127.0.0.1:3306/report_center
-        username: root
-        password: root
-        connectionProperties: config.decrypt=false
+        url: jdbc:mysql://10.200.201.14:3306/game_report
+        username: game_report
+        password: Fh3bAMhLRFjzGpCGXZHw25bzvonfN4VUiTE9hN46NQI7yS6bD4OiaK+Eegsg8yhlAepNw028uQwz5v7pbhS1SQ==
+        connectionProperties: config.decrypt=true
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
@@ -27,5 +27,4 @@ mybatis:
     typeAliasesPackage: com.ds.lmg
 
 server:
-    port: 8888
-    
+    port: 8080

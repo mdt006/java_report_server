@@ -1,7 +1,11 @@
 package com.ds.live.gameservice;
 
 import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
 
+import com.ds.live.until.BBINCommon;
+import com.ds.live.until.EncryptUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +23,12 @@ public class ManualPullGameDataService {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private GameDBService bbService;
-	
-	
+
+
 	public void getGameRecord(ApiInfoEntity configApiInfo,String date,String start_time,String end_time,
 			int page,int pageLimit, String httpAction) {
-		String url="http://linkapi.s1116.com/app/WebService/JSON/display.php/"+httpAction;
+		//String url="http://linkapi.s1116.com/app/WebService/JSON/display.php/"+httpAction;
+		String url= BBINCommon.URL+httpAction;
 		while(true){
 			String param=getSendParam(configApiInfo, httpAction, date, page,pageLimit);
 			ReturnResult result=sendHttp(configApiInfo, url, param, httpAction, 0, 0);
@@ -37,11 +42,11 @@ public class ManualPullGameDataService {
 					page++;
 				}
 			}
-			
+
 		}
 	}
-	
-	
+
+
 	private ReturnResult sendHttp(ApiInfoEntity configApiInfo, String url, String param, String httpAction, Integer gamekind, Integer subgamekind) {
 		JSONObject obj = null;
 		try {
@@ -79,11 +84,11 @@ public class ManualPullGameDataService {
 	}
 
 	private String getSendParam(ApiInfoEntity configApiInfo,String action,String date, int page,int pageLimit) {
-		String key = getKey(configApiInfo);
+		//String key = getKey(configApiInfo);
 		if("WagersRecordBy38".equals(action)||"WagersRecordBy30".equals(action)) {
 			return getRecord38And30(configApiInfo,date,page,pageLimit);
 		}
-		StringBuffer sb = new StringBuffer();
+		/*StringBuffer sb = new StringBuffer();
 		sb.append("website=").append(Platform.Constans.kkw_WEBSITE);
 		sb.append("&uppername=").append(configApiInfo.getLiveKey());
 		sb.append("&rounddate=").append(date);
@@ -94,7 +99,21 @@ public class ManualPullGameDataService {
 		sb.append("&page=").append(page);
 		sb.append("&pagelimit="+pageLimit);
 		sb.append("&key=").append(key);
-		return sb.toString();
+		return sb.toString();*/
+		Map<String,String> paramMap = new TreeMap<String,String>(){{
+			put("uppername",configApiInfo.getLiveKey());
+			put("rounddate",date);
+			put("starttime","00:00:00");
+			put("endtime","23:59:59");
+			put("gamekind","0");
+			put("subgamekind","0");
+			put("page", page+"");
+			put("pagelimit","500");
+		}};
+		String param = BBINCommon.mapToString(paramMap);
+		String key = EncryptUtils.encrypt(param,BBINCommon.USERKEY);
+		param+="&key="+key;
+		return param.toString();
 	}
 	/**
 	 * 获取捕鱼大师捕鱼达人记录
@@ -104,7 +123,7 @@ public class ManualPullGameDataService {
 	 * @return
 	 */
 	private String getRecord38And30(ApiInfoEntity configApiInfo,String date, int page,int pageLimit) {
-		String key = getKey(configApiInfo);
+		/*String key = getKey(configApiInfo);
 		StringBuffer sb = new StringBuffer();
 		sb.append("website=").append(Platform.Constans.kkw_WEBSITE);
 		sb.append("&uppername=").append(configApiInfo.getLiveKey());
@@ -118,7 +137,21 @@ public class ManualPullGameDataService {
 		sb.append("&page=").append(page);
 		sb.append("&pagelimit="+pageLimit);
 		sb.append("&key=").append(key);
-		return sb.toString();
+		return sb.toString();*/
+		Map<String,String> paramMap = new TreeMap<String,String>(){{
+			put("action","BetTime");
+			put("uppername",configApiInfo.getLiveKey());
+			put("date",date);
+			put("starttime","00:00:00");
+			put("endtime","23:59:59");
+			//put("gametype","38001");不是必须参数
+			put("page",String.valueOf(page));
+			put("pagelimit", pageLimit+"");
+		}};
+		String param =  BBINCommon.mapToString(paramMap);
+		String key = EncryptUtils.encrypt(param, BBINCommon.USERKEY);
+		param+="&key="+key;
+		return param.toString();
 	}
 
 	private String getKey(ApiInfoEntity configApiInfo) {
@@ -130,6 +163,6 @@ public class ManualPullGameDataService {
 
 
 
-	
+
 
 }

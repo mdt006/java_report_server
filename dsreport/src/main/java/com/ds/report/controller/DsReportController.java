@@ -39,10 +39,10 @@ import com.ds.report.vo.ValidateMemberByDateParam;
 @Controller
 public class DsReportController {
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Resource
 	private DsReportServiceImpl dsReportService;
-	
+
 	@Resource
 	private HunterJackpotServiceImpl hunterJackpotServiceImpl;
 	/**
@@ -53,7 +53,7 @@ public class DsReportController {
 	@RequestMapping(value="/listTotalReport",method=RequestMethod.POST)
 	@ResponseBody
 	public Object listTotalReport(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("注单统计报表listTotalReport start");
@@ -73,7 +73,7 @@ public class DsReportController {
 			String key = param.getString("key");
 			String page = param.getString("page");
 			String pageLimit = param.getString("pageLimit");
-			
+
 			Map<String,Object> paramMap = new HashMap<String,Object>();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -102,7 +102,7 @@ public class DsReportController {
 			}
 			if(StringUtils.isNotBlank(agentLevel)){
 				paramMap.put("agentLevel", agentLevel);
-			}	
+			}
 			if(StringUtils.isNotBlank(betStatus)){
 				paramMap.put("betStatus", betStatus);
 			}
@@ -136,7 +136,7 @@ public class DsReportController {
 	@RequestMapping(value="/listDetailReport",method=RequestMethod.POST)
 	@ResponseBody
 	public Object listDetailReport(HttpServletRequest request){
-		com.alibaba.fastjson.JSONObject result = new com.alibaba.fastjson.JSONObject(); 
+		com.alibaba.fastjson.JSONObject result = new com.alibaba.fastjson.JSONObject();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("注单明细报表listDetailReport start");
@@ -160,7 +160,7 @@ public class DsReportController {
 			String key = param.getString("key");
 			String page = param.getString("page");
 			String pageLimit = param.getString("pageLimit");
-			
+
 			Map<String,Object> paramMap = new HashMap<String,Object>();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -186,7 +186,7 @@ public class DsReportController {
 			}
 			if(StringUtils.isNotBlank(startTime)){
 				paramMap.put("startTime", startTime);
-			}	
+			}
 			if(StringUtils.isNotBlank(endTime)){
 				paramMap.put("endTime", endTime);
 			}
@@ -216,9 +216,9 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
-	
+
 	/**
 	 * 按天统计单个用户注单数及金额
 	 * @param request
@@ -227,16 +227,16 @@ public class DsReportController {
 	@RequestMapping(value="/betTotalByDay",method=RequestMethod.POST)
 	@ResponseBody
 	public Object betTotalByDay(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("按天统计单个用户注单数及金额betTotalByDay start");
-			
+
 			RequestUtils.showParams(request);
 			String jsonStr = RequestUtils.getParams(request);
 			com.alibaba.fastjson.JSONObject param = JSON.parseObject(jsonStr);
 			logger.info(param.toJSONString());
-			
+
 			String username = param.getString("username");
 			String siteId = param.getString("siteId");
 			String betTimeBegin = param.getString("betTimeBegin");
@@ -248,8 +248,8 @@ public class DsReportController {
 			String liveId = param.getString("liveId");
 			String key = param.getString("key");
 			String orderType = param.getString("orderType");
-			
-			
+
+
 			Map<String,Object> paramMap = new HashMap<String,Object>();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -275,7 +275,7 @@ public class DsReportController {
 			}
 			if(StringUtils.isNotBlank(startTime)){
 				paramMap.put("startTime", startTime);
-			}	
+			}
 			if(StringUtils.isNotBlank(endTime)){
 				paramMap.put("endTime", endTime);
 			}
@@ -289,7 +289,7 @@ public class DsReportController {
 				paramMap.put("orderType", "desc");
 			}
 			logger.info("按天统计单个用户注单数及金额betTotalByDay param:"+paramMap.toString());
-	//		this.dsReportService.queryBetTotalByDay(paramMap,result);
+			//		this.dsReportService.queryBetTotalByDay(paramMap,result);
 			this.dsReportService.queryBetTotalByDayNew(paramMap,result);
 			logger.info("按天统计单个用户注单数及金额betTotalByDay end");
 		}catch(Exception ex){
@@ -300,9 +300,9 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
-	
+
 	/**
 	 * 统计单个用户注单数及金额
 	 * @param request
@@ -311,7 +311,7 @@ public class DsReportController {
 /*	@RequestMapping(value="/betTotalByUser",method=RequestMethod.POST)
 	@ResponseBody
 	public Object betTotalByUser(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("统计单个用户注单数及金额betTotalByUser start");
@@ -319,7 +319,7 @@ public class DsReportController {
 			String jsonStr = RequestUtils.getParams(request);
 			com.alibaba.fastjson.JSONObject param = JSON.parseObject(jsonStr);
 			logger.info(param.toJSONString());
-			
+
 			String username = param.getString("username");
 			String siteId = param.getString("siteId");
 			String betTimeBegin = param.getString("betTimeBegin");
@@ -330,7 +330,7 @@ public class DsReportController {
 			String gameType = param.getString("gameType");
 			String liveId = param.getString("liveId");
 			String key = param.getString("key");
-			
+
 			Map<String,Object> paramMap = new HashMap<String,Object>();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -355,7 +355,7 @@ public class DsReportController {
 			}
 			if(StringUtils.isNotBlank(startTime)){
 				paramMap.put("startTime", startTime);
-			}	
+			}
 			if(StringUtils.isNotBlank(endTime)){
 				paramMap.put("endTime", endTime);
 			}
@@ -374,9 +374,9 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}*/
-	
+
 
 	/**
 	 * 优惠统计
@@ -388,7 +388,7 @@ public class DsReportController {
 	@RequestMapping(value="/privilegeTotal",method=RequestMethod.POST)
 	@ResponseBody
 	public Object privilegeTotal(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("优惠统计privilegeTotal start");
@@ -402,7 +402,7 @@ public class DsReportController {
 			String betTimeBegin = param.getString("betTimeBegin");
 			String betTimeEnd = param.getString("betTimeEnd");
 			String key = param.getString("key");
-			
+
 			Map<String,Object> paramMap = new HashMap<String,Object>();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -434,9 +434,9 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
-	
+
 	/**
 	 * 返水报表
 	 * 输入条件：返水优惠设定值、日期区间、层级、用户名称、网站名称
@@ -447,7 +447,7 @@ public class DsReportController {
 	@RequestMapping(value="/waterReportByProc",method=RequestMethod.POST)
 	@ResponseBody
 	public Object waterReportByProc(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("返水报表waterReport start");
@@ -503,46 +503,46 @@ public class DsReportController {
 						String orderName = (String)iterOrder.next();
 						sbOrder.append("live_").append(orderName).append("|").append(getJsonParm(liveOrder,orderName)).append(";");
 					}
-						
+
 				}else{
 					sbOrder.append(iterName).append("|").append(getJsonParm(returnOrder,iterName)).append(";");
 				}
 			}
 			logger.info("返水报表waterReport sbOrder:"+sbOrder.toString());
 			StringBuilder sbPercent = new StringBuilder();
-			String[] arr=new String[returnPercent.size()];  
-			for(int i=0;i<returnPercent.size();i++){  
-				arr[i]=returnPercent.getString(i); 
-			    JSONObject jsonPercent = JSONObject.fromObject(arr[i]);
-			    for (@SuppressWarnings("rawtypes")Iterator iter = jsonPercent.keys(); iter.hasNext();){
-			        String iterName = (String)iter.next();
-			        if(iterName.endsWith("percent_detail")){
-			        	JSONObject jsonPercentDetail = JSONObject.fromObject(getJsonParm(jsonPercent,iterName));
-			        	for (@SuppressWarnings("rawtypes")Iterator iterPencent = jsonPercentDetail.keys(); iterPencent.hasNext();){
-			        		String iterPencentName = (String)iterPencent.next();
-			        		if(iterPencentName.equals("live")){
-			        			JSONObject jsonLive = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
-			        			for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonLive.keys(); iterLive.hasNext();){
-			        				String liveName = (String)iterLive.next();
-			        				sbPercent.append("live_").append(liveName).append("|").append(getJsonParm(jsonLive,liveName)).append(";");
-			        			}
-			        		}else{
-			        			sbPercent.append(iterPencentName).append("|").append(getJsonParm(jsonPercentDetail,iterPencentName)).append(";");
-			        		}
-			        	}
-			        		
-			        }else{
-			        	sbPercent.append(iterName).append("|").append(getJsonParm(jsonPercent,iterName)).append(";");
-			        }
-			        	
-			      } 
-			    sbPercent.append("#");
-			}  
-			logger.info("返水报表waterReport sbPercent:"+sbPercent.toString());	
-			    
+			String[] arr=new String[returnPercent.size()];
+			for(int i=0;i<returnPercent.size();i++){
+				arr[i]=returnPercent.getString(i);
+				JSONObject jsonPercent = JSONObject.fromObject(arr[i]);
+				for (@SuppressWarnings("rawtypes")Iterator iter = jsonPercent.keys(); iter.hasNext();){
+					String iterName = (String)iter.next();
+					if(iterName.endsWith("percent_detail")){
+						JSONObject jsonPercentDetail = JSONObject.fromObject(getJsonParm(jsonPercent,iterName));
+						for (@SuppressWarnings("rawtypes")Iterator iterPencent = jsonPercentDetail.keys(); iterPencent.hasNext();){
+							String iterPencentName = (String)iterPencent.next();
+							if(iterPencentName.equals("live")){
+								JSONObject jsonLive = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
+								for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonLive.keys(); iterLive.hasNext();){
+									String liveName = (String)iterLive.next();
+									sbPercent.append("live_").append(liveName).append("|").append(getJsonParm(jsonLive,liveName)).append(";");
+								}
+							}else{
+								sbPercent.append(iterPencentName).append("|").append(getJsonParm(jsonPercentDetail,iterPencentName)).append(";");
+							}
+						}
+
+					}else{
+						sbPercent.append(iterName).append("|").append(getJsonParm(jsonPercent,iterName)).append(";");
+					}
+
+				}
+				sbPercent.append("#");
+			}
+			logger.info("返水报表waterReport sbPercent:"+sbPercent.toString());
+
 			paramMap.put("return_order", sbOrder.toString());
 			paramMap.put("return_percent", sbPercent.toString());
-			
+
 			logger.info("返水报表waterReport param:"+paramMap.toString());
 			this.dsReportService.waterReportByProc(paramMap,result);
 			logger.info("返水报表waterReport end");
@@ -554,10 +554,10 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
-	
-	
+
+
 	/**
 	 * 退佣统计
 	 * 输入条件：日期区间、网站名称
@@ -568,7 +568,7 @@ public class DsReportController {
 	@RequestMapping(value="/commissionTotal",method=RequestMethod.POST)
 	@ResponseBody
 	public Object commissionTotal(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("退佣统计commissionTotal start");
@@ -576,8 +576,8 @@ public class DsReportController {
 			String jsonStr = RequestUtils.getParams(request);
 			com.alibaba.fastjson.JSONObject param = JSON.parseObject(jsonStr);
 			logger.info(param.toJSONString());
-			
-			
+
+
 			String siteId = param.getString("siteId");
 			String betTimeBegin = param.getString("betTimeBegin");
 			String betTimeEnd = param.getString("betTimeEnd");
@@ -585,7 +585,7 @@ public class DsReportController {
 			String username = param.getString("username");
 			String key = param.getString("key");
 			String defValidamount = param.getString("defValidamount");
-			
+
 			Map<String,Object> paramMap = new HashMap<String,Object>();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -609,7 +609,7 @@ public class DsReportController {
 			if(StringUtils.isNotBlank(defValidamount)){
 				paramMap.put("defValidamount", defValidamount);
 			}
-			
+
 			logger.info("退佣统计commissionTotal param:"+paramMap.toString());
 			this.dsReportService.commissionTotal(paramMap,result);
 			logger.info("退佣统计commissionTotal end");
@@ -621,12 +621,12 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
 	@RequestMapping(value="/commissionTotalByPage",method=RequestMethod.POST)
 	@ResponseBody
 	public Object commissionTotalByPage(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("退佣统计commissionTotal start");
@@ -641,7 +641,7 @@ public class DsReportController {
 			String username = param.getString("username");
 			String key = param.getString("key");
 			String defValidamount = param.getString("defValidamount");
-			
+
 			Map<String,Object> paramMap = new HashMap<String,Object>();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -665,7 +665,7 @@ public class DsReportController {
 			if(StringUtils.isNotBlank(defValidamount)){
 				paramMap.put("defValidamount", defValidamount);
 			}
-			
+
 			logger.info("退佣统计commissionTotalByPage param:"+paramMap.toString());
 			this.dsReportService.commissionTotalByPage(paramMap,result);
 			logger.info("退佣统计commissionTotalByPage end");
@@ -677,9 +677,9 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
-	
+
 	private String getRequestParm(HttpServletRequest request,String paramName){
 		try{
 			return request.getParameter(paramName).trim();
@@ -687,7 +687,7 @@ public class DsReportController {
 			return "";
 		}
 	}
-	
+
 	private String getJsonParm(JSONObject jsonParam,String paramName){
 		try{
 			return jsonParam.getString(paramName).trim();
@@ -695,7 +695,7 @@ public class DsReportController {
 			return "";
 		}
 	}
-	
+
 	/**
 	 * 返水报表
 	 * 输入条件：返水优惠设定值、日期区间、层级、用户名称、网站名称
@@ -706,7 +706,7 @@ public class DsReportController {
 	@RequestMapping(value="/waterReport",method=RequestMethod.POST)
 	@ResponseBody
 	public Object waterReport(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("返水报表waterReport start");
@@ -721,9 +721,9 @@ public class DsReportController {
 			String betTimeEnd = param.getString("betTimeEnd");
 			String key = param.getString("key");
 			String waterType = param.getString("waterType");
-			
+
 			//logger.info();
-			
+
 			Map<String,Object> paramMap = new HashMap<String,Object>();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -756,9 +756,9 @@ public class DsReportController {
 			JSONObject returnOrder=JSONObject.fromObject(strOrder);
 			JSONArray returnPercent=JSONArray.fromObject(strPercent);
 			StringBuilder sbOrder = new StringBuilder();
-			
-			Map<String,Object> orderMap = new HashMap<String,Object>(); 
-			Map<String,Object> orderLiveMap = new HashMap<String,Object>(); 
+
+			Map<String,Object> orderMap = new HashMap<String,Object>();
+			Map<String,Object> orderLiveMap = new HashMap<String,Object>();
 			for (@SuppressWarnings("rawtypes")Iterator iter = returnOrder.keys(); iter.hasNext();){
 				String iterName = (String)iter.next();
 				if(iterName.equals("live_order")){
@@ -769,7 +769,7 @@ public class DsReportController {
 						sbOrder.append("live_").append(orderName).append("|").append(getJsonParm(liveOrder,orderName)).append(";");
 						orderLiveMap.put(getJsonParm(liveOrder,orderName), "live_"+orderName);
 					}
-						
+
 				}else if(iterName.equals("3d")){
 					sbOrder.append(iterName).append("|").append(getJsonParm(returnOrder,iterName)).append(";");
 					orderMap.put(getJsonParm(returnOrder,iterName), "bb_3d");
@@ -779,55 +779,55 @@ public class DsReportController {
 				}
 			}
 			logger.info("返水报表waterReport sbOrder:"+sbOrder.toString());
-			
-			String[] arr=new String[returnPercent.size()];  
-			Map<String,Object> percentMap = new HashMap<String,Object>(); 
-			for(int i=0;i<returnPercent.size();i++){  
+
+			String[] arr=new String[returnPercent.size()];
+			Map<String,Object> percentMap = new HashMap<String,Object>();
+			for(int i=0;i<returnPercent.size();i++){
 				StringBuilder sbPercent = new StringBuilder();
-				Map<String,Object> percentDetailMap = new HashMap<String,Object>(); 
+				Map<String,Object> percentDetailMap = new HashMap<String,Object>();
 				String vGold = "";
-				arr[i]=returnPercent.getString(i); 
-			    JSONObject jsonPercent = JSONObject.fromObject(arr[i]);
-			    for (@SuppressWarnings("rawtypes")Iterator iter = jsonPercent.keys(); iter.hasNext();){
-			        String iterName = (String)iter.next();
-			        if(iterName.endsWith("percent_detail")){
-			        	JSONObject jsonPercentDetail = JSONObject.fromObject(getJsonParm(jsonPercent,iterName));
-			        	for (@SuppressWarnings("rawtypes")Iterator iterPencent = jsonPercentDetail.keys(); iterPencent.hasNext();){
-			        		String iterPencentName = (String)iterPencent.next();
-			        		if(iterPencentName.equals("live")){
-			        			JSONObject jsonLive = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
-			        			for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonLive.keys(); iterLive.hasNext();){
-			        				String liveName = (String)iterLive.next();
-			        				sbPercent.append("live_").append(liveName).append("|").append(getJsonParm(jsonLive,liveName)).append(";");
-			        				percentDetailMap.put("live_"+liveName, getJsonParm(jsonLive,liveName));
-			        			}
-			        		}else if(iterPencentName.equals("3d")){
-					        	sbPercent.append("bb_3d").append("|").append(getJsonParm(jsonPercentDetail,iterPencentName)).append(";");
-					        	percentDetailMap.put("bb_3d", getJsonParm(jsonPercentDetail,iterPencentName));
+				arr[i]=returnPercent.getString(i);
+				JSONObject jsonPercent = JSONObject.fromObject(arr[i]);
+				for (@SuppressWarnings("rawtypes")Iterator iter = jsonPercent.keys(); iter.hasNext();){
+					String iterName = (String)iter.next();
+					if(iterName.endsWith("percent_detail")){
+						JSONObject jsonPercentDetail = JSONObject.fromObject(getJsonParm(jsonPercent,iterName));
+						for (@SuppressWarnings("rawtypes")Iterator iterPencent = jsonPercentDetail.keys(); iterPencent.hasNext();){
+							String iterPencentName = (String)iterPencent.next();
+							if(iterPencentName.equals("live")){
+								JSONObject jsonLive = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
+								for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonLive.keys(); iterLive.hasNext();){
+									String liveName = (String)iterLive.next();
+									sbPercent.append("live_").append(liveName).append("|").append(getJsonParm(jsonLive,liveName)).append(";");
+									percentDetailMap.put("live_"+liveName, getJsonParm(jsonLive,liveName));
+								}
+							}else if(iterPencentName.equals("3d")){
+								sbPercent.append("bb_3d").append("|").append(getJsonParm(jsonPercentDetail,iterPencentName)).append(";");
+								percentDetailMap.put("bb_3d", getJsonParm(jsonPercentDetail,iterPencentName));
 							}else{
-			        			sbPercent.append(iterPencentName).append("|").append(getJsonParm(jsonPercentDetail,iterPencentName)).append(";");
-			        			percentDetailMap.put(iterPencentName, getJsonParm(jsonPercentDetail,iterPencentName));
-			        		}
-			        	}
-			        		
-			        }else if(iterName.equals("vgold")){
+								sbPercent.append(iterPencentName).append("|").append(getJsonParm(jsonPercentDetail,iterPencentName)).append(";");
+								percentDetailMap.put(iterPencentName, getJsonParm(jsonPercentDetail,iterPencentName));
+							}
+						}
+
+					}else if(iterName.equals("vgold")){
 						vGold = getJsonParm(jsonPercent,iterName);
 						sbPercent.append(iterName).append("|").append(getJsonParm(jsonPercent,iterName)).append(";");
 						percentDetailMap.put(iterName, getJsonParm(jsonPercent,iterName));
 					}else{
-			        	sbPercent.append(iterName).append("|").append(getJsonParm(jsonPercent,iterName)).append(";");
-			        	percentDetailMap.put(iterName, getJsonParm(jsonPercent,iterName));
-			        }
-			        	
+						sbPercent.append(iterName).append("|").append(getJsonParm(jsonPercent,iterName)).append(";");
+						percentDetailMap.put(iterName, getJsonParm(jsonPercent,iterName));
+					}
+
 				}
-			    percentMap.put(vGold, percentDetailMap);
-			   
-			}  
-			//logger.info("返水报表waterReport sbPercent:"+sbPercent.toString());	
-			    
+				percentMap.put(vGold, percentDetailMap);
+
+			}
+			//logger.info("返水报表waterReport sbPercent:"+sbPercent.toString());
+
 			//paramMap.put("return_order", sbOrder.toString());
 			//paramMap.put("return_percent", sbPercent.toString());
-			
+
 			logger.info("返水报表waterReport param:"+paramMap.toString());
 			this.dsReportService.waterReport(paramMap,orderMap,orderLiveMap,percentMap,result);
 			logger.info("返水报表waterReport end");
@@ -839,9 +839,9 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
-	
+
 	/**
 	 * 稽核统计
 	 * 输入条件：日期区间、用户名称、网站名称
@@ -852,16 +852,16 @@ public class DsReportController {
 	@RequestMapping(value="/auditTotal",method=RequestMethod.POST)
 	@ResponseBody
 	public Object auditTotal(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("稽核统计auditTotal start");
-			
+
 			RequestUtils.showParams(request);
 			String jsonStr = RequestUtils.getParams(request);
 			com.alibaba.fastjson.JSONObject param = JSON.parseObject(jsonStr);
 			logger.info(param.toJSONString());
-					
+
 			String siteId = param.getString("siteId");
 			String username = param.getString("username");
 			String betTimeBegin = param.getString("betTimeBegin");
@@ -869,7 +869,7 @@ public class DsReportController {
 			String startTime = param.getString("startTime");
 			String endTime = param.getString("endTime");
 			String key = param.getString("key");
-			
+
 			Map<String,Object> paramMap = new HashMap<String,Object>();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -889,7 +889,7 @@ public class DsReportController {
 			}
 			if(StringUtils.isNotBlank(startTime)){
 				paramMap.put("startTime", startTime);
-			}	
+			}
 			if(StringUtils.isNotBlank(endTime)){
 				paramMap.put("endTime", endTime);
 			}
@@ -904,10 +904,10 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
-	
-	
+
+
 	/**
 	 * 稽核统计临时
 	 * 输入条件：日期区间、用户名称、网站名称
@@ -918,7 +918,7 @@ public class DsReportController {
 	@RequestMapping(value="/auditTotalTemp",method=RequestMethod.POST)
 	@ResponseBody
 	public Object auditTotalTemp(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("稽核统计auditTotal start");
@@ -926,8 +926,8 @@ public class DsReportController {
 			String jsonStr = RequestUtils.getParams(request);
 			com.alibaba.fastjson.JSONObject param = JSON.parseObject(jsonStr);
 			logger.info(param.toJSONString());
-			
-			
+
+
 			String siteId = param.getString("siteId");
 			String username = param.getString("username");
 			String betTimeBegin = param.getString("betTimeBegin");
@@ -935,7 +935,7 @@ public class DsReportController {
 			String startTime = param.getString("startTime");
 			String endTime = param.getString("endTime");
 			String key = param.getString("key");
-			
+
 			Map<String,Object> paramMap = new HashMap<String,Object>();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -955,7 +955,7 @@ public class DsReportController {
 			}
 			if(StringUtils.isNotBlank(startTime)){
 				paramMap.put("startTime", startTime);
-			}	
+			}
 			if(StringUtils.isNotBlank(endTime)){
 				paramMap.put("endTime", endTime);
 			}
@@ -970,9 +970,9 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
-	
+
 	/**
 	 * 小费管理
 	 * 输入条件：日期区间、网站名称、来源
@@ -983,7 +983,7 @@ public class DsReportController {
 	@RequestMapping(value="/tipsList",method=RequestMethod.POST)
 	@ResponseBody
 	public Object tipsList(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("小费管理tipsList start");
@@ -998,7 +998,7 @@ public class DsReportController {
 			String key = param.getString("key");
 			String page = param.getString("page");
 			String pageLimit = param.getString("pageLimit");
-			
+
 			Map<String,Object> paramMap = new HashMap<String,Object>();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -1018,7 +1018,7 @@ public class DsReportController {
 			}
 			if(StringUtils.isNotBlank(page)){
 				paramMap.put("page", page);
-			}	
+			}
 			if(StringUtils.isNotBlank(pageLimit)){
 				paramMap.put("pageLimit", pageLimit);
 			}
@@ -1034,10 +1034,10 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
-	
-	
+
+
 	/**
 	 * 有效会员统计
 	 * 输入条件：日期区间、网站名称、有效金额
@@ -1065,7 +1065,7 @@ public class DsReportController {
 			String defValidamount = param.getString("defValidamount");
 			String page = param.getString("page");
 			String pageLimit = param.getString("pageLimit");
-			
+
 			Map<String,Object> paramMap = new HashMap<String,Object>();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -1091,11 +1091,11 @@ public class DsReportController {
 			}
 			if(StringUtils.isNotBlank(page)){
 				paramMap.put("page", page);
-			}	
+			}
 			if(StringUtils.isNotBlank(pageLimit)){
 				paramMap.put("pageLimit", pageLimit);
 			}
-			
+
 			logger.info("有效会员统计validUserCount param:"+paramMap.toString());
 			this.dsReportService.validUserCount(paramMap,result);
 			logger.info("有效会员统计validUserCount end");
@@ -1107,9 +1107,9 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
-	
+
 	/**
 	 * 彩金统计
 	 * 输入条件：日期区间、网站名称、类型、来源
@@ -1120,7 +1120,7 @@ public class DsReportController {
 	@RequestMapping(value="/jpGameList",method=RequestMethod.POST)
 	@ResponseBody
 	public Object jpGameList(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("彩金统计jpGameList start");
@@ -1136,7 +1136,7 @@ public class DsReportController {
 			String key = param.getString("key");
 			String page = param.getString("page");
 			String pageLimit = param.getString("pageLimit");
-			
+
 			Map<String,Object> paramMap = new HashMap<String,Object>();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -1159,11 +1159,11 @@ public class DsReportController {
 			}
 			if(StringUtils.isNotBlank(page)){
 				paramMap.put("page", page);
-			}	
+			}
 			if(StringUtils.isNotBlank(pageLimit)){
 				paramMap.put("pageLimit", pageLimit);
 			}
-			
+
 			logger.info("彩金统计jpGameList param:"+paramMap.toString());
 			this.dsReportService.jpGameList(paramMap,result);
 			logger.info("彩金统计jpGameList end");
@@ -1175,18 +1175,18 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
 	@RequestMapping(value="/setMemberData",method=RequestMethod.POST)
 	public @ResponseBody Object setMemberData(HttpServletRequest request) {
 		logger.info("===============调用setMemberData接口=======================");
 		long start =System.currentTimeMillis();
 		RequestUtils.showParams(request);
-		
+
 		String jsonStr = RequestUtils.getParams(request);
 		com.alibaba.fastjson.JSONObject param = JSON.parseObject(jsonStr);
 		logger.info(param.toJSONString());
-		
+
 		String username = param.getString("username");
 		String siteId = param.getString("siteId");
 		String agents = param.getString("agents");
@@ -1196,7 +1196,7 @@ public class DsReportController {
 		String company = param.getString("company");
 		String ip = request.getRemoteAddr();
 		logger.info("请求者IP："+ip);
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		try {
 			if(StringUtils.isBlank(username)){
 				result.put("message", "username param  cant not null");
@@ -1249,7 +1249,7 @@ public class DsReportController {
 	@RequestMapping(value="/getAllLiveByUser",method=RequestMethod.POST)
 	@ResponseBody
 	public Object getAllLiveByUser(HttpServletRequest request){
-		com.alibaba.fastjson.JSONObject result = new com.alibaba.fastjson.JSONObject(); 
+		com.alibaba.fastjson.JSONObject result = new com.alibaba.fastjson.JSONObject();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("getAllLiveByUser start");
@@ -1261,7 +1261,7 @@ public class DsReportController {
 			String betTimeBegin = param.getString("beginTime");
 			String betTimeEnd = param.getString("endTime");
 			String username = param.getString("username");
-			
+
 			com.alibaba.fastjson.JSONObject paramMap = new com.alibaba.fastjson.JSONObject();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -1276,7 +1276,7 @@ public class DsReportController {
 			if(StringUtils.isNotBlank(username)){
 				paramMap.put("username", username);
 			}
-			
+
 			logger.info("getAllLiveByUser param:"+paramMap.toString());
 			this.dsReportService.getAllLiveByUser(result,paramMap);
 			logger.info("getAllLiveByUser end");
@@ -1288,12 +1288,12 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
 	@RequestMapping(value="/getAllTypeByUser",method=RequestMethod.POST)
 	@ResponseBody
 	public Object getAllTypeByUser(HttpServletRequest request){
-		com.alibaba.fastjson.JSONObject result = new com.alibaba.fastjson.JSONObject(); 
+		com.alibaba.fastjson.JSONObject result = new com.alibaba.fastjson.JSONObject();
 		long start=System.currentTimeMillis();
 		try{
 			logger.info("getAllTypeByUser start");
@@ -1305,7 +1305,7 @@ public class DsReportController {
 			String betTimeBegin = param.getString("beginTime");
 			String betTimeEnd = param.getString("endTime");
 			String username = param.getString("username");
-			
+
 			com.alibaba.fastjson.JSONObject paramMap = new com.alibaba.fastjson.JSONObject();
 			if(StringUtils.isNotBlank(siteId)){
 				paramMap.put("siteId", siteId);
@@ -1320,7 +1320,7 @@ public class DsReportController {
 			if(StringUtils.isNotBlank(username)){
 				paramMap.put("username", username);
 			}
-			
+
 			logger.info("getAllTypeByUser param:"+paramMap.toString());
 			dsReportService.getAllTypeByUser(result,paramMap);
 			logger.info("getAllTypeByUser end");
@@ -1332,12 +1332,12 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>>>result:"+result);
 		return result;
-	
+
 	}
 	@RequestMapping(value="/getBetInfoByDate",method=RequestMethod.POST)
 	@ResponseBody
 	public Object getBetInfoByDate(HttpServletRequest request){
-		com.alibaba.fastjson.JSONObject result = new com.alibaba.fastjson.JSONObject(); 
+		com.alibaba.fastjson.JSONObject result = new com.alibaba.fastjson.JSONObject();
 		long start=System.currentTimeMillis();
 		try {
 			RequestUtils.showParams(request);
@@ -1372,7 +1372,7 @@ public class DsReportController {
 					return result.toString();
 				}
 			}
-			
+
 			if(StringUtils.isBlank(siteId) || !StringUtils.isNumeric(siteId)){
 				result.put("returnMsg", "siteId param is wrong");
 				result.put("returnCode", 110009);
@@ -1383,7 +1383,7 @@ public class DsReportController {
 				result.put("returnCode", 110009);
 				return result.toString();
 			}
-			
+
 			BetInfoByDateParam queryParam = new BetInfoByDateParam();
 			queryParam.setSiteId(Integer.valueOf(siteId));
 			if(StringUtils.isNotBlank(beginTime)){
@@ -1398,7 +1398,7 @@ public class DsReportController {
 			dsReportService.getBetInfoByDate(result,queryParam);
 			result.put("returnCode", 900000);
 			result.put("returnMsg", "Success");
-			
+
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			result.put("returnCode", 910001);
@@ -1407,7 +1407,7 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>调用getBetInfoByDate接口result:"+result.toString());
 		return result.toString();
-	
+
 	}
 	@RequestMapping(value="/getBetInfoByLiveId",method=RequestMethod.POST)
 	@ResponseBody
@@ -1422,7 +1422,7 @@ public class DsReportController {
 //		String gameKind = obj.getString("gameKind");//游戏类型
 		String betTimeBegin = param.getString("betTimeBegin");//格式 yyyy-MM-dd HH:mm:ss
 		String betTimeEnd = param.getString("betTimeEnd");//格式 yyyy-MM-dd HH:mm:ss
-		com.alibaba.fastjson.JSONObject result = new com.alibaba.fastjson.JSONObject(); 
+		com.alibaba.fastjson.JSONObject result = new com.alibaba.fastjson.JSONObject();
 		com.alibaba.fastjson.JSONObject obj = new com.alibaba.fastjson.JSONObject();
 		try {
 			if(StringUtils.isBlank(siteId)){
@@ -1450,7 +1450,7 @@ public class DsReportController {
 			}
 			obj.put("betTimeEnd", betTimeEnd);
 			dsReportService.getBetInfoByLiveId(result,obj);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage());
@@ -1460,13 +1460,13 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>调用getBetInfoByLiveId接口=====>>>>>>>>>result:"+result);
 		return JSON.toJSONString(result, SerializerFeature.BrowserCompatible);
-	
+
 	}
 	@RequestMapping(value="/getMemberBetInfo",method=RequestMethod.POST)
 	@ResponseBody
 	public Object getMemberBetInfo(HttpServletRequest request){
-		com.alibaba.fastjson.JSONObject result = new com.alibaba.fastjson.JSONObject(); 
-		com.alibaba.fastjson.JSONObject data = new com.alibaba.fastjson.JSONObject(); 
+		com.alibaba.fastjson.JSONObject result = new com.alibaba.fastjson.JSONObject();
+		com.alibaba.fastjson.JSONObject data = new com.alibaba.fastjson.JSONObject();
 		long start=System.currentTimeMillis();
 		try {
 			RequestUtils.showParams(request);
@@ -1504,7 +1504,7 @@ public class DsReportController {
 					return result.toString();
 				}
 			}
-			
+
 			if(StringUtils.isBlank(siteId) || !StringUtils.isNumeric(siteId)){
 				result.put("returnMsg", "siteId param is wrong");
 				result.put("returnCode", 110009);
@@ -1525,7 +1525,7 @@ public class DsReportController {
 				result.put("returnCode", 110009);
 				return result.toString();
 			}
-			
+
 			Page pagation = new Page();
 			pagation.setPageNo(page == null?1:Integer.valueOf(page));
 			pagation.setPageSize(StringUtils.isBlank(pageSize)?20:Integer.valueOf(pageSize));
@@ -1538,7 +1538,7 @@ public class DsReportController {
 			if(StringUtils.isNotBlank(endTime)){
 				queryParam.setEndTime(DateUtil.parseByPatterns(endTime, "yyyy-MM-dd"));
 			}
-			
+
 			dsReportService.getMemberBetInfo(data,result,queryParam,pagation);
 			result.put("returnCode", 900000);
 			result.put("returnMsg", "Success");
@@ -1550,7 +1550,7 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>调用getMemberBetInfo接口result:"+result.toString());
 		return result.toString();
-	
+
 	}
 	@RequestMapping(value="/getMemberNameList",method=RequestMethod.POST)
 	@ResponseBody
@@ -1581,7 +1581,7 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>调用getMemberNameList接口result:"+result.toString());
 		return result.toString();
-	
+
 	}
 	@RequestMapping(value="/getValidateMemberByDate",method=RequestMethod.POST)
 	@ResponseBody
@@ -1622,7 +1622,7 @@ public class DsReportController {
 					return result.toString();
 				}
 			}
-			
+
 			if(StringUtils.isBlank(siteId) || !StringUtils.isNumeric(siteId)){
 				result.put("returnMsg", "siteId param is wrong");
 				result.put("returnCode", 110009);
@@ -1660,7 +1660,7 @@ public class DsReportController {
 			dsReportService.getValidateMemberByDate(result,queryParam);
 			result.put("returnCode", 900000);
 			result.put("returnMsg", "Success");
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage());
@@ -1670,18 +1670,18 @@ public class DsReportController {
 		long end=System.currentTimeMillis();
 		logger.info("time:"+(end-start)+">>>>调用getValidateMemberByDate接口result:"+result.toString());
 		return result.toString();
-	
+
 	}
 	@RequestMapping(value="/waterReportNew",method=RequestMethod.POST)
 	@ResponseBody
 	public Object waterReportNew(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		try{
 			RequestUtils.showParams(request);
 			String jsonStr = RequestUtils.getParams(request);
 			com.alibaba.fastjson.JSONObject param = JSON.parseObject(jsonStr);
 			logger.info(param.toJSONString());
-			
+
 			String siteId = param.getString("siteId");
 			String agentLevel = param.getString("agentLevel");
 			String username = param.getString("username");
@@ -1718,7 +1718,7 @@ public class DsReportController {
 			if(StringUtils.isNotBlank(waterType)){
 				paramMap.put("waterType", waterType);
 			}
-		
+
 			/*JSONObject returnOrder=JSONObject.fromObject(getRequestParm(request,"return_order"));
 			JSONArray returnPercent=JSONArray.fromObject(getRequestParm(request,"return_percent"));*/
 			JSONObject returnOrder = JSONObject.fromObject(param.getString("return_order"));//{"3d":7,"ball":4,"bb_sport":5,"game":6,"hongkong":2,"live":1,"live_order":{"bb":2,"ds":1,"other":3},"lotto":3}
@@ -1740,7 +1740,7 @@ public class DsReportController {
 						sbOrder.append("live_").append(orderName).append("|").append(getJsonParm(liveOrder,orderName)).append(";");
 						orderLiveMap.put(getJsonParm(liveOrder,orderName), "live_"+orderName);
 					}
-						
+
 				}else if(iterName.equals("hongkong_order")){//香港彩
 					JSONObject hongkongOrder=JSONObject.fromObject(getJsonParm(returnOrder,"hongkong_order"));
 					for (@SuppressWarnings("rawtypes")Iterator iterOrder = hongkongOrder.keys(); iterOrder.hasNext();){
@@ -1775,74 +1775,74 @@ public class DsReportController {
 					sbOrder.append(iterName).append("|").append(getJsonParm(returnOrder,iterName)).append(";");
 					orderMap.put(getJsonParm(returnOrder,iterName), iterName);
 				}
-				
+
 			}
 			logger.info("返水报表waterReport sbOrder:"+sbOrder.toString());
 			String[] arr=new String[returnPercent.size()];  //size = 2 分两层，按vgold划分
-			Map<String,Object> percentMap = new HashMap<String,Object>(); 
-			for(int i=0;i<returnPercent.size();i++){  
+			Map<String,Object> percentMap = new HashMap<String,Object>();
+			for(int i=0;i<returnPercent.size();i++){
 				StringBuilder sbPercent = new StringBuilder();
-				Map<String,Object> percentDetailMap = new HashMap<String,Object>(); 
+				Map<String,Object> percentDetailMap = new HashMap<String,Object>();
 				String vGold = "";
-				arr[i]=returnPercent.getString(i); 
-			    JSONObject jsonPercent = JSONObject.fromObject(arr[i]);
-			    for (@SuppressWarnings("rawtypes")Iterator iter = jsonPercent.keys(); iter.hasNext();){
-			        	
-			        String iterName = (String)iter.next();
-			        if(iterName.endsWith("percent_detail")){//反水汇率"percent_detail":{"ball":1,"live":{"ds":0.12,"bb":0.12,"other":0.12}}
-			        	JSONObject jsonPercentDetail = JSONObject.fromObject(getJsonParm(jsonPercent,iterName));//percent_detail
-			        	for (@SuppressWarnings("rawtypes")Iterator iterPencent = jsonPercentDetail.keys(); iterPencent.hasNext();){
-			        		String iterPencentName = (String)iterPencent.next();
-			        		if(iterPencentName.equals("live")){//视讯
-			        			JSONObject jsonLive = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
-			        			for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonLive.keys(); iterLive.hasNext();){
-			        				String liveName = (String)iterLive.next();
-			        				sbPercent.append("live_").append(liveName).append("|").append(getJsonParm(jsonLive,liveName)).append(";");
-			        				percentDetailMap.put("live_"+liveName, getJsonParm(jsonLive,liveName));
-			        			}
-			        		}else if(iterPencentName.equals("hongkong")){//香港彩
-			        			JSONObject jsonHongkong = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
-			        			for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonHongkong.keys(); iterLive.hasNext();){
-			        				String hongkongName = (String)iterLive.next();
-			        				sbPercent.append("hongkong_").append(hongkongName).append("|").append(getJsonParm(jsonHongkong,hongkongName)).append(";");
-			        				percentDetailMap.put("hongkong_"+hongkongName, getJsonParm(jsonHongkong,hongkongName));
-			        			}
-			        		}else if(iterPencentName.equals("lotto")){//彩票
-			        			JSONObject jsonLotto = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
-			        			for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonLotto.keys(); iterLive.hasNext();){
-			        				String lottoName = (String)iterLive.next();
-			        				sbPercent.append("lotto_").append(lottoName).append("|").append(getJsonParm(jsonLotto,lottoName)).append(";");
-			        				percentDetailMap.put("lotto_"+lottoName, getJsonParm(jsonLotto,lottoName));
-			        			}
-			        		}else if(iterPencentName.equals("sport")){//体育
-			        			JSONObject jsonSport = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
-			        			for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonSport.keys(); iterLive.hasNext();){
-			        				String sportName = (String)iterLive.next();
-			        				sbPercent.append("sport_").append(sportName).append("|").append(getJsonParm(jsonSport,sportName)).append(";");
-			        				percentDetailMap.put("sport_"+sportName, getJsonParm(jsonSport,sportName));
-			        			}
-			        		}else if(iterPencentName.equals("game")){//电子游戏
-			        			JSONObject jsonGame = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
-			        			for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonGame.keys(); iterLive.hasNext();){
-			        				String gameName = (String)iterLive.next();
-			        				sbPercent.append("game_").append(gameName).append("|").append(getJsonParm(jsonGame,gameName)).append(";");
-			        				percentDetailMap.put("game_"+gameName, getJsonParm(jsonGame,gameName));
-			        			}
-			        		}
-			        		
-			        	}//percent for end
-			        		
-			        }else if(iterName.equals("vgold")){//vgold
+				arr[i]=returnPercent.getString(i);
+				JSONObject jsonPercent = JSONObject.fromObject(arr[i]);
+				for (@SuppressWarnings("rawtypes")Iterator iter = jsonPercent.keys(); iter.hasNext();){
+
+					String iterName = (String)iter.next();
+					if(iterName.endsWith("percent_detail")){//反水汇率"percent_detail":{"ball":1,"live":{"ds":0.12,"bb":0.12,"other":0.12}}
+						JSONObject jsonPercentDetail = JSONObject.fromObject(getJsonParm(jsonPercent,iterName));//percent_detail
+						for (@SuppressWarnings("rawtypes")Iterator iterPencent = jsonPercentDetail.keys(); iterPencent.hasNext();){
+							String iterPencentName = (String)iterPencent.next();
+							if(iterPencentName.equals("live")){//视讯
+								JSONObject jsonLive = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
+								for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonLive.keys(); iterLive.hasNext();){
+									String liveName = (String)iterLive.next();
+									sbPercent.append("live_").append(liveName).append("|").append(getJsonParm(jsonLive,liveName)).append(";");
+									percentDetailMap.put("live_"+liveName, getJsonParm(jsonLive,liveName));
+								}
+							}else if(iterPencentName.equals("hongkong")){//香港彩
+								JSONObject jsonHongkong = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
+								for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonHongkong.keys(); iterLive.hasNext();){
+									String hongkongName = (String)iterLive.next();
+									sbPercent.append("hongkong_").append(hongkongName).append("|").append(getJsonParm(jsonHongkong,hongkongName)).append(";");
+									percentDetailMap.put("hongkong_"+hongkongName, getJsonParm(jsonHongkong,hongkongName));
+								}
+							}else if(iterPencentName.equals("lotto")){//彩票
+								JSONObject jsonLotto = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
+								for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonLotto.keys(); iterLive.hasNext();){
+									String lottoName = (String)iterLive.next();
+									sbPercent.append("lotto_").append(lottoName).append("|").append(getJsonParm(jsonLotto,lottoName)).append(";");
+									percentDetailMap.put("lotto_"+lottoName, getJsonParm(jsonLotto,lottoName));
+								}
+							}else if(iterPencentName.equals("sport")){//体育
+								JSONObject jsonSport = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
+								for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonSport.keys(); iterLive.hasNext();){
+									String sportName = (String)iterLive.next();
+									sbPercent.append("sport_").append(sportName).append("|").append(getJsonParm(jsonSport,sportName)).append(";");
+									percentDetailMap.put("sport_"+sportName, getJsonParm(jsonSport,sportName));
+								}
+							}else if(iterPencentName.equals("game")){//电子游戏
+								JSONObject jsonGame = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
+								for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonGame.keys(); iterLive.hasNext();){
+									String gameName = (String)iterLive.next();
+									sbPercent.append("game_").append(gameName).append("|").append(getJsonParm(jsonGame,gameName)).append(";");
+									percentDetailMap.put("game_"+gameName, getJsonParm(jsonGame,gameName));
+								}
+							}
+
+						}//percent for end
+
+					}else if(iterName.equals("vgold")){//vgold
 						vGold = getJsonParm(jsonPercent,iterName);
 						sbPercent.append(iterName).append("|").append(getJsonParm(jsonPercent,iterName)).append(";");
 						percentDetailMap.put(iterName, getJsonParm(jsonPercent,iterName));
 					}else{//max_return
-			        	sbPercent.append(iterName).append("|").append(getJsonParm(jsonPercent,iterName)).append(";");
-			        	percentDetailMap.put(iterName, getJsonParm(jsonPercent,iterName));
-			        }
-			        	
+						sbPercent.append(iterName).append("|").append(getJsonParm(jsonPercent,iterName)).append(";");
+						percentDetailMap.put(iterName, getJsonParm(jsonPercent,iterName));
+					}
+
 				}
-			    percentMap.put(vGold, percentDetailMap);
+				percentMap.put(vGold, percentDetailMap);
 			}//end for vgold size
 
 			logger.info("返水报表waterReport param:"+paramMap.toString());
@@ -1856,35 +1856,35 @@ public class DsReportController {
 		}
 
 		return JSONObject.fromObject(result).toString();
-	
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	@RequestMapping(value="/waterReportNewByPage",method=RequestMethod.POST)
 	@ResponseBody
 	public Object waterReportNewByPage(HttpServletRequest request){
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		try{
 			//logger.info("返水报表waterReportNew tcp start:"+strJson+";return_order:"+strOrder+";return_percent:"+strPercent);
-			
+
 			RequestUtils.showParams(request);
 			String jsonStr = RequestUtils.getParams(request);
 			com.alibaba.fastjson.JSONObject param = JSON.parseObject(jsonStr);
 			logger.info(param.toJSONString());
-			
+
 			JSONObject param1 = JSONObject.fromObject(param.getString("param1"));
 			String siteId = param1.getString("siteId");
 			String agentLevel = param1.getString("agentLevel");
@@ -1924,7 +1924,7 @@ public class DsReportController {
 			if(StringUtils.isNotBlank(waterType)){
 				paramMap.put("waterType", waterType);
 			}
-		
+
 			/*JSONObject returnOrder=JSONObject.fromObject(getRequestParm(request,"return_order"));
 			JSONArray returnPercent=JSONArray.fromObject(getRequestParm(request,"return_percent"));*/
 			JSONObject returnOrder = JSONObject.fromObject(param.getString("return_order"));//{"3d":7,"ball":4,"bb_sport":5,"game":6,"hongkong":2,"live":1,"live_order":{"bb":2,"ds":1,"other":3},"lotto":3}
@@ -1946,7 +1946,7 @@ public class DsReportController {
 						sbOrder.append("live_").append(orderName).append("|").append(getJsonParm(liveOrder,orderName)).append(";");
 						orderLiveMap.put(getJsonParm(liveOrder,orderName), "live_"+orderName);
 					}
-						
+
 				}else if(iterName.equals("hongkong_order")){//香港彩
 					JSONObject hongkongOrder=JSONObject.fromObject(getJsonParm(returnOrder,"hongkong_order"));
 					for (@SuppressWarnings("rawtypes")Iterator iterOrder = hongkongOrder.keys(); iterOrder.hasNext();){
@@ -1981,74 +1981,74 @@ public class DsReportController {
 					sbOrder.append(iterName).append("|").append(getJsonParm(returnOrder,iterName)).append(";");
 					orderMap.put(getJsonParm(returnOrder,iterName), iterName);
 				}
-				
+
 			}
 			logger.info("返水报表waterReport sbOrder:"+sbOrder.toString());
 			String[] arr=new String[returnPercent.size()];  //size = 2 分两层，按vgold划分
-			Map<String,Object> percentMap = new HashMap<String,Object>(); 
-			for(int i=0;i<returnPercent.size();i++){  
+			Map<String,Object> percentMap = new HashMap<String,Object>();
+			for(int i=0;i<returnPercent.size();i++){
 				StringBuilder sbPercent = new StringBuilder();
-				Map<String,Object> percentDetailMap = new HashMap<String,Object>(); 
+				Map<String,Object> percentDetailMap = new HashMap<String,Object>();
 				String vGold = "";
-				arr[i]=returnPercent.getString(i); 
-			    JSONObject jsonPercent = JSONObject.fromObject(arr[i]);
-			    for (@SuppressWarnings("rawtypes")Iterator iter = jsonPercent.keys(); iter.hasNext();){
-			        	
-			        String iterName = (String)iter.next();
-			        if(iterName.endsWith("percent_detail")){//反水汇率"percent_detail":{"ball":1,"live":{"ds":0.12,"bb":0.12,"other":0.12}}
-			        	JSONObject jsonPercentDetail = JSONObject.fromObject(getJsonParm(jsonPercent,iterName));//percent_detail
-			        	for (@SuppressWarnings("rawtypes")Iterator iterPencent = jsonPercentDetail.keys(); iterPencent.hasNext();){
-			        		String iterPencentName = (String)iterPencent.next();
-			        		if(iterPencentName.equals("live")){//视讯
-			        			JSONObject jsonLive = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
-			        			for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonLive.keys(); iterLive.hasNext();){
-			        				String liveName = (String)iterLive.next();
-			        				sbPercent.append("live_").append(liveName).append("|").append(getJsonParm(jsonLive,liveName)).append(";");
-			        				percentDetailMap.put("live_"+liveName, getJsonParm(jsonLive,liveName));
-			        			}
-			        		}else if(iterPencentName.equals("hongkong")){//香港彩
-			        			JSONObject jsonHongkong = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
-			        			for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonHongkong.keys(); iterLive.hasNext();){
-			        				String hongkongName = (String)iterLive.next();
-			        				sbPercent.append("hongkong_").append(hongkongName).append("|").append(getJsonParm(jsonHongkong,hongkongName)).append(";");
-			        				percentDetailMap.put("hongkong_"+hongkongName, getJsonParm(jsonHongkong,hongkongName));
-			        			}
-			        		}else if(iterPencentName.equals("lotto")){//彩票
-			        			JSONObject jsonLotto = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
-			        			for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonLotto.keys(); iterLive.hasNext();){
-			        				String lottoName = (String)iterLive.next();
-			        				sbPercent.append("lotto_").append(lottoName).append("|").append(getJsonParm(jsonLotto,lottoName)).append(";");
-			        				percentDetailMap.put("lotto_"+lottoName, getJsonParm(jsonLotto,lottoName));
-			        			}
-			        		}else if(iterPencentName.equals("sport")){//体育
-			        			JSONObject jsonSport = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
-			        			for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonSport.keys(); iterLive.hasNext();){
-			        				String sportName = (String)iterLive.next();
-			        				sbPercent.append("sport_").append(sportName).append("|").append(getJsonParm(jsonSport,sportName)).append(";");
-			        				percentDetailMap.put("sport_"+sportName, getJsonParm(jsonSport,sportName));
-			        			}
-			        		}else if(iterPencentName.equals("game")){//电子游戏
-			        			JSONObject jsonGame = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
-			        			for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonGame.keys(); iterLive.hasNext();){
-			        				String gameName = (String)iterLive.next();
-			        				sbPercent.append("game_").append(gameName).append("|").append(getJsonParm(jsonGame,gameName)).append(";");
-			        				percentDetailMap.put("game_"+gameName, getJsonParm(jsonGame,gameName));
-			        			}
-			        		}
-			        		
-			        	}//percent for end
-			        		
-			        }else if(iterName.equals("vgold")){//vgold
+				arr[i]=returnPercent.getString(i);
+				JSONObject jsonPercent = JSONObject.fromObject(arr[i]);
+				for (@SuppressWarnings("rawtypes")Iterator iter = jsonPercent.keys(); iter.hasNext();){
+
+					String iterName = (String)iter.next();
+					if(iterName.endsWith("percent_detail")){//反水汇率"percent_detail":{"ball":1,"live":{"ds":0.12,"bb":0.12,"other":0.12}}
+						JSONObject jsonPercentDetail = JSONObject.fromObject(getJsonParm(jsonPercent,iterName));//percent_detail
+						for (@SuppressWarnings("rawtypes")Iterator iterPencent = jsonPercentDetail.keys(); iterPencent.hasNext();){
+							String iterPencentName = (String)iterPencent.next();
+							if(iterPencentName.equals("live")){//视讯
+								JSONObject jsonLive = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
+								for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonLive.keys(); iterLive.hasNext();){
+									String liveName = (String)iterLive.next();
+									sbPercent.append("live_").append(liveName).append("|").append(getJsonParm(jsonLive,liveName)).append(";");
+									percentDetailMap.put("live_"+liveName, getJsonParm(jsonLive,liveName));
+								}
+							}else if(iterPencentName.equals("hongkong")){//香港彩
+								JSONObject jsonHongkong = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
+								for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonHongkong.keys(); iterLive.hasNext();){
+									String hongkongName = (String)iterLive.next();
+									sbPercent.append("hongkong_").append(hongkongName).append("|").append(getJsonParm(jsonHongkong,hongkongName)).append(";");
+									percentDetailMap.put("hongkong_"+hongkongName, getJsonParm(jsonHongkong,hongkongName));
+								}
+							}else if(iterPencentName.equals("lotto")){//彩票
+								JSONObject jsonLotto = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
+								for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonLotto.keys(); iterLive.hasNext();){
+									String lottoName = (String)iterLive.next();
+									sbPercent.append("lotto_").append(lottoName).append("|").append(getJsonParm(jsonLotto,lottoName)).append(";");
+									percentDetailMap.put("lotto_"+lottoName, getJsonParm(jsonLotto,lottoName));
+								}
+							}else if(iterPencentName.equals("sport")){//体育
+								JSONObject jsonSport = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
+								for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonSport.keys(); iterLive.hasNext();){
+									String sportName = (String)iterLive.next();
+									sbPercent.append("sport_").append(sportName).append("|").append(getJsonParm(jsonSport,sportName)).append(";");
+									percentDetailMap.put("sport_"+sportName, getJsonParm(jsonSport,sportName));
+								}
+							}else if(iterPencentName.equals("game")){//电子游戏
+								JSONObject jsonGame = JSONObject.fromObject(getJsonParm(jsonPercentDetail,iterPencentName));
+								for (@SuppressWarnings("rawtypes")Iterator iterLive = jsonGame.keys(); iterLive.hasNext();){
+									String gameName = (String)iterLive.next();
+									sbPercent.append("game_").append(gameName).append("|").append(getJsonParm(jsonGame,gameName)).append(";");
+									percentDetailMap.put("game_"+gameName, getJsonParm(jsonGame,gameName));
+								}
+							}
+
+						}//percent for end
+
+					}else if(iterName.equals("vgold")){//vgold
 						vGold = getJsonParm(jsonPercent,iterName);
 						sbPercent.append(iterName).append("|").append(getJsonParm(jsonPercent,iterName)).append(";");
 						percentDetailMap.put(iterName, getJsonParm(jsonPercent,iterName));
 					}else{//max_return
-			        	sbPercent.append(iterName).append("|").append(getJsonParm(jsonPercent,iterName)).append(";");
-			        	percentDetailMap.put(iterName, getJsonParm(jsonPercent,iterName));
-			        }
-			        	
+						sbPercent.append(iterName).append("|").append(getJsonParm(jsonPercent,iterName)).append(";");
+						percentDetailMap.put(iterName, getJsonParm(jsonPercent,iterName));
+					}
+
 				}
-			    percentMap.put(vGold, percentDetailMap);
+				percentMap.put(vGold, percentDetailMap);
 			}//end for vgold size
 
 			logger.info("返水报表waterReport param:{},page={},pageLimit={}",paramMap.toString(),page,pageLimit);
@@ -2062,9 +2062,9 @@ public class DsReportController {
 		}
 
 		return JSONObject.fromObject(result).toString();
-	
+
 	}
-	
+
 	/**
 	 * @author Arron
 	 * @param 接收一个json格式的id--post方法
@@ -2078,7 +2078,7 @@ public class DsReportController {
 		com.alibaba.fastjson.JSONObject param = JSON.parseObject(jsonStr);
 		logger.info("调用getMemberLogById-----"+param.toJSONString());
 		String id = param.getString("id");
-		Map<String,Object> result = new HashMap<String,Object>(); 
+		Map<String,Object> result = new HashMap<String,Object>();
 		if(StringUtils.isBlank(id)){
 			result.put("returnMsg", "id is wrong");
 			result.put("returnCode", 110009);
@@ -2094,7 +2094,7 @@ public class DsReportController {
 		logger.info("getMemberLogById----result"+result);
 		return result;
 	}
-	
+
 	@RequestMapping(value="/getTotalBySite",method=RequestMethod.POST)
 	@ResponseBody
 	public String getTotalBySite(String siteId,String beginTime,String endTime,int page,int pageLimit){
@@ -2111,7 +2111,7 @@ public class DsReportController {
 				return result.toString();
 			}
 			dsReportService.getTotalBySite(result, siteId, beginTime, endTime, page, pageLimit);
-			
+
 			result.put("returnMsg", "success");
 			result.put("returnCode", 900000);
 		} catch (Exception e) {
@@ -2121,7 +2121,7 @@ public class DsReportController {
 			result.put("returnMsg", "system error");
 			result.put("returnCode", 110009);
 		}
-		
+
 		return result.toString();
 	}
 }

@@ -2,21 +2,14 @@ package com.ds.live.task;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.ds.live.until.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.onetwo.common.utils.DateUtil;
 
 import com.ds.live.service.DsLiveServiceImp;
-import com.ds.live.until.BBINDateUtils;
-import com.ds.live.until.DataUtils;
-import com.ds.live.until.LiveConfig;
-import com.ds.live.until.ThreadUtil;
-import com.ds.live.until.WebHTTPUtils;
 import com.ds.temp.entity.AuditTotalVO;
 import com.ds.temp.mapper.TempAuditTotalMapper;
 import com.kg.live.contants.AuditGameNameEnum;
@@ -77,7 +70,8 @@ public class LiveTask implements Runnable{
 		while(liveService.getAipInfoList()!=null && liveService.getAipInfoList().size()>0){
 			Integer siteId = api.getSiteId();
 			String siteName = api.getSiteName();
-			String reportUrl = "http://180.150.154.97:8080/dtbbinrecordapi/game/bbin/api/";
+			//String reportUrl = "http://180.150.154.97:8080/dtbbinrecordapi/game/bbin/api/";
+			String reportUrl = BBINCommon.URL;
 			String uppername = api.getLiveKey();
 			logger.info("开始拉取网站id："+siteId+",网站名称："+siteName+",机率请求地址："+reportUrl+",请求liveKey:"+uppername);
 			try {
@@ -436,7 +430,7 @@ public class LiveTask implements Runnable{
 	}
 	
 	private String getSendParam(String uppername, String rounddate, int page, int subgamekind){
-		String key = getKey();
+		/*String key = getKey();
 		StringBuffer sb = new StringBuffer();
 		sb.append("website=").append(LiveConfig.BBIN_LIVE_WEBSITE);
 		sb.append("&uppername=").append(uppername);
@@ -448,7 +442,20 @@ public class LiveTask implements Runnable{
 		sb.append("&page=").append(page);
 		sb.append("&pagelimit=").append(LiveConfig.BBIN_PAGE_LIMIT);
 		sb.append("&key=").append(key);
-		return sb.toString();
+		return sb.toString();*/
+		Map<String,String> paramMap = new TreeMap<String,String>(){{
+			put("uppername",uppername);
+			put("rounddate",rounddate);
+			put("starttime","00:00:00");
+			put("endtime","23:59:59");
+			put("gamekind",String.valueOf(subgamekind));
+			put("page",String.valueOf(page));
+			put("pagelimit", String.valueOf(LiveConfig.BBIN_PAGE_LIMIT));
+		}};
+		String param =  BBINCommon.mapToString(paramMap);
+		String key = EncryptUtils.encrypt(param, BBINCommon.USERKEY);
+		param+="&key="+key;
+		return param;
 	}
 	
 	private String getKey(){

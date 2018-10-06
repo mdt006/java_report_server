@@ -6,14 +6,20 @@
     <version>1.0.0</version>
     <packaging>war</packaging>
 	<!-- 配置项目属性 -->
-	<properties>
+	<!--<properties>
 		<env>beta</env>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<spring.version>4.0.4.RELEASE</spring.version>
+	</properties>-->
+
+	<properties>
+		<env>beta</env>
+		<env.host>10.200.201.2:8081</env.host>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<spring.version>4.1.6.RELEASE</spring.version>
 	</properties>
-
-
 
 	<!-- 引入jar -->
 	<dependencies>
@@ -25,7 +31,7 @@
 		<dependency>
   			<groupId>com.ds</groupId>
   			<artifactId>ds_temp_report</artifactId>
-  			<version>1.0.0</version>
+  			<version>1.0.1</version>
 		</dependency> 
 		<dependency>
 		    <groupId>org.jdom</groupId>
@@ -238,7 +244,7 @@
 		</resources>
 	</build>
 
-	<repositories>
+	<!--<repositories>
 		<repository>
 			<id>central</id>
 			<url>http://maven.${env}.ds.com/repository/maven-public/</url>
@@ -254,6 +260,31 @@
 		<repository>
 			<id>maven-releases</id>
 			<url>http://maven.${env}.ds.com/repository/maven-releases/</url>
+		</repository>
+	</distributionManagement>-->
+
+	<repositories>
+		<repository>
+			<id>public</id>
+			<url>http://${env.host}/nexus/content/repositories/public/</url>
+		</repository>
+		<repository>
+			<id>thirdparty</id>
+			<name>3rd party</name>
+			<url>http://${env.host}/nexus/content/repositories/thirdparty/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<url>http://${env.host}/nexus/content/repositories/central/</url>
+		</pluginRepository>
+	</pluginRepositories>
+	<distributionManagement>
+		<repository>
+			<id>thirdparty</id>
+			<name>3rd party</name>
+			<url>http://${env.host}/nexus/content/repositories/thirdparty/</url>
 		</repository>
 	</distributionManagement>
 </project>

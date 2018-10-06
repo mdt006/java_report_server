@@ -2,7 +2,11 @@ package com.ds.live.common;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
+import com.ds.live.until.BBINCommon;
+import com.ds.live.until.EncryptUtils;
 import com.ds.live.until.PlatformUtil;
 
 public class BaseCommon {
@@ -37,7 +41,7 @@ public class BaseCommon {
 	
 	public static String getSendParam(String uppername,String date,String start_time,String end_time,
 			int gamekind,int subgamekind, int page,int pageLimit,String key_b) {
-		String key = getKey(key_b);
+		/*String key = getKey(key_b);
 		StringBuffer sb = new StringBuffer();
 		sb.append("website=").append(Platform.Constans.kkw_WEBSITE);
 		sb.append("&uppername=").append(uppername);
@@ -49,7 +53,21 @@ public class BaseCommon {
 		sb.append("&page=").append(page);
 		sb.append("&pagelimit=").append(pageLimit);
 		sb.append("&key=").append(key);
-		return sb.toString();
+		return sb.toString();*/
+		Map<String,String> paramMap = new TreeMap<String,String>(){{
+			put("uppername",uppername);
+			put("rounddate",date);
+			put("starttime",start_time);
+			put("endtime",end_time);
+			put("gamekind",String.valueOf(gamekind));
+			put("page",String.valueOf(page));
+			put("pagelimit", String.valueOf(pageLimit));
+		}};
+
+		String param =  BBINCommon.mapToString(paramMap);
+		String key = EncryptUtils.encrypt(param, BBINCommon.USERKEY);
+		param+="&key="+key;
+		return param;
 	}
 	
 	public static String getKey(String key_b) {
@@ -70,5 +88,17 @@ public class BaseCommon {
 		}
 //		System.out.println(sql);
 		return sql;
+	}
+
+	public static String mapToString(Map<String, String> params) {
+		if(null == params || params.isEmpty()){
+			return null;
+		}
+		StringBuffer sb = new StringBuffer();
+		params.forEach((k,v)-> sb.append(k+"="+v+"&"));
+		if(sb.length() > 0){
+			return sb.substring(0,sb.length()-1);
+		}
+		return null;
 	}
 }

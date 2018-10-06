@@ -1,8 +1,12 @@
 package com.ds.live.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
+import com.ds.live.until.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +14,6 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ds.live.entity.BBINGameVo;
-import com.ds.live.until.BBINDateUtils;
-import com.ds.live.until.DataUtils;
-import com.ds.live.until.LiveConfig;
-import com.ds.live.until.WebHTTPUtils;
 import com.kg.live.entity.ApiInfoEntity;
 import com.kg.live.entity.ApiInfoEntityExample;
 import com.kg.live.mapper.ApiInfoEntityMapper;
@@ -30,7 +30,8 @@ public class NewManLiveService {
 	public void manGetRecord(String date,String starttime,String endtime,int page,int pagelimit, ApiInfoEntity api) {
 		Integer siteId = api.getSiteId();
 		String siteName = api.getSiteName();
-		String reportUrl = "http://180.150.154.97:8080/dtbbinrecordapi/game/bbin/api/";// 视讯请求地址
+		//String reportUrl = "http://180.150.154.97:8080/dtbbinrecordapi/game/bbin/api/";// 视讯请求地址
+		String reportUrl =  BBINCommon.URL;
 		String uppername = api.getLiveKey();// bb视讯上级代理
 		logger.info("开始拉取网站id：" + siteId + ",网站名称：" + siteName + ",视讯请求地址：" + reportUrl + ",请求liveKey:" + uppername);
 
@@ -43,7 +44,7 @@ public class NewManLiveService {
 	}
 
 	private void getBet(String date,String starttime,String endtime,int page,int pagelimit,
-			Integer siteId, String siteName, String reportUrl, String uppernameKey) {
+						Integer siteId, String siteName, String reportUrl, String uppernameKey) {
 		try {
 			logger.info("网站名称：" + siteName + "bbin机率正式开始拉取数据......");
 			String uppername = uppernameKey; // 必须
@@ -55,18 +56,19 @@ public class NewManLiveService {
 //			int pagelimit = LiveConfig.BBIN_PAGE_LIMIT; // 200
 
 			for (int j = page; j <= page; j++) {// int j=page
-												// 只有初始化的时候执行一次，此后将不再赋值
+				// 只有初始化的时候执行一次，此后将不再赋值
 				// 随机修几秒
 				Thread.sleep((int) (Math.random() * 10) * 1000);
 				// kkw910+BETRECORD_KEY+时间
-				String tempParam = LiveConfig.BBIN_LIVE_WEBSITE + LiveConfig.BBIN_BETRECORD_KEY
+				/*String tempParam = LiveConfig.BBIN_LIVE_WEBSITE + LiveConfig.BBIN_BETRECORD_KEY
 						+ BBINDateUtils.getGMT4Date(new Date());
 				logger.info("网站：" + siteName + "bbin 机率请求参数tempParam::" + tempParam + "::请求时间时间rounddate:" + rounddate);
 
 				String param = "website=" + LiveConfig.BBIN_LIVE_WEBSITE + "&uppername=" + uppername + "&rounddate="
 						+ rounddate + "&starttime="+starttime + "&endtime=" +endtime+ "&gamekind=" + gamekind + "&page="
 						+ j + "&pagelimit=" + pagelimit + "&key=" + DataUtils.randomString(7)
-						+ DataUtils.toMD5(tempParam) + DataUtils.randomString(2);
+						+ DataUtils.toMD5(tempParam) + DataUtils.randomString(2);*/
+				String param = assemblyParam(uppername, rounddate, pagelimit, gamekind, j);
 
 				logger.info("网站：" + siteName + "bbin机率正式拉取参数 param:" + param);
 				JSONObject obj = null;
@@ -123,11 +125,11 @@ public class NewManLiveService {
 //			int pagelimit = LiveConfig.BBIN_PAGE_LIMIT; // 200
 
 			for (int j = page; j <= page; j++) {// int j=page
-												// 只有初始化的时候执行一次，此后将不再赋值
+				// 只有初始化的时候执行一次，此后将不再赋值
 				// 随机修几秒
 				Thread.sleep((int) (Math.random() * 10) * 1000);
 				// kkw910+BETRECORD_KEY+时间
-				String tempParam = LiveConfig.BBIN_LIVE_WEBSITE + LiveConfig.BBIN_BETRECORD_KEY
+				/*String tempParam = LiveConfig.BBIN_LIVE_WEBSITE + LiveConfig.BBIN_BETRECORD_KEY
 						+ BBINDateUtils.getGMT4Date(new Date());
 				logger.info(
 						"网站：" + siteName + "bbin 机率糖果派对请求参数tempParam::" + tempParam + "::请求时间时间rounddate:" + rounddate);
@@ -135,7 +137,8 @@ public class NewManLiveService {
 				String param = "website=" + LiveConfig.BBIN_LIVE_WEBSITE + "&uppername=" + uppername + "&rounddate="
 						+ rounddate + "&starttime="+starttime + "&endtime="+endtime + "&gamekind=" + gamekind
 						+ "&subgamekind=2" + "&page=" + j + "&pagelimit=" + pagelimit + "&key="
-						+ DataUtils.randomString(7) + DataUtils.toMD5(tempParam) + DataUtils.randomString(2);
+						+ DataUtils.randomString(7) + DataUtils.toMD5(tempParam) + DataUtils.randomString(2);*/
+				String param = assemblyParam(uppername, rounddate, pagelimit, gamekind, j);
 
 				logger.info("网站：" + siteName + "bbin机率糖果派对正式拉取参数 param:" + param);
 				JSONObject obj = null;
@@ -177,7 +180,7 @@ public class NewManLiveService {
 		}
 		logger.info("网站：" + siteName + "bbin 正式环境糖果派对拉取一次数据完成");
 	}
-	
+
 	/*糖果派对2*/
 	private void getSweetBetTwo(String date,String starttime,String endtime,int page,int pagelimit, Integer siteId, String siteName, String reportUrl, String uppernameKey) {
 		try {
@@ -191,11 +194,11 @@ public class NewManLiveService {
 //			int pagelimit = LiveConfig.BBIN_PAGE_LIMIT; // 200
 
 			for (int j = page; j <= page; j++) {// int j=page
-												// 只有初始化的时候执行一次，此后将不再赋值
+				// 只有初始化的时候执行一次，此后将不再赋值
 				// 随机修几秒
 				Thread.sleep((int) (Math.random() * 10) * 1000);
 				// kkw910+BETRECORD_KEY+时间
-				String tempParam = LiveConfig.BBIN_LIVE_WEBSITE + LiveConfig.BBIN_BETRECORD_KEY
+			/*	String tempParam = LiveConfig.BBIN_LIVE_WEBSITE + LiveConfig.BBIN_BETRECORD_KEY
 						+ BBINDateUtils.getGMT4Date(new Date());
 				logger.info(
 						"网站：" + siteName + "bbin 机率糖果派对2请求参数tempParam::" + tempParam + "::请求时间时间rounddate:" + rounddate);
@@ -203,7 +206,8 @@ public class NewManLiveService {
 				String param = "website=" + LiveConfig.BBIN_LIVE_WEBSITE + "&uppername=" + uppername + "&rounddate="
 						+ rounddate + "&starttime="+starttime + "&endtime="+endtime + "&gamekind=" + gamekind
 						+ "&subgamekind=5" + "&page=" + j + "&pagelimit=" + pagelimit + "&key="
-						+ DataUtils.randomString(7) + DataUtils.toMD5(tempParam) + DataUtils.randomString(2);
+						+ DataUtils.randomString(7) + DataUtils.toMD5(tempParam) + DataUtils.randomString(2);*/
+				String param = assemblyParam(uppername, rounddate, pagelimit, gamekind, j);
 
 				logger.info("网站：" + siteName + "bbin机率糖果派对2正式拉取参数 param:" + param);
 				JSONObject obj = null;
@@ -260,14 +264,15 @@ public class NewManLiveService {
 			for (int j = page; j <= page; j++) {
 				Thread.sleep((int) (Math.random() * 10.0D) * 1000);
 
-				String tempParam = "kkw910Z9e9k82Y" + BBINDateUtils.getGMT4Date(new Date());
+			/*	String tempParam = "kkw910Z9e9k82Y" + BBINDateUtils.getGMT4Date(new Date());
 				this.logger.info(
 						"网站：" + siteName + "bbin 机率连环夺宝请求参数tempParam::" + tempParam + "::请求时间时间rounddate:" + rounddate);
 
 				String param = "website=kkw910&uppername=" + uppername + "&rounddate=" + rounddate
 						+ "&starttime="+starttime + "&endtime="+endtime + "&gamekind=" + gamekind + "&subgamekind=3"
 						+ "&page=" + j + "&pagelimit=" + pagelimit + "&key=" + DataUtils.randomString(7)
-						+ DataUtils.toMD5(tempParam) + DataUtils.randomString(2);
+						+ DataUtils.toMD5(tempParam) + DataUtils.randomString(2);*/
+				String param = assemblyParam(uppername, rounddate, pagelimit, gamekind, j);
 
 				this.logger.info("网站：" + siteName + "bbin机率连环夺宝正式拉取参数 param:" + param);
 				JSONObject obj = null;
@@ -318,7 +323,7 @@ public class NewManLiveService {
 		aipInfoList = apiInfoMapper.selectByExample(e);
 		logger.info("读取api_list完成......");
 	}
-	
+
 	public List<ApiInfoEntity> getAipInfoList() {
 		return aipInfoList;
 	}
@@ -327,5 +332,31 @@ public class NewManLiveService {
 		this.aipInfoList = aipInfoList;
 	}
 
-
+	private String assemblyParam(String uppername, String rounddate, int pagelimit, int gamekind, int j) throws UnsupportedEncodingException {
+/*		StringBuffer sb = new StringBuffer();
+		//sb.append("website="+LiveConfig.BBIN_LIVE_WEBSITE);
+		sb.append("&uppername="+uppername);
+		sb.append("&rounddate="+rounddate);
+		sb.append("&starttime=00:00:00");
+		sb.append("&endtime=23:59:59");
+		sb.append("&gamekind="+gamekind);
+		sb.append("&page="+j);
+		sb.append("&pagelimit="+pagelimit);
+		String key = EncryptUtils.encrypt(sb.toString(),BBINUtils.USERKEY);
+		sb.append("&key="+key);
+		return sb.toString();*/
+		Map<String,String> paramMap = new TreeMap<String,String>(){{
+			put("uppername",uppername);
+			put("rounddate",rounddate);
+			put("starttime","00:00:00");
+			put("endtime","23:59:59");
+			put("gamekind",gamekind+"");
+			put("page", j+"");
+			put("pagelimit", pagelimit+"");
+		}};
+		String param = BBINCommon.mapToString(paramMap);
+		String key = EncryptUtils.encrypt(param,BBINCommon.USERKEY);
+		param+="&key="+key;
+		return param;
+	}
 }

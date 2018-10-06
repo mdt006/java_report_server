@@ -6,8 +6,16 @@
     <version>1.0.0</version>
     <packaging>war</packaging>
 	<!-- 配置项目属性 -->
+	<!--<properties>
+		<env>beta</env>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<spring.version>4.1.6.RELEASE</spring.version>
+	</properties>-->
+
 	<properties>
 		<env>beta</env>
+		<env.host>10.200.201.2:8081</env.host>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<spring.version>4.1.6.RELEASE</spring.version>
@@ -102,7 +110,7 @@
   		<dependency>
 		  <groupId>com.ds</groupId>
 		  <artifactId>ds_temp_report</artifactId>
-		  <version>1.0.0</version>
+		  <version>1.0.1</version>
 		</dependency>
 		<dependency>
 		    <groupId>com.ds</groupId>
@@ -182,7 +190,7 @@
 		    <artifactId>spring-data-redis</artifactId>
 		    <version>1.5.0.RELEASE</version>
 		</dependency>
-		
+
 		<!-- spring引用 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -248,8 +256,8 @@
 		        <artifactId>maven-compiler-plugin</artifactId>
 		        <version>3.1</version>
 		        <configuration>
-		            <source>1.7</source>
-		            <target>1.7</target>
+		            <source>1.8</source>
+		            <target>1.8</target>
 		        </configuration>
 	    	</plugin>
         </plugins>
@@ -266,7 +274,7 @@
 		</resources>
 	</build>
 
-	<repositories>
+<!--	<repositories>
 		<repository>
 			<id>central</id>
 			<url>http://maven.${env}.ds.com/repository/maven-public/</url>
@@ -282,6 +290,31 @@
 		<repository>
 			<id>maven-releases</id>
 			<url>http://maven.${env}.ds.com/repository/maven-releases/</url>
+		</repository>
+	</distributionManagement>-->
+
+	<repositories>
+		<repository>
+			<id>public</id>
+			<url>http://${env.host}/nexus/content/repositories/public/</url>
+		</repository>
+		<repository>
+			<id>thirdparty</id>
+			<name>3rd party</name>
+			<url>http://${env.host}/nexus/content/repositories/thirdparty/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<url>http://${env.host}/nexus/content/repositories/central/</url>
+		</pluginRepository>
+	</pluginRepositories>
+	<distributionManagement>
+		<repository>
+			<id>thirdparty</id>
+			<name>3rd party</name>
+			<url>http://${env.host}/nexus/content/repositories/thirdparty/</url>
 		</repository>
 	</distributionManagement>
 </project>

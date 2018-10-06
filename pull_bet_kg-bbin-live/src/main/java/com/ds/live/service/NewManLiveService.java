@@ -4,9 +4,12 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
 
+import com.ds.live.until.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -14,10 +17,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ds.live.until.BBINDateUtils;
-import com.ds.live.until.DataUtils;
-import com.ds.live.until.LiveConfig;
-import com.ds.live.until.WebHTTPUtils;
 import com.ds.temp.entity.AuditTotalVO;
 import com.ds.temp.mapper.TempAuditTotalMapper;
 import com.kg.live.contants.AuditGameNameEnum;
@@ -75,10 +74,11 @@ public class NewManLiveService {
 				Thread.sleep((int)(Math.random()*5)*1000);
 				int add=0;
 				int udd=0;
-				String param = "website="+LiveConfig.BBIN_LIVE_WEBSITE+"&uppername="+uppername+
+			/*	String param = "website="+LiveConfig.BBIN_LIVE_WEBSITE+"&uppername="+uppername+
 				"&rounddate="+rounddate+"&starttime="+starttime+"&endtime="+endtime+"&gamekind="+gamekind+"&page="+j+"&pagelimit="+pagelimit+
 				"&key="+DataUtils.randomString(7)+DataUtils.toMD5(tempParam)+DataUtils.randomString(2);
-				
+				*/
+				String param = assemblyParam(uppername, rounddate, pagelimit, gamekind, j);
 				logger.info("网站："+siteName+"bbin视讯正式拉取参数 param:" + param);
 				JSONObject obj = null;
 				try{
@@ -240,7 +240,35 @@ public class NewManLiveService {
 		return null;
 	}
 
-
+	private String assemblyParam(String uppername, String rounddate, int pagelimit, int gamekind, int j) {
+    /*    Map<String,String> paramMap = new HashMap<String,String>(){{
+            put("website",LiveConfig.BBIN_LIVE_WEBSITE);
+            put("uppername",uppername);
+            put("rounddate",rounddate);
+            put("starttime","00:00:00");
+            put("endtime","23:59:59");
+            put("gamekind",gamekind+"");
+            put("page", j+"");
+            put("pagelimit", pagelimit+"");
+        }};
+        String param = mapToString(paramMap);
+        String key = EncryptUtils.encrypt(param, BBINUtils.USERKEY);
+        param+="&key="+key;
+        return param;*/
+		Map<String,String> paramMap = new TreeMap<String,String>(){{
+			put("uppername",uppername);
+			put("rounddate",rounddate);
+			put("starttime","00:00:00");
+			put("endtime","23:59:59");
+			put("gamekind",String.valueOf(gamekind));
+			put("page",String.valueOf(j));
+			put("pagelimit", String.valueOf(pagelimit));
+		}};
+		String param =  BBINCommon.mapToString(paramMap);
+		String key = EncryptUtils.encrypt(param, BBINCommon.USERKEY);
+		param+="&key="+key;
+		return param.toString();
+	}
 	
 
 }

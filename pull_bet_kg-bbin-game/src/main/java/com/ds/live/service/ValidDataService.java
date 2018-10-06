@@ -2,6 +2,7 @@ package com.ds.live.service;
 
 import java.util.List;
 
+import com.ds.live.until.BBINCommon;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,8 @@ public class ValidDataService {
 
 	public void validCount(ApiInfoEntity api,String date) {
 		Integer siteId = api.getSiteId();
-		String reportUrl = "http://180.150.154.97:8080/dtbbinrecordapi/game/bbin/api/BetRecord";// 视讯请求地址
+		//String reportUrl = "http://180.150.154.97:8080/dtbbinrecordapi/game/bbin/api/BetRecord";// 视讯请求地址
+		String reportUrl =  BBINCommon.URL+"BetRecord";
 		String uppername = api.getLiveKey();// bb视讯上级代理
 		logger.info("开始验证："+date +",网站:"+ siteId +"请求地址：" + reportUrl + ",请求liveKey:" + uppername);
 		int gamekind=5;

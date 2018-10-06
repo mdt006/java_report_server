@@ -3,8 +3,11 @@ package com.ds.live.gameservice;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;
 
+import com.ds.live.until.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,10 +17,6 @@ import com.ds.live.entity.BBINGameHttpConfig;
 import com.ds.live.entity.BBINGamePageRecord;
 import com.ds.live.entity.BBINGamePageRecordExample;
 import com.ds.live.mapper.BBINGamePageRecordMapper;
-import com.ds.live.until.BBINCommon;
-import com.ds.live.until.HttpUtil;
-import com.ds.live.until.PlatformUtil;
-import com.ds.live.until.ThreadUtil;
 import com.ds.live.vo.ReturnResult;
 import com.kg.live.entity.ApiInfoEntity;
 public class GameRequestService implements Runnable{
@@ -245,12 +244,12 @@ public class GameRequestService implements Runnable{
 	}
 
 	private String getSendParam(ApiInfoEntity configApiInfo, BBINGamePageRecord pageRecord, int page) {
-		String key = getKey(configApiInfo);
+		//String key = getKey(configApiInfo);
 		if(pageRecord.getHttpAction().equals("WagersRecordBy38")
 				||pageRecord.getHttpAction().equals("WagersRecordBy30")) {
 			return getRecord38And30(configApiInfo,pageRecord,page);
 		}
-		StringBuffer sb = new StringBuffer();
+		/*StringBuffer sb = new StringBuffer();
 		sb.append("website=").append(Platform.Constans.kkw_WEBSITE);
 		sb.append("&uppername=").append(configApiInfo.getLiveKey());
 		sb.append("&rounddate=").append(pageRecord.getRounddate());
@@ -260,8 +259,23 @@ public class GameRequestService implements Runnable{
 		sb.append("&subgamekind="+pageRecord.getSubGameKind());
 		sb.append("&page=").append(page);
 		sb.append("&pagelimit=500");
-		sb.append("&key=").append(key);
-		return sb.toString();
+		sb.append("&key=").append(key);*/
+
+		//非WagersRecordBy38 WagersRecordBy30  执行
+		Map<String,String> paramMap = new TreeMap<String,String>(){{
+			put("uppername",configApiInfo.getLiveKey());
+			put("rounddate",pageRecord.getRounddate());
+			put("starttime","00:00:00");
+			put("endtime","23:59:59");
+			put("gamekind",pageRecord.getGameKind()+"");
+			put("subgamekind",pageRecord.getSubGameKind()+"");
+			put("page", page+"");
+			put("pagelimit","500");
+		}};
+		String param = BBINCommon.mapToString(paramMap);
+		String key = EncryptUtils.encrypt(param,BBINCommon.USERKEY);
+		param+="&key="+key;
+		return param;
 	}
 	/**
 	 * 获取捕鱼大师捕鱼达人记录
@@ -271,22 +285,36 @@ public class GameRequestService implements Runnable{
 	 * @return
 	 */
 	private String getRecord38And30(ApiInfoEntity configApiInfo, BBINGamePageRecord pageRecord, int page) {
-		String key = getKey(configApiInfo);
+		/*String key = getKey(configApiInfo);
 		StringBuffer sb = new StringBuffer();
 		sb.append("website=").append(Platform.Constans.kkw_WEBSITE);
 		sb.append("&uppername=").append(configApiInfo.getLiveKey());
 		sb.append("&action=").append("BetTime");
-		sb.append("&date=").append(pageRecord.getRounddate());
-//		sb.append("&end_date=").append(pageRecord.getRounddate());
+		sb.append("&start_date=").append(pageRecord.getRounddate());
+		sb.append("&end_date=").append(pageRecord.getRounddate());
 		sb.append("&starttime=00:00:00");
 		sb.append("&endtime=23:59:59");
 		sb.append("&gamekind="+pageRecord.getGameKind());
 		sb.append("&subgamekind="+pageRecord.getSubGameKind());
-		sb.append("&page=").append(1);
-//		sb.append("&page=").append(page);
+		sb.append("&page=").append(page);
 		sb.append("&pagelimit=500");
 		sb.append("&key=").append(key);
-		return sb.toString();
+		*/
+
+		Map<String,String> paramMap = new TreeMap<String,String>(){{
+			put("action","BetTime");
+			put("uppername",configApiInfo.getLiveKey());
+			put("date",pageRecord.getRounddate());
+			put("starttime","00:00:00");
+			put("endtime","23:59:59");
+			//put("gametype","38001");不是必须参数
+			put("page",String.valueOf(page));
+			put("pagelimit", "500");
+		}};
+		String param =  BBINCommon.mapToString(paramMap);
+		String key = EncryptUtils.encrypt(param, BBINCommon.USERKEY);
+		param+="&key="+key;
+		return param.toString();
 	}
 
 	private String getKey(ApiInfoEntity configApiInfo) {

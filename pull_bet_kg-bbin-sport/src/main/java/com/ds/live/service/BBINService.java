@@ -4,17 +4,16 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
+import com.ds.live.until.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ds.live.until.BBINDateUtils;
-import com.ds.live.until.DataUtils;
-import com.ds.live.until.LiveConfig;
-import com.ds.live.until.WebHTTPUtils;
 import com.ds.temp.entity.AuditTotalVO;
 import com.ds.temp.mapper.TempAuditTotalMapper;
 import com.google.common.cache.Cache;
@@ -50,7 +49,8 @@ public class BBINService {
 	public void startPullBet(ApiInfoEntity api,String rounddate) {
 		Integer siteId = api.getSiteId();
 		String siteName = api.getSiteName();
-		String reportUrl = "http://linkapi.s1116.com/app/WebService/JSON/display.php/";// 请求地址
+		/*String reportUrl = "http://linkapi.s1116.com/app/WebService/JSON/display.php/";// 请求地址*/
+		String reportUrl = BBINCommon.URL;
 		String uppername = api.getLiveKey();// 上级代理
 		logger.info("开始拉取网站id：" + siteId + ",网站名称：" + siteName + ",体育请求地址："
 				+ reportUrl + ",请求liveKey:" + uppername);
@@ -162,7 +162,7 @@ public class BBINService {
 	}
 	
 	private String getBBINParam(String uppername,String rounddate,int gamekind,int page,int pagelimit,String tempParam){
-		StringBuffer sb = new StringBuffer();
+		/*StringBuffer sb = new StringBuffer();
 		sb.append("website="+LiveConfig.BBIN_LIVE_WEBSITE);
 		sb.append("&action=BetTime");
 		sb.append("&uppername="+uppername);
@@ -173,7 +173,20 @@ public class BBINService {
 		sb.append("&page="+page);
 		sb.append("&pagelimit="+pagelimit);
 		sb.append("&key="+DataUtils.randomString(7)+DataUtils.toMD5(tempParam)+DataUtils.randomString(2));
-		return sb.toString();
+		return sb.toString();*/
+		Map<String,String> paramMap = new TreeMap<String,String>(){{
+			put("uppername",uppername);
+			put("rounddate",rounddate);
+			put("starttime","00:00:00");
+			put("endtime","23:59:59");
+			put("gamekind",String.valueOf(LiveConfig.BBIN_GAME_KIND_SPORT));
+			put("page",String.valueOf(page));
+			put("pagelimit", String.valueOf(LiveConfig.BBIN_PAGE_LIMIT));
+		}};
+		String param =  BBINCommon.mapToString(paramMap);
+		String key = EncryptUtils.encrypt(param, BBINCommon.USERKEY);
+		param+="&key="+key;
+		return param;
 	}
 	
 	private void validateLastPage(Integer siteId, String siteName,
