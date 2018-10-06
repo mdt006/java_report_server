@@ -13,8 +13,11 @@ import com.ds.init.ApplicationStartup;
 @EnableScheduling
 public class Main {
 	public static void main(String[] args) {
+
+
 		SpringApplication springApplication = new SpringApplication(Main.class);
 		springApplication.addListeners(new ApplicationStartup());
 		springApplication.run(args);
+
 	}
 }
