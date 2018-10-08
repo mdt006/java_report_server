@@ -15,12 +15,15 @@ import com.ds.service.ftp.AGHunterFtpService;
 import com.ds.task.inter.AbstractJob;
 import com.ds.util.DateUtils;
 import com.kg.live.entity.DsAgHunter;
+
+import javax.annotation.PostConstruct;
+
 @Component
-public class AGHunterJob  extends AbstractJob<DsAgHunter>{
+public class AGHunterJob  extends AbstractJob<DsAgHunter> implements Runnable{
 	private static final Logger log = LoggerFactory.getLogger(AGCommon.LOG_AG_HUNTER);
 	@Value("${ag.status.hunter}")
 	private boolean status;
-	@Autowired
+	/*@Autowired
 	public void setBaseftpService(AGHunterFtpService ftpService) {
 		super.setFtpService(ftpService, log);
 	}
@@ -34,6 +37,34 @@ public class AGHunterJob  extends AbstractJob<DsAgHunter>{
 	@Scheduled(cron = "0 0/5 * * * ? ")
 	public void execLastDay() {
 		super.job(status, DateUtils.getGTM4Lastdate(new Date()),AGCommon.LOG_AG_HUNTER);
+	}*/
+	@Autowired
+	public void setBaseftpService(AGHunterFtpService ftpService) {
+		super.setFtpService(ftpService, log);
+	}
+	@PostConstruct
+	public void start() {
+		new Thread(this).start();
+	}
+	@Override
+	public void run() {
+		exec();
+	}
+	@Override
+	public void exec() {
+		while (true) {
+			try {
+				Thread.sleep(60 * 1000);
+				super.job(status, null);
+			} catch (Exception e) {
+				log.error("AGJob error", e);
+			}
+		}
+	}
+
+	@Scheduled(cron = "0 0/5 * * * ? ")
+	public void execLastDay() {
+		super.job(status, DateUtils.getGTM4Lastdate(new Date()));
 	}
 	
 }

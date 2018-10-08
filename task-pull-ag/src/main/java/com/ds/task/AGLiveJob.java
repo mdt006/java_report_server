@@ -2,6 +2,7 @@ package com.ds.task;
 
 import java.util.Date;
 
+import com.ds.service.ftp.AGHunterFtpService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import com.ds.task.inter.AbstractJob;
 import com.ds.util.DateUtils;
 import com.kg.live.entity.AGLiveEntity;
 
+import javax.annotation.PostConstruct;
+
 
 /**
  * ag视讯注单拉取
@@ -22,11 +25,11 @@ import com.kg.live.entity.AGLiveEntity;
  *
  */
 @Component
-public class AGLiveJob extends AbstractJob<AGLiveEntity>{
+public class AGLiveJob extends AbstractJob<AGLiveEntity> implements Runnable{
 	private static final Logger log = LoggerFactory.getLogger(AGCommon.LOG_AG_LIVE);
 	@Value("${ag.status.live}")
 	private boolean status;
-	@Autowired
+/*	@Autowired
 	public void setBaseftpService(AGLiveFtpService ftpService) {
 		super.setFtpService(ftpService, log);
 	}
@@ -41,6 +44,34 @@ public class AGLiveJob extends AbstractJob<AGLiveEntity>{
 	@Scheduled(cron = "0 0/5 * * * ? ")
 	public void execLastDay() {
 		super.job(status, DateUtils.getGTM4Lastdate(new Date()),AGCommon.LOG_AG_LIVE);
+	}*/
+
+	@Autowired
+	public void setBaseftpService(AGLiveFtpService ftpService) {
+		super.setFtpService(ftpService, log);
+	}
+	@PostConstruct
+	public void start() {
+		new Thread(this).start();
+	}
+	@Override
+	public void run() {
+		exec();
+	}
+	@Override
+	public void exec() {
+		while (true) {
+			try {
+				Thread.sleep(60 * 1000);
+				super.job(status, null);
+			} catch (Exception e) {
+				log.error("AGJob error", e);
+			}
+		}
 	}
 
+	@Scheduled(cron = "0 0/5 * * * ? ")
+	public void execLastDay() {
+		super.job(status, DateUtils.getGTM4Lastdate(new Date()));
+	}
 }

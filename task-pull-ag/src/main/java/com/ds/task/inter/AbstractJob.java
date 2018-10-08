@@ -6,6 +6,7 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 
+import com.ds.common.AGApplication;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 
@@ -13,6 +14,29 @@ import com.ds.service.ftp.BaseFtpService;
 
 public abstract class AbstractJob<M>{
 	private Logger log;
+	private BaseFtpService<M> ftpServ;
+	public abstract void exec();
+	public abstract void execLastDay();
+	public void setFtpService(BaseFtpService<M> ftpService,Logger log) {
+		this.ftpServ = ftpService;
+		this.log = log;
+	}
+	public void job(boolean status,String date) {
+		log.info("拉取-----");
+		if(!status){
+			log.info("拉取未开启");
+			return;
+		}
+		if(AGApplication.list.size() == 0) {
+			log.info("初始化未完成");
+			return;
+		}
+		ftpServ.execpull(date);
+		log.info("完成一次拉取注单");
+
+	}
+
+	/*private Logger log;
 	private BaseFtpService<M> ftpServ;
 	public abstract void exec();
 	public abstract void execLastDay();
@@ -72,5 +96,5 @@ public abstract class AbstractJob<M>{
 		} catch (Exception e) {
 			return null;
 		}
-	}
+	}*/
 }
