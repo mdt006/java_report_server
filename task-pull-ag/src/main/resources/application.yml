@@ -43,10 +43,10 @@ ag:
       sport: /SBTA/
   status:   
     live: true #是否拉取标识
-    game: true
-    yoplay: true
+    game: false
+    yoplay: false
     hunter: true
-    sport: true
+    sport: false
   live:
     gamelist: BAC,CBAC,LINK,DT,LBAC,ULPK,SHB,ROU,FT,BJ,NN,SBAC,ZJH,BF #记录ag视讯的所有游戏
 
