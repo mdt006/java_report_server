@@ -2,7 +2,7 @@ spring:
     datasource:
         name: dataSource
         url: jdbc:mysql://10.200.201.14:3306/game_report
-        username: root
+        username: game_report
         password: Fh3bAMhLRFjzGpCGXZHw25bzvonfN4VUiTE9hN46NQI7yS6bD4OiaK+Eegsg8yhlAepNw028uQwz5v7pbhS1SQ==
         connectionProperties: config.decrypt=true
         # 使用druid数据源
@@ -42,11 +42,11 @@ ag:
       hunter: /HUNTER/
       sport: /SBTA/
   status:   
-    live: false #是否拉取标识
-    game: false
-    yoplay: false
+    live: true #是否拉取标识
+    game: true
+    yoplay: true
     hunter: true
-    sport: false
+    sport: true
   live:
     gamelist: BAC,CBAC,LINK,DT,LBAC,ULPK,SHB,ROU,FT,BJ,NN,SBAC,ZJH,BF #记录ag视讯的所有游戏
 
