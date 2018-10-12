@@ -56,6 +56,10 @@ public abstract class BaseFtpService<M> {
 		FTPClient ftpClient = getFtpClient();//获取连接
 		FTPFile[]  fs = getFtpFileList(ftpClient,ftpPath,datePath);//获取全部ftp文件列表
 		Map<String,Object> map = getFileList(fs,ftpPath,datePath);
+		if(null == map ){
+			log.info("该目录下暂无文件["+ftpPath+""+datePath+"]");
+			return;
+		}
 		List<AGPullRecordPO> recordList = (List<AGPullRecordPO>) map.get(recordlistname);
 		List<String> fileList = (List<String>) map.get(filelistname);
 		for (String filename : fileList) {
