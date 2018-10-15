@@ -263,9 +263,9 @@
         </plugins>
 		<resources>
 			<resource>
-				<directory>src/main/resources</directory>
+				<directory>${basedir}/src/main/java</directory>
 				<includes>
-					<include>**/*.*</include>
+					<include>**/*.xml</include>
 				</includes>
 			</resource>
 			<resource>
