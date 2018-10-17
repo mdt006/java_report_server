@@ -261,7 +261,7 @@
 		        </configuration>
 	    	</plugin>
         </plugins>
-		<resources>
+		<!--<resources>
 			<resource>
 				<directory>${basedir}/src/main/java</directory>
 				<includes>
@@ -270,6 +270,24 @@
 			</resource>
 			<resource>
 				<directory>src/main/conf/${env}</directory>
+			</resource>
+		</resources>-->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/conf/${env}</directory>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>false</filtering>
 			</resource>
 		</resources>
 	</build>
