@@ -55,6 +55,10 @@ public abstract class BaseFtpService<M> {
 		String datePath = date == null?DateUtils.getGTM4date(new Date()):date;
 		FTPClient ftpClient = getFtpClient();//获取连接
 		FTPFile[]  fs = getFtpFileList(ftpClient,ftpPath,datePath);//获取全部ftp文件列表
+		if(fs.length<=0){
+			log.info("该目录下获取全部ftp文件列表["+fs.length+"]");
+			return;
+		}
 		Map<String,Object> map = getFileList(fs,ftpPath,datePath);
 		if(null == map ){
 			log.info("该目录下暂无文件["+ftpPath+""+datePath+"]");
