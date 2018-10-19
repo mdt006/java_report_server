@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>  
-<beans xmlns="http://www.springframework.org/schema/beans"  
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
-    xmlns:tx="http://www.springframework.org/schema/tx"  
-    xmlns:context="http://www.springframework.org/schema/context"  
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  
-                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd  
-                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd"> 
- 
-     <!-- 使用外部的配置文件 --> 
-    <context:property-placeholder location="classpath:jdbc.properties" /> 
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+
+     <!-- 使用外部的配置文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties" />
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-         <property name="url" value="${jdbc.url}"></property>  
-         <property name="driverClassName" value="${jdbc.driver}"></property>  
-         <property name="username" value="${jdbc.username}"></property>  
+         <property name="url" value="${jdbc.url}"></property>
+         <property name="driverClassName" value="${jdbc.driver}"></property>
+         <property name="username" value="${jdbc.username}"></property>
          <property name="password" value="${jdbc.password}"></property>
-         
+
          <!-- 用来检测连接是否有效的sql，要求是一个查询语句-->
         <property name="validationQuery" value="select 1" />
          <!-- 申请连接的时候检测 -->
@@ -38,38 +38,38 @@
 	<!-- 扫描 UserMapper.java   -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
 	    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-	    <property name="basePackage" value="com.ds.**.mapper" />       
+	    <property name="basePackage" value="com.ds.**.mapper" />
 	</bean>
 
-    
+
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-       <property name="dataSource" ref="dataSource" />   
+       <property name="dataSource" ref="dataSource" />
     </bean>
-    
-    
+
+
     <context:component-scan base-package="com.ds.report">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
 
     <tx:annotation-driven proxy-target-class="true"/>
     <bean class="com.ds.report.service.DsReportHproseService"  lazy-init="false"/>
-   
+
     <!-- redis config start-->
-    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">  
-        <property name="maxIdle" value="${redis.maxIdle}" />  
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}" />
         <!-- <property name="maxActive" value="${redis.maxActive}" />   -->
-        <!-- <property name="maxWait" value="${redis.maxWait}" />  --> 
-        <property name="testOnBorrow" value="${redis.testOnBorrow}" />  
-    </bean>  
-     <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">  
-        <property name="hostName" value="${redis.host}" />  
-        <property name="port" value="${redis.port}" />  
+        <!-- <property name="maxWait" value="${redis.maxWait}" />  -->
+        <property name="testOnBorrow" value="${redis.testOnBorrow}" />
+    </bean>
+     <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.host}" />
+        <property name="port" value="${redis.port}" />
         <property name="poolConfig" ref="poolConfig"/>
       </bean>
-      
-    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">  
-        <property name="connectionFactory"   ref="connectionFactory" />  
+
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+        <property name="connectionFactory"   ref="connectionFactory" />
         <property name="keySerializer" >
               <bean
                   class="org.springframework.data.redis.serializer.StringRedisSerializer" />
@@ -78,8 +78,8 @@
               <bean
                   class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
           </property>
-    </bean>  
-    
+    </bean>
+
     <bean id="redisUtil" class="com.ds.report.utils.RedisUtils" >
           <property name="redisTemplate" ref="redisTemplate" />
     </bean >
