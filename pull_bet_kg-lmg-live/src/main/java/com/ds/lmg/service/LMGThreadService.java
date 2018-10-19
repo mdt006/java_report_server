@@ -41,7 +41,7 @@ public class LMGThreadService  implements Runnable{
 	@Override
 	public void run() {
 		try {
-			getRecord(apiInfo.getSiteId(),apiInfo.getReporturl(), apiInfo.getLiveKey());
+			getRecord(apiInfo.getSiteId(),apiInfo.getReporturl(), apiInfo.getHashcode());
 		} catch (Exception e) {
 			logger.error("run error", e);
 		}finally {
