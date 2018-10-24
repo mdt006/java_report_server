@@ -1,7 +1,7 @@
 spring:
     datasource:
         name: dataSource
-        url: jdbc:mysql://10.200.201.25:3306/game_report
+        url: jdbc:mysql://10.200.201.22:3306/game_report
         username: game_report
         password: zEHi8emO2AqO
         connectionProperties: config.decrypt=false
