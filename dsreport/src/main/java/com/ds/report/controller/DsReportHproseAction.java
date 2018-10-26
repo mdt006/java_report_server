@@ -2281,6 +2281,8 @@ public class DsReportHproseAction {
 			// TODO: handle exception
 			resultJson.put("returnMsg", "System error");
 			resultJson.put("returnCode", 110009);
+			JSONObject param = JSONObject.fromObject(strJson);
+			logger.error("AG捕鱼Json错误:{},{},{},{}",param.toString());
 			logger.error("AG捕鱼getDeatilRecord接口错误:{},{},{},{}",siteIdStr,username,startTime,endTimeStr);
 			logger.error(e.getMessage());
 			e.printStackTrace();
