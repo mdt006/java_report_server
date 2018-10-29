@@ -31,7 +31,7 @@ public class AGLiveService extends BaseService<AGLiveEntity> {
 	@Override
 	public AGLiveEntity setEntityByElement(Element info, String namepre, ApiInfoEntity apiInfo) {
 		String dataType = info.attributeValue("dataType");
-		if ("BR".equals(dataType) || "EBR".equals(dataType) || "TR".equals("dataType")) {
+		if ("BR".equals(dataType) || "EBR".equals(dataType)) {
 
 			AGLiveEntity liveEntity = getEntityByBillno(info.attributeValue("billNo"), namepre);
 			boolean updateFlag = false;
