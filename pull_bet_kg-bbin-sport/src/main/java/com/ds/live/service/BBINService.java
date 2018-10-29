@@ -180,9 +180,9 @@ public class BBINService {
             put("rounddate",rounddate);
             put("starttime","00:00:00");
             put("endtime","23:59:59");
-            put("gamekind",String.valueOf(LiveConfig.BBIN_GAME_KIND_SPORT));
-            put("page",String.valueOf(page));
-            put("pagelimit", String.valueOf(LiveConfig.BBIN_PAGE_LIMIT));
+            put("gamekind",gamekind+"");
+            put("page",page+"");
+            put("pagelimit",pagelimit+"");
         }};
         String param =  BBINCommon.mapToString(paramMap);
         String key = EncryptUtils.encrypt(param, BBINCommon.USERKEY);
@@ -206,7 +206,7 @@ public class BBINService {
             logger.info("网站"+siteName+"bbin param:" + param);
             JSONObject obj = null;
             try{
-                obj = JSONObject.fromObject(WebHTTPUtils.sendPost1(reportUrl+"WagersRecordBy1",param));
+                obj = JSONObject.fromObject(WebHTTPUtils.sendPost1(reportUrl+"BetRecord",param));
                 if(obj.has("result")){
                     if(obj.getBoolean("result")){
                         JSONArray dataArray = obj.getJSONArray("data");
