@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,7 +32,7 @@ public class SgsController {
 	 * @param endDate      结束时间   yyyy-MM-dd HH:mm:ss
 	 * @return
 	 */
-	@RequestMapping(value="manGetRecord",produces="text/html;charset=UTF-8;")
+	@RequestMapping(value="manGetRecord",method= RequestMethod.POST,produces=("application/json;charset=UTF-8"))
 	public @ResponseBody Object manGetRecord(@RequestParam String startDate,@RequestParam String endDate) {
 		if(StringUtils.isBlank(startDate) || StringUtils.isBlank(endDate)){
 			return "开始或结束时间不能为空";
@@ -61,7 +62,7 @@ public class SgsController {
 	 * @param date   yyyy-MM-dd
 	 * @return
 	 */
-	@RequestMapping(value="manGetDayRecord",produces="text/html;charset=UTF-8;")
+	@RequestMapping(value="manGetDayRecord",method= RequestMethod.POST,produces=("application/json;charset=UTF-8"))
 	public @ResponseBody Object manGetDayRecord(@RequestParam String date) {
 		if(StringUtils.isBlank(date)){
 			return "拉取日期为空";
