@@ -96,7 +96,7 @@ public class StartTask {
 		logger.info("当前正在进行统计的线程，map{}",BaseCommon.CONFIG_MAP.toString());
 	}
 	
-	@Scheduled(cron="0 0/1 * * * ? ")
+	@Scheduled(cron="0 0/5 * * * ? ")
 	public void startDsReportSiteDayTask(){
 		logger.info("开始统计网站每天的数据");
 		try {
