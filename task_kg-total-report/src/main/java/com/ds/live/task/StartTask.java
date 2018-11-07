@@ -63,7 +63,7 @@ public class StartTask {
 		BaseCommon.CONFIG_MAP.put(config.getId()+"_"+config.getState(), config);
 	}
 	
-	@Scheduled(cron="0 0/1 * * * ? ")
+	@Scheduled(cron="0 0/8 * * * ? ")
 	public void loadConfigMap(){
 		List<TotalReportConfigWithBLOBs> configList=baseService.loadConfigList();
 		logger.info("加载配置，数量:{}",configList.size());

@@ -154,9 +154,7 @@ public class SgsService {
 	 */
 	public String convertJsonObject(String content){
 		try {
-			logger.info("字符串转换json对象前============"+content);
 			JSONObject jsonStr = JSONObject.parseObject(content);
-			logger.info("字符串转换json对象后============"+content);
 			return jsonStr.toString();
 		} catch (Exception e) {
 			return null;
