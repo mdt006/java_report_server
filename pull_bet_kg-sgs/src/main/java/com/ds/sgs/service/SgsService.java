@@ -40,13 +40,13 @@ import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 
 /**
  * sgs注单拉取service
- * 
- * @author worf 
+ *
+ * @author worf
  * @date 2018年6月7日 下午4:41:18
  */
 @Service
 public class SgsService {
-	
+
 	private Logger logger = LoggerFactory.getLogger(SgsService.class);
 
 	@Autowired
@@ -54,30 +54,30 @@ public class SgsService {
 
 	@Autowired
 	private TempAuditTotalMapper tempAuditTotalMapper;
-	
+
 	@Autowired
 	private DsSgsRecordTimeMapper dsSgsRecordTimeMapper;
-	
+
 	@Autowired
 	private DsSgsLiveMapper dsSgsLiveMapper;
-	
+
 	@Autowired
 	private DsSgsGameMapper dsSgsGameMapper;
-	
+
 	@Autowired
 	private DsSgsConfigMapper dsSgsConfigMapper;
 
 	private List<ApiInfoEntity> apiInfoList = new ArrayList<ApiInfoEntity>();
-	
+
 	/** key=前缀，value=siteId */
 	private Map<String, Integer> apiMap = new HashMap<String, Integer>();
-	
+
 //	private Map<Integer, List<DsSgsLive>> sgsLiveMap = new HashMap<Integer, List<DsSgsLive>>();
 //	private Map<Integer, List<DsSgsGame>> sgsGameMap = new HashMap<Integer, List<DsSgsGame>>();
-	
+
 	/**
 	 * 获取api配置列表
-	 * 
+	 *
 	 * @return
 	 */
 	public void getDbApiInfoList() {
@@ -85,7 +85,7 @@ public class SgsService {
 		e.createCriteria().andLiveIdEqualTo(SgsConfig.SGS_LIVE_ID).andStateEqualTo(SgsConfig.NORMAL_STATE);
 		apiInfoList = apiInfoMapper.selectByExample(e);
 	}
-	
+
 	public void putApiInfoMap() {
 		if (apiInfoList != null) {
 			for (ApiInfoEntity apiInfoEntity : apiInfoList) {
@@ -93,14 +93,14 @@ public class SgsService {
 			}
 		}
 	}
-	
+
 	public Integer getApiInfoMap(String preFix) {
 		if (StringUtils.isBlank(preFix)) {
 			return null;
 		}
 		return apiMap.get(preFix);
 	}
-	
+
 	public ApiInfoEntity getApiInfoBySiteId(Integer siteId){
 		ApiInfoEntityExample e = new ApiInfoEntityExample();
 		e.createCriteria().andStateEqualTo(SgsConfig.NORMAL_STATE).andLiveIdEqualTo(SgsConfig.SGS_LIVE_ID).andSiteIdEqualTo(siteId);
@@ -110,11 +110,11 @@ public class SgsService {
 		}
 		return null;
 	}
-	
+
 	public List<DsSgsConfig> getSgsConfigList(){
 		return dsSgsConfigMapper.selectAll();
 	}
-	
+
 	public List<ApiInfoEntity> getApiInfoList() {
 		return apiInfoList;
 	}
@@ -130,7 +130,7 @@ public class SgsService {
 	public void setDsSgsRecordTimeMapper(DsSgsRecordTimeMapper dsSgsRecordTimeMapper) {
 		this.dsSgsRecordTimeMapper = dsSgsRecordTimeMapper;
 	}
-	
+
 	/**
 	 * 获取请求连接
 	 * @param url
@@ -146,7 +146,7 @@ public class SgsService {
 		sb.append("&includetestplayers=true").append("&issettled=true");
 		return sb.toString();
 	}
-	
+
 	/**
 	 * 字符串转换json对象
 	 * @param content
@@ -154,13 +154,15 @@ public class SgsService {
 	 */
 	public String convertJsonObject(String content){
 		try {
+			logger.info("字符串转换json对象前============"+content);
 			JSONObject jsonStr = JSONObject.parseObject(content);
+			logger.info("字符串转换json对象后============"+content);
 			return jsonStr.toString();
 		} catch (Exception e) {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 保存注单数据
 	 * @param listObject
@@ -171,7 +173,7 @@ public class SgsService {
 		//解析csv
 		HeaderColumnNameMappingStrategy<SgsCsvVo> mapper = new HeaderColumnNameMappingStrategy<SgsCsvVo>();
 		mapper.setType(SgsCsvVo.class);
-		CsvToBean<SgsCsvVo> csvToBean = new CsvToBean<SgsCsvVo>(); 
+		CsvToBean<SgsCsvVo> csvToBean = new CsvToBean<SgsCsvVo>();
 		List<SgsCsvVo> sgsList = csvToBean.parse(mapper,new StringReader(result));
 		logger.info("拉取返回数据数量："+sgsList.size());
 		if(sgsList.size() == 0){
@@ -226,28 +228,28 @@ public class SgsService {
 				e.printStackTrace();
 				logger.info("数据处理异常："+ e.getMessage());
 				TelegramMessage telegramMessage = TelegramMessage.getInstance();
-	        	telegramMessage.sendMessage(BaseCommon.BOT_A, BaseCommon.GROUP_JAVA, SgsConfig.TELEGRAM_DATA_ERROR, 
-	        			"SGS注单拉取数据处理异常："+ErrorUtil.LogExceptionStack(e));
-				
+				telegramMessage.sendMessage(BaseCommon.BOT_A, BaseCommon.GROUP_JAVA, SgsConfig.TELEGRAM_DATA_ERROR,
+						"SGS注单拉取数据处理异常："+ErrorUtil.LogExceptionStack(e));
+
 			}
 		}
 		logger.info("本次插入数据条数: "+ insertCount);
 		Long cacheGcCount=BaseCommon.recordCache.stats().evictionCount();
-		logger.info("cache gc total:"+cacheGcCount+",cache data count:"+BaseCommon.recordCache.size());			
+		logger.info("cache gc total:"+cacheGcCount+",cache data count:"+BaseCommon.recordCache.size());
 	}
-	
+
 	/**
 	 * csv对象转换
 	 * @param sgsCsv
-	 * @return 
-	 * @return 
+	 * @return
+	 * @return
 	 * @return
 	 */
 	private DsSgsLive sgsCvsToDsSgsLive(SgsCsvVo sgs, Integer siteId, DsSgsLive dsSgs){
 		if(dsSgs == null){
 			dsSgs = new DsSgsLive();
 		}
-		
+
 		dsSgs.setSiteId(siteId);
 		//判断输赢
 		BigDecimal winloss = sgs.getWinloss();
@@ -258,14 +260,14 @@ public class SgsService {
 		}else if(winloss.doubleValue() == 0){
 			dsSgs.setWinLossType(SgsConfig.SGS_RESULT_TYPE_HE);
 		}
-		
+
 		dsSgs.setBetOn(DateUtils.getGMT8Date(sgs.getBetOn()));
 		dsSgs.setBetClosedOn(DateUtils.getGMT8Date(sgs.getBetClosedOn()));
 		dsSgs.setBetUpdatedOn(DateUtils.getGMT8Date(sgs.getBetUpdatedOn()));
 		dsSgs.setTimestamp(DateUtils.getGMT8Date(sgs.getTimestamp()));
 		//下注金额取正
 		dsSgs.setRiskamt(sgs.getRiskamt().negate());
-		
+
 		dsSgs.setUgsBetId(sgs.getUgsBetId());
 		dsSgs.setTxid(sgs.getTxid());
 		dsSgs.setBetId(sgs.getBetId());
@@ -290,15 +292,15 @@ public class SgsService {
 		dsSgs.setTurnover(sgs.getTurnover());
 		dsSgs.setValidbet(sgs.getValidbet());
 		dsSgs.setCreateTime(new Date());
-		
+
 		return dsSgs;
 	}
-	
+
 	private DsSgsGame sgsCvsToDsSgsGame(SgsCsvVo sgs, Integer siteId, DsSgsGame dsSgs){
 		if(dsSgs == null){
 			dsSgs = new DsSgsGame();
 		}
-		
+
 		dsSgs.setSiteId(siteId);
 		//判断输赢
 		BigDecimal winloss = sgs.getWinloss();
@@ -309,14 +311,14 @@ public class SgsService {
 		}else if(winloss.doubleValue() == 0){
 			dsSgs.setWinLossType(SgsConfig.SGS_RESULT_TYPE_HE);
 		}
-		
+
 		dsSgs.setBetOn(DateUtils.getGMT8Date(sgs.getBetOn()));
 		dsSgs.setBetClosedOn(DateUtils.getGMT8Date(sgs.getBetClosedOn()));
 		dsSgs.setBetUpdatedOn(DateUtils.getGMT8Date(sgs.getBetUpdatedOn()));
 		dsSgs.setTimestamp(DateUtils.getGMT8Date(sgs.getTimestamp()));
 		//下注金额取正
 		dsSgs.setRiskamt(sgs.getRiskamt().negate());
-		
+
 		dsSgs.setUgsBetId(sgs.getUgsBetId());
 		dsSgs.setTxid(sgs.getTxid());
 		dsSgs.setBetId(sgs.getBetId());
@@ -341,10 +343,10 @@ public class SgsService {
 		dsSgs.setTurnover(sgs.getTurnover());
 		dsSgs.setValidbet(sgs.getValidbet());
 		dsSgs.setCreateTime(new Date());
-		
+
 		return dsSgs;
 	}
-	
+
 	public void insertOrUpdateTempAuditTotal(SgsCsvVo sgs, Integer siteId) {
 		AuditTotalVO audit = new AuditTotalVO();
 		audit.setBetTime(DateUtils.getGMT8Date(sgs.getBetOn()));
@@ -363,13 +365,13 @@ public class SgsService {
 		audit.setPayAmount(sgs.getWinloss());
 		tempAuditTotalMapper.insertOrupdate(audit, siteId);
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public void saveManData(String result) {
 		//解析csv
 		HeaderColumnNameMappingStrategy<SgsCsvVo> mapper = new HeaderColumnNameMappingStrategy<SgsCsvVo>();
 		mapper.setType(SgsCsvVo.class);
-		CsvToBean<SgsCsvVo> csvToBean = new CsvToBean<SgsCsvVo>(); 
+		CsvToBean<SgsCsvVo> csvToBean = new CsvToBean<SgsCsvVo>();
 		List<SgsCsvVo> sgsList = csvToBean.parse(mapper,new StringReader(result));
 		logger.info("手动拉取返回数据数量："+sgsList.size());
 		if(sgsList.size() == 0){

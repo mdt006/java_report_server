@@ -1,10 +1,10 @@
 spring:
     datasource:
         name: dataSource
-        url: jdbc:mysql://10.200.201.25:3306/game_report
+        url: jdbc:mysql://172.19.0.3:3306/game_report
         username: game_report
-        password: zEHi8emO2AqO
-        connectionProperties: config.decrypt=false
+        password: myPQlliNfN3jaaKttako9Gndimx3gc3GsKatIvkR9SPP11LxzClsIA3cvfaI77jr/k+WphH5tOQ6shXVvzjwKg==
+        connectionProperties: config.decrypt=true
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver

@@ -40,10 +40,10 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         　</appender>
-    <logger name="com" level="DEBUG" />
-    <logger name="java.sql" level="DEBUG" />
+    <logger name="com.ds.service" level="DEBUG" />
+   <!-- <logger name="java.sql" level="DEBUG" />-->
     <root level="INFO">
-         <appender-ref ref="console" />
+      <!--   <appender-ref ref="console" />-->
         <appender-ref ref="file" />
         <appender-ref ref="error" />
     </root>

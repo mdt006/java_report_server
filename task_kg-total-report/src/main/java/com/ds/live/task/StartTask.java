@@ -63,7 +63,7 @@ public class StartTask {
 		BaseCommon.CONFIG_MAP.put(config.getId()+"_"+config.getState(), config);
 	}
 	
-	@Scheduled(cron="0 0/8 * * * ? ")
+	@Scheduled(cron="0 0/1 * * * ? ")
 	public void loadConfigMap(){
 		List<TotalReportConfigWithBLOBs> configList=baseService.loadConfigList();
 		logger.info("加载配置，数量:{}",configList.size());
@@ -96,7 +96,7 @@ public class StartTask {
 		logger.info("当前正在进行统计的线程，map{}",BaseCommon.CONFIG_MAP.toString());
 	}
 	
-	@Scheduled(cron="0 0/5 * * * ? ")
+	@Scheduled(cron="0 0/1 * * * ? ")
 	public void startDsReportSiteDayTask(){
 		logger.info("开始统计网站每天的数据");
 		try {
