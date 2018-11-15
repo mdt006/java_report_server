@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="task_kg-total-report:war">
+    <output-path>$PROJECT_DIR$/task_kg-total-report/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>task_kg-total-report</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="task_kg-total-report-1.0.0.war">
+      <element id="artifact" artifact-name="task_kg-total-report:war exploded" />
+    </root>
+  </artifact>
+</component>

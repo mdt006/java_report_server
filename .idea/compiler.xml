@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ds_temp_report" />
+        <module name="dsreport" />
+        <module name="kg-member-model" />
+        <module name="kg-model" />
+        <module name="pull_bet_kg-bbin-game" />
+        <module name="pull_bet_kg-bbin-live" />
+        <module name="pull_bet_kg-bbin-sport" />
+        <module name="pull_bet_kg-gf-lottery" />
+        <module name="pull_bet_kg-h8-sport" />
+        <module name="pull_bet_kg-jd-lottery" />
+        <module name="pull_bet_kg-kkw" />
+        <module name="pull_bet_kg-ky-chess" />
+        <module name="pull_bet_kg-lmg-live" />
+        <module name="pull_bet_kg-mg-game" />
+        <module name="pull_bet_kg-og-live" />
+        <module name="pull_bet_kg-pt-game" />
+        <module name="pull_bet_kg-sgs" />
+        <module name="task-pull-ag" />
+        <module name="task_kg-total-report" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ds_temp_report" target="1.7" />
+      <module name="dsreport" target="1.8" />
+      <module name="kg-member-model" target="1.7" />
+      <module name="kg-model" target="1.5" />
+      <module name="pull_bet_kg-bbin-game" target="1.8" />
+      <module name="pull_bet_kg-bbin-live" target="1.8" />
+      <module name="pull_bet_kg-bbin-sport" target="1.8" />
+      <module name="pull_bet_kg-gf-lottery" target="1.8" />
+      <module name="pull_bet_kg-h8-sport" target="1.7" />
+      <module name="pull_bet_kg-jd-lottery" target="1.7" />
+      <module name="pull_bet_kg-kkw" target="1.7" />
+      <module name="pull_bet_kg-ky-chess" target="1.7" />
+      <module name="pull_bet_kg-lmg-live" target="1.8" />
+      <module name="pull_bet_kg-mg-game" target="1.7" />
+      <module name="pull_bet_kg-og-live" target="1.7" />
+      <module name="pull_bet_kg-pt-game" target="1.8" />
+      <module name="pull_bet_kg-sgs" target="1.8" />
+      <module name="task-pull-ag" target="1.8" />
+      <module name="task_kg-total-report" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="pull_bet_kg-lmg-live" options="-parameters" />
+      <module name="task-pull-ag" options="-parameters" />
+    </option>
+  </component>
+</project>

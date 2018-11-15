@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="pull_bet_kg-bbin-sport:war">
+    <output-path>$PROJECT_DIR$/pull_bet_kg-bbin-sport/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>pull_bet_kg-bbin-sport</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="pull_bet_kg-bbin-sport-1.0.0.war">
+      <element id="artifact" artifact-name="pull_bet_kg-bbin-sport:war exploded" />
+    </root>
+  </artifact>
+</component>

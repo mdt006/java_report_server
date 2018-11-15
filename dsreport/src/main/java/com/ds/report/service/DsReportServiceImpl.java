@@ -574,11 +574,11 @@ public class DsReportServiceImpl {
 			if (paramMap.containsKey("pageLimit")) {
 				pageLimit = paramMap.get("pageLimit").toString();
 			}
-			if (StringUtils.isBlank(key)) {
-				result.put("returnCode", 910002);
-				result.put("returnMsg", "key is null");
-				return;
-			}
+//			if (StringUtils.isBlank(key)) {
+//				result.put("returnCode", 910002);
+//				result.put("returnMsg", "key is null");
+//				return;
+//			}
 
 			if (StringUtils.isBlank(siteId)) {
 				result.put("returnCode", 910003);
@@ -611,8 +611,8 @@ public class DsReportServiceImpl {
 			// return;
 			// }
 
-			String param = key.substring(5);
-			String str = param.substring(0, param.length() - 6);
+//			String param = key.substring(5);
+//			String str = param.substring(0, param.length() - 6);
 			String md5 = siteId + username + liveId + gameKind + gameType + betTimeBegin + betTimeEnd + startTime
 					+ endTime + page + pageLimit;
 			logger.info("md5 str:" + md5);

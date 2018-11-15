@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="pull_bet_kg-jd-lottery:war">
+    <output-path>$PROJECT_DIR$/pull_bet_kg-jd-lottery/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>pull_bet_kg-jd-lottery</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="pull_bet_kg-jd-lottery-1.0.0.war">
+      <element id="artifact" artifact-name="pull_bet_kg-jd-lottery:war exploded" />
+    </root>
+  </artifact>
+</component>

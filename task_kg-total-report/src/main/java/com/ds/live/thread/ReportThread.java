@@ -32,9 +32,10 @@ public class ReportThread implements Runnable{
 			try {
 				logger.info(reportConfig.getMemo()+"开始统计");
 				String gameTypeSql = reportConfig.getSourceTableName();
+				logger.info(reportConfig.getMemo()+" gameTypeSql："+gameTypeSql);
 				reportService.insertGameType(gameTypeSql);
 				String selectReportSql = reportConfig.getSelectBetTableSql();
-				logger.info("selectReportSql："+selectReportSql);
+				logger.info(reportConfig.getMemo()+" selectReportSql："+selectReportSql);
 				//获取未统计或者统计之后已经发生改变的sql语句
 				reportService.exeNotTotalReport(selectReportSql);
 				logger.info(reportConfig.getMemo()+"统计一次完成");

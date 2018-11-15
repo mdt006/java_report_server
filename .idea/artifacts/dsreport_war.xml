@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="dsreport:war">
+    <output-path>$PROJECT_DIR$/dsreport/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>dsreport</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="dsreport-1.0.0.war">
+      <element id="artifact" artifact-name="dsreport:war exploded" />
+    </root>
+  </artifact>
+</component>

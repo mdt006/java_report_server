@@ -63,7 +63,7 @@ public class StartTask {
 		BaseCommon.CONFIG_MAP.put(config.getId()+"_"+config.getState(), config);
 	}
 	
-	@Scheduled(cron="0 0/8 * * * ? ")
+	@Scheduled(cron="0 0/1 * * * ? ")
 	public void loadConfigMap(){
 		List<TotalReportConfigWithBLOBs> configList=baseService.loadConfigList();
 		logger.info("加载配置，数量:{}",configList.size());
@@ -126,6 +126,11 @@ public class StartTask {
 		long endtime=System.currentTimeMillis();
 		logger.info("校验两个月数据耗时："+(endtime-starttime));
 	}
-	
-	
+
+	public static void main(String[] args){
+		for(int i=0;i<3;i++){
+			Date date=DateUtil.addDay(new Date(), -i);
+			System.out.println( DateUtil.formatDateByPattern(date, "yyyy-MM-dd"));
+		}
+	}
 }
